@@ -1,9 +1,14 @@
 import React from "react";
 
+import GreenBtn from './GreenBtn/GreenBtn';
 
 const App = () => {
+
     return(
-        <h1>Red spark</h1>
+        <div>
+            <GreenBtn text={`hello`}></GreenBtn>
+        </div>
+
     )
 }
 
