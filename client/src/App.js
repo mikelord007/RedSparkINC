@@ -1,12 +1,14 @@
 import React from "react";
 
-import GreenBtn from './GreenBtn/GreenBtn';
+import GreenBtn from './components/GreenBtn/GreenBtn';
+import WelcomePage from './components/WelcomePage/WelcomePage';
 
 const App = () => {
 
     return(
         <div>
-            <GreenBtn text={`hello`}></GreenBtn>
+            {/* <GreenBtn text={`hello`}></GreenBtn> */}
+            <WelcomePage  />
         </div>
 
     )
