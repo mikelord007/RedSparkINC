@@ -1,12 +1,14 @@
 import React from "react";
 
-import GreenBtn from './GreenBtn/GreenBtn';
+import './style.css'
+import GreenBtn from './components/GreenBtn/GreenBtn';
+import UDskeleton from './components/UDskeleton/UDskeleton';
 
 const App = () => {
 
     return(
         <div>
-            <GreenBtn text={`hello`}></GreenBtn>
+            <UDskeleton username={"Nociphe"}/>
         </div>
 
     )
