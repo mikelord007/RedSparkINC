@@ -2,7 +2,9 @@
     display: flex;
     justify-content: space-around;
     font-family: prominder, sans-serif;
-    border: 1px solid black;
+    padding: 0.4rem 0;
+    height: 6%;
+    align-items: center;
 }
 
 #ud-navbar button{
@@ -11,6 +13,7 @@
     border-radius: 50%;
     width: 2.4rem;
     height: 2.4rem;
+    background-color: #D8D8D8;
 }
 
 #ud-initials{
@@ -37,7 +40,6 @@
     transform: scaleX(-1);
     background-position: center;
     margin: auto auto;
-    background-color: #E7E3E3;
-    color: #E7E3E3;
-    fill: #E7E3E3;
+    color: #D8D8D8;
+    background-color: #D8D8D8;
 }

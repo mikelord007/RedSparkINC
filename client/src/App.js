@@ -1,17 +1,14 @@
 import React from "react";
 
+import UDcreatenew from "./components/UDcreatenew/UDcreatenew";
+// import WelcomePage from './components/WelcomePage/WelcomePage';
 import './style.css'
-import GreenBtn from './components/GreenBtn/GreenBtn';
-import UDskeleton from './components/UDskeleton/UDskeleton';
-import WelcomePage from './components/WelcomePage/WelcomePage';
 
 const App = () => {
 
     return(
-        <div>
-            <UDskeleton username={"Nociphe"}/>
-            <WelcomePage  />
-        </div>
+
+        <UDcreatenew />
 
     )
 }

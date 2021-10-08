@@ -1,0 +1,95 @@
+#UDcreatenew{
+    height: 87%;
+}
+#active-list{
+    height: 25%;
+    background-color: #FFFEEB;
+}
+
+#active-list header{
+    height: 30%;
+    background-color: #F3EFEF;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: avenir-bold, sans-serif;
+}
+
+#listing-box{
+    height: 70%;
+    overflow: scroll;
+}
+
+.CN-listing{
+    height: 50%;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: large;
+}
+
+.CN-sn{
+    width: 15%;
+    text-align: center;
+}
+
+.CN-amount {
+    width: 32%;
+    text-align: center;
+}
+
+.CN-days {
+    width: 33%;
+    text-align: center;
+}
+
+
+.CN-more {
+    width: 20%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.CN-listing button{
+    padding: 0 0;
+    background-color: transparent;
+    border: none;
+}
+
+
+#create-new{
+    height: 75%;
+    text-align: center;
+    overflow: scroll;
+}
+
+#create-new header h2{
+    margin: 0.9rem;
+    font-family: avenir-bold, sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+#creation-section form{
+    text-align: center;
+    padding: none;
+}
+
+.CN-input{
+    width: 80%;
+    height: 8%;
+    display: block;
+    margin: 0.4rem auto !important;
+}
+
+.CN-input:first-child{
+    margin-top: 0 !important;
+}
+
+#CN-submit{
+    margin: 1.2rem 0;
+    height: 2.4rem;
+}

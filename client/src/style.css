@@ -2,3 +2,27 @@
     font-family: prominder; 
     src: url('assets/fonts/prominder/PROMINDER\ Regular.otf'); 
 } 
+
+@font-face { 
+    font-family: avenir; 
+    src: url('assets/fonts/avenir-next/AvenirNextLTPro-Regular.otf'); 
+}
+
+@font-face { 
+    font-family: avenir-bold; 
+    src: url('assets/fonts/avenir-next/AvenirNextLTPro-Bold.otf'); 
+}
+
+
+
+body{
+    padding: 0 0;
+    margin: 0 0;
+}
+
+#root{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
