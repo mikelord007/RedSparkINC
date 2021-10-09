@@ -1,0 +1,44 @@
+#UDtradehist {
+    height: 87%;
+}
+
+#tradehead {
+    height: 10%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #F3EFEF;
+    font-family: 'avenir-bold';
+    font-size: large;
+    
+}
+
+#trade-main{
+    height: 90%;
+    overflow: scroll;
+}
+
+.tradehis-item{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #FFFEEB;
+    height: 4rem;
+}
+
+.tradehis-item:nth-child(even){
+    background-color: #FCFABF;
+}
+
+.tradehis-sub-item{
+    margin: auto auto;
+    text-align: center;
+    font-family: monospace;
+}
+
+.tradehis-sub-item button{
+    padding: 0 0;
+    background-color: transparent;
+    border: none;
+}

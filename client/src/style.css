@@ -13,7 +13,7 @@
     src: url('assets/fonts/avenir-next/AvenirNextLTPro-Bold.otf'); 
 }
 
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap');
 
 body{
     padding: 0 0;
@@ -26,3 +26,7 @@ body{
     justify-content: space-between;
     height: 100vh;
 }
+
+html {
+    box-sizing: border-box;
+  }
