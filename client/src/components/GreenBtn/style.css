@@ -1,10 +1,16 @@
+@font-face{
+    font-family: prom;
+    /*src:  url('../../../assets/prominder.regular.otf');*/
+    src:  url('../../assets/prominder.regular.otf');
+
+}
 .greenbtn {
     border: 2px solid #000;
     border-radius: 30px;
     background-color: #52bd00;
     box-shadow: inset 0 -4px 0 0 rgb(0 0 0 / 34%);
     transition: all 500ms ease;
-    font-family: PROMINDER;
+    font-family: prom;
     color: #fff;
     font-size: 12px;
     font-weight: 100;

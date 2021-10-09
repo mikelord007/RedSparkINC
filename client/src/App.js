@@ -1,13 +1,14 @@
 import React from "react";
+// import CustomGreenBtn from "./components/WelcomePage/components/CustomGreenBtn";
 
-import GreenBtn from './components/GreenBtn/GreenBtn';
+// import GreenBtn from './components/GreenBtn/GreenBtn';
 import WelcomePage from './components/WelcomePage/WelcomePage';
 
 const App = () => {
 
     return(
         <div>
-            {/* <GreenBtn text={`hello`}></GreenBtn> */}
+        
             <WelcomePage  />
         </div>
 
