@@ -1,0 +1,63 @@
+#UDlistings{
+    height: 87%;
+}
+
+#listings-head{
+    height: 12%;
+    display: flex;
+    background-color: #F3EFEF;
+    justify-content: space-around;
+    position: relative;
+}
+
+.head-item{
+    flex-basis: 33.3%;
+    text-align: center;
+    margin: auto auto;
+    font-family: avenir-bold, sans-serif;
+}
+
+#listings-main{
+    height: 88%;
+    overflow: scroll;
+}
+
+#head-line{
+    position: absolute;
+    width: 95%;
+    height: 5px;
+    background-color: #ffffff;
+    bottom: 12%;
+    border-radius: 3px;
+}
+
+#active-line{
+    height: 100%;
+    width: 33.3%;
+    background-color: #D1C904;
+    border-radius: 3px;
+}
+
+
+.list-item{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #FFFEEB;
+    height: 4rem;
+}
+
+.list-item:nth-child(even){
+    background-color: #FCFABF;
+}
+
+.list-sub-item{
+    margin: auto auto;
+    text-align: center;
+}
+
+.list-sub-item button{
+    padding: 0 0;
+    background-color: transparent;
+    border: none;
+}
