@@ -1,17 +1,18 @@
 import React from "react";
-// import CustomGreenBtn from "./components/WelcomePage/components/CustomGreenBtn";
-
-// import GreenBtn from './components/GreenBtn/GreenBtn';
-import WelcomePage from './components/WelcomePage/WelcomePage';
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import WelcomePage from './pages/WelcomePage/WelcomePage';
+import SignupPage from './pages/SignupPage/SignupPage.js';
 
 const App = () => {
 
     return(
-        <div>
-        
-            <WelcomePage  />
-        </div>
 
+        <Router>
+        <Switch>
+            <Route path='/' exact component={WelcomePage}  />
+            <Route path='/signup' component={SignupPage}  />
+        </Switch>
+        </Router>
     )
 }
 
