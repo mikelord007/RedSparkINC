@@ -14,10 +14,10 @@ const UDfoot = () => {
 
     return(
         <div id="ud-footer">
-            <GreenBtn content={createicon}/>
-            <GreenBtn content={listing}/>
-            <GreenBtn content={chat}/>
-            <GreenBtn content={history}/>
+            <GreenBtn to="/create" content={createicon}/>
+            <GreenBtn to="/" content={listing}/>
+            <GreenBtn to="/chat" content={chat}/>
+            <GreenBtn to="/trade" content={history}/>
         </div>
     )
 }

@@ -160,11 +160,46 @@
 .main-text {
     max-width: 70%;
     background: #F1EF95;
-    padding: 0.3rem 0.3rem;
+    padding: 0.6rem 0.3rem;
     padding-left: 0.8rem;
     border-radius: 13px;
 }
 
 .home-text, .other-text{
     margin-top: 1rem;
+    display: flex;
+}
+
+.other-text .text-info {
+    margin-left: 0.7rem;
+}
+
+.other-text .main-content {
+    margin-left: 0.6rem;
+}
+
+.home-text .text-time {
+    margin-right: 0.4rem;
+}
+
+.main-content{
+    margin-top: 1rem;
+}
+.home-text {
+    flex-direction: row-reverse;
+}
+
+.home-text .text-info {
+    /* margin-left: auto; */
+    flex-direction: row-reverse;
+    margin-right: 1.6rem;
+}
+
+.home-text .main-text {
+    margin-left: auto;
+    margin-right: 0.8rem;
+}
+
+.other-text img, .home-text img{
+    align-self: flex-start;
 }
