@@ -2,9 +2,9 @@ import React from 'react'
 import { Icon } from '@iconify/react';
 import { TextField } from '@mui/material';
 
-import UDfoot from '../UDfoot/UDfoot'
-import UDnav from '../UDnav/UDnav'
-import GreenBtn from '../GreenBtn/GreenBtn';
+import UDfoot from '../../components/UDfoot/UDfoot'
+import UDnav from '../../components/UDnav/UDnav'
+import GreenBtn from '../../components/GreenBtn/GreenBtn';
 import './style.css'
 
 

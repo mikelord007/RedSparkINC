@@ -1,15 +1,14 @@
 import React from "react";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route
-  } from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 
 import UDchat from "./pages/UDchat/UDchat";
 import UDtradehist from "./pages/UDtradehist/UDtradehist";
 import UDlistings from "./pages/UDlistings/UDlistings";
 import UDcreatenew from "./pages/UDcreatenew/UDcreatenew"
 
+import WelcomePage from './pages/WelcomePage/WelcomePage';
+import SignupPage from './pages/SignupPage/SignupPage.js';
 import './style.css'
 
 const App = () => {
@@ -17,18 +16,12 @@ const App = () => {
     return(
         <Router>
         <Switch>
-            <Route exact path="/">
-                <UDlistings/>
-            </Route>
-            <Route exact path="/chat">
-                <UDchat/>
-            </Route>
-            <Route exact path="/trade">
-                <UDtradehist/>
-            </Route>
-            <Route exact path="/create">
-                <UDcreatenew/>
-            </Route>
+            <Route exact path='/'  component={WelcomePage}  />
+            <Route exact path='/signup' component={SignupPage}  />
+            <Route exact path="/listings" component={UDlistings} />
+            <Route exact path="/chat" component={UDchat}/>
+            <Route exact path="/trade" component={UDtradehist}/>
+            <Route exact path="/create" component={UDcreatenew}/>
         </Switch>
         </Router>
     )

@@ -1,8 +1,8 @@
 import React from "react";
 import { Icon } from '@iconify/react'
 
-import UDfoot from '../UDfoot/UDfoot'
-import UDnav from '../UDnav/UDnav'
+import UDfoot from '../../components/UDfoot/UDfoot'
+import UDnav from '../../components/UDnav/UDnav'
 import './style.css'
 
 const UDtradehist = () => {

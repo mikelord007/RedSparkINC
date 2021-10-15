@@ -3,8 +3,8 @@ import { Icon } from "@iconify/react";
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/avatars-bottts-sprites';
 
-import UDnav from "../UDnav/UDnav";
-import UDfoot from "../UDfoot/UDfoot";
+import UDfoot from '../../components/UDfoot/UDfoot'
+import UDnav from '../../components/UDnav/UDnav'
 import './style.css'
 
 const UDchat = () => {
