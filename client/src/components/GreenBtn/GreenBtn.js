@@ -2,9 +2,10 @@ import React from "react";
 
 import "./style.css"
 
-const GreenBtn = ({text}) => {
+const GreenBtn = ({className,text}) => {
+    className += ' greenbtn';
     return(
-        <button class="greenbtn">{text}</button>
+        <button className={className} >{text}</button>
     )
 }
 

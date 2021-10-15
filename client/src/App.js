@@ -1,18 +1,18 @@
 import React from "react";
-
-import './style.css'
-import GreenBtn from './components/GreenBtn/GreenBtn';
-import UDskeleton from './components/UDskeleton/UDskeleton';
-import WelcomePage from './components/WelcomePage/WelcomePage';
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import WelcomePage from './pages/WelcomePage/WelcomePage';
+import SignupPage from './pages/SignupPage/SignupPage.js';
 
 const App = () => {
 
     return(
-        <div>
-            <UDskeleton username={"Nociphe"}/>
-            <WelcomePage  />
-        </div>
 
+        <Router>
+        <Switch>
+            <Route path='/' exact component={WelcomePage}  />
+            <Route path='/signup' component={SignupPage}  />
+        </Switch>
+        </Router>
     )
 }
 
