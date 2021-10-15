@@ -5,10 +5,10 @@ import {
     Route
   } from "react-router-dom";
 
-import UDchat from "./components/UDchat/UDchat";
-import UDtradehist from "./components/UDtradehist/UDtradehist";
-import UDlistings from "./components/UDlistings/UDlistings";
-import UDcreatenew from "./components/UDcreatenew/UDcreatenew"
+import UDchat from "./pages/UDchat/UDchat";
+import UDtradehist from "./pages/UDtradehist/UDtradehist";
+import UDlistings from "./pages/UDlistings/UDlistings";
+import UDcreatenew from "./pages/UDcreatenew/UDcreatenew"
 
 import './style.css'
 
