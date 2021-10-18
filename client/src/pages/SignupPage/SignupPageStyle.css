@@ -2,28 +2,27 @@
     font-family: prom;
     src:  url('./assets/prominder.regular.otf');
 }
-
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @keyframes red-streak {
     from{background-size: 0 100%;}
     to{background-size: 100% 100%;}
 }
 
 .welcome{
-font-family: prom;
+font-family:prom;
 font-style: normal;
 font-weight: normal;
-font-size: 64px;
+font-size: 45px;
 line-height: 74px;
 text-align: center;
-letter-spacing: 0.065em;
-margin-bottom: 50px;
+margin-bottom: 20px;
 }
 
-.welcome span {
-    width: 700px;
-    background-image: linear-gradient(to bottom, rgba(172, 106, 172, 0) 50%, red 50%, red 60%, rgba(172, 106, 172, 0) 60%);
+.welcome{
+    width: 100%;
+    background-image: linear-gradient(to bottom, rgb(255, 255, 255) 45%, red 45%, red 53%, rgb(255, 255, 255) 53%);
 	background-size: 0 100%;
-	background-repeat: no-repeat;
+	background-repeat:no-repeat;
     animation: red-streak 1s linear;
     animation-fill-mode: forwards;
 }
@@ -40,7 +39,7 @@ box-sizing: border-box;
 box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
 border-radius: 30px;
 width: 80%;
-height: 400px;
+height: auto;
 margin-right: auto;
 margin-left: auto;
 padding-bottom: 20px;

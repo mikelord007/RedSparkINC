@@ -5,20 +5,18 @@ import coin2 from '../../assets/coin2.svg';
 import coin3 from '../../assets/coin3.svg';
 import coin4 from '../../assets/coin4.svg';
 
-
-var coinStyle = {
-WebkitTransition: 'all', 
-msTransition: 'all',
-all: "initial",
-zIndex: "-1",
-position: "absolute",
-height:"100px",
-width:"auto",
-padding:0,
-margin:0,
-}
-
 export const Coin1 = ({top,bottom,right,left}) => {
+    let coinStyle = {
+        WebkitTransition: 'all',
+        msTransition: 'all',
+        all: "initial",
+        zIndex: "-1",
+        position: "absolute",
+        height: "100px",
+        width: "auto",
+        padding: 0,
+        margin: 0,
+    }
     if (top)
         coinStyle = {...coinStyle,top:`${top}`};
     if (bottom)
@@ -27,6 +25,7 @@ export const Coin1 = ({top,bottom,right,left}) => {
         coinStyle = {...coinStyle,right:`${right}`};
     if (left)
         coinStyle = {...coinStyle,left:`${left}`};
+        console.log(coinStyle)
     return (   
         <>
                 <img src={coin1} style={coinStyle} alt="c1" />
@@ -35,6 +34,17 @@ export const Coin1 = ({top,bottom,right,left}) => {
 }
 
 export const Coin2 = ({ top, bottom, right, left}) => {
+    let coinStyle = {
+        WebkitTransition: 'all',
+        msTransition: 'all',
+        all: "initial",
+        zIndex: "-1",
+        position: "absolute",
+        height: "100px",
+        width: "auto",
+        padding: 0,
+        margin: 0,
+    }
     if (top)
         coinStyle = {...coinStyle,top:`${top}`};
     if (bottom)
@@ -51,6 +61,17 @@ export const Coin2 = ({ top, bottom, right, left}) => {
 }
 
 export const Coin3 = ({ top, bottom, right, left}) => {
+    let coinStyle = {
+        WebkitTransition: 'all',
+        msTransition: 'all',
+        all: "initial",
+        zIndex: "-1",
+        position: "absolute",
+        height: "100px",
+        width: "auto",
+        padding: 0,
+        margin: 0,
+    }
     if (top)
         coinStyle = {...coinStyle,top:`${top}`};
     if (bottom)
@@ -68,6 +89,17 @@ export const Coin3 = ({ top, bottom, right, left}) => {
 }
 
 export const Coin4 = ({ top, bottom, right, left}) => {
+    let coinStyle = {
+        WebkitTransition: 'all',
+        msTransition: 'all',
+        all: "initial",
+        zIndex: "-1",
+        position: "absolute",
+        height: "100px",
+        width: "auto",
+        padding: 0,
+        margin: 0,
+    }
     if (top)
         coinStyle = {...coinStyle,top:`${top}`};
     if (bottom)
@@ -85,6 +117,17 @@ export const Coin4 = ({ top, bottom, right, left}) => {
 }
 
 export const Coin5 = ({ top, bottom, right, left}) => {
+    let coinStyle = {
+        WebkitTransition: 'all',
+        msTransition: 'all',
+        all: "initial",
+        zIndex: "-1",
+        position: "absolute",
+        height: "100px",
+        width: "auto",
+        padding: 0,
+        margin: 0,
+    }
     if (top)
         coinStyle = {...coinStyle,top:`${top}`};
     if (bottom)
