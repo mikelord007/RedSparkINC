@@ -1,0 +1,52 @@
+@font-face{
+    font-family: prom;
+    src:  url('./assets/prominder.regular.otf');
+}
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@keyframes red-streak {
+    from{background-size: 0 100%;}
+    to{background-size: 100% 100%;}
+}
+
+.welcome{
+font-family:prom;
+font-style: normal;
+font-weight: normal;
+font-size: 45px;
+line-height: 74px;
+text-align: center;
+margin-bottom: 20px;
+}
+
+.welcome span {
+    width: 100%;
+    background-image: linear-gradient(to bottom, rgb(255, 255, 255) 45%, red 45%, red 60%, rgb(255, 255, 255) 60%);
+	background-size: 0 100%;
+	background-repeat: no-repeat;
+    animation: red-streak 1s linear;
+    animation-fill-mode: forwards;
+}
+
+
+.login-container{
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: center;
+background: #F9F9F9;
+border: 4px solid #FFF915;
+box-sizing: border-box;
+box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+border-radius: 30px;
+width: 80%;
+height: auto;
+margin-right: auto;
+margin-left: auto;
+padding-bottom: 20px;
+padding-top: 20px;
+align-items: center;
+}
+
+.uplandlogo{
+
+}
