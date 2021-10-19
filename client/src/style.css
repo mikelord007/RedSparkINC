@@ -24,9 +24,16 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100vh;
+    overflow: scroll;
+    /* height: 100vh; */
+    height: 100%;
 }
 
 html {
     box-sizing: border-box;
+    height: 100%;
   }
+
+body{
+    height: 100%;
+}

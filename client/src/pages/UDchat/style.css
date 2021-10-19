@@ -160,9 +160,9 @@
 .main-text {
     max-width: 70%;
     background: #F1EF95;
-    padding: 0.6rem 0.3rem;
-    padding-left: 0.8rem;
+    padding: 0.6rem 0.8rem;
     border-radius: 13px;
+    word-break: break-all;
 }
 
 .home-text, .other-text{
