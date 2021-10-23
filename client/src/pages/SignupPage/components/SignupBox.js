@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import CustomTextField from './CustomTextField';
 import './SignupComponentsStyle.css';
 import GreenBtn from '../../../components/GreenBtn/GreenBtn';
-import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 import { signup } from '../../../actions/auth';
@@ -16,8 +15,6 @@ const SignupBox = () => {
 	const history = useHistory();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-			console.log('submitting form: ')
-			console.log(form);
 			dispatch(signup(form, history));
 	};
 

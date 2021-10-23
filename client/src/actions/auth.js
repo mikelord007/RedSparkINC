@@ -16,14 +16,16 @@ export const signup = (formData,router) => async (dispatch) => {
 };
 
 
-// export const login = (formData, router) => asyn (dispatch) => {
-//     try {
-//         const { data } = await api.signin(formData);
+export const login = (formData, router) => async (dispatch) => {
+    try {
+        const { data } = await api.login(formData);
 
-//         dispatch({type: 'AUTH', data});
+        dispatch({ type: 'AUTH', data });
 
-//         router.push('/');
-//     }
-// }
+        router.push('/');
+    } catch (error) {
+        console.log(error);
+    }
+};
 
-export const logout = (formData, router) => async 
+// export const logout = (formData, router) => async 
