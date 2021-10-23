@@ -25,7 +25,6 @@ export const Coin1 = ({top,bottom,right,left}) => {
         coinStyle = {...coinStyle,right:`${right}`};
     if (left)
         coinStyle = {...coinStyle,left:`${left}`};
-        console.log(coinStyle)
     return (   
         <>
                 <img src={coin1} style={coinStyle} alt="c1" />

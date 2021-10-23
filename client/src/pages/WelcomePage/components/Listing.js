@@ -4,13 +4,14 @@ import './WelcomeComponentsStyle.css';
 const Listing = () => {
     return (
         <table className='listing'>
+        <tbody>
         <Item/>
         <Item/>
         <Item/>
         <Item/>
         <Item/>
         <Item/>
-        
+        </tbody>
         </table>
     );
 }

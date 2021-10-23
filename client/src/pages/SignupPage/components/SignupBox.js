@@ -1,21 +1,43 @@
-import React from 'react';
-import CustomTextField  from './CustomTextField';
+import React, { useState } from 'react';
+import {useDispatch} from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import CustomTextField from './CustomTextField';
 import './SignupComponentsStyle.css';
 import GreenBtn from '../../../components/GreenBtn/GreenBtn';
-import {Button} from '@material-ui/core';
-import {Link} from 'react-router-dom';
-const LoginBox = () => {
+import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+
+import { signup } from '../../../actions/auth';
+
+const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '' }
+const SignupBox = () => {
+	const [form, setForm] = useState(initialState);
+	const dispatch = useDispatch();
+	const history = useHistory();
+	const handleSubmit = (e) => {
+		e.preventDefault();
+			console.log('submitting form: ')
+			console.log(form);
+			dispatch(signup(form, history));
+	};
+
+	const handleChange = (e) => {
+		setForm({ ...form, [e.target.name]: e.target.value });
+	}
+
 	return (
-	<div className="loginbox"> 
-	<form autoComplete='off' noValidate action="">
-	<CustomTextField  label="Email" name="Email" className={"textfield"} variant="outlined"  margin="dense" color="green" fullWidth />		
-	<CustomTextField label="Password" name="Password1" className="textfield" variant="outlined" type="password" margin="dense" fullWidth />
-	<CustomTextField label="Confirm Password" name="Password1" className="textfield" variant="outlined" type="password" margin="dense" fullWidth />
-	<GreenBtn className="signup-button" content='Signup' />
-	<p className="toggle-login" disabled>Already have an account?<Link to="/login">Log In</Link></p>
-	</form>
-	</div>
-		)
+		<div className="signupbox">
+			<form autoComplete='off' noValidate action="" onSubmit={handleSubmit}>
+				<CustomTextField label="Name" name="name" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
+				<CustomTextField label="Email" name="email" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
+				<CustomTextField label="Upland Username" name="uplandUsername" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
+				<CustomTextField label="Password" name="password" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
+				<CustomTextField label="Confirm Password" name="passwordConfirm" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
+				<GreenBtn className="signup-button" content='Signup' type="submit" />
+				<Link className="toggle-login" to="/login">Log In?</Link>
+			</form>
+		</div>
+	)
 }
 
-export default LoginBox;
+export default SignupBox;
