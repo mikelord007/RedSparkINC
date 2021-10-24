@@ -1,7 +1,6 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-
 import UDchat from "./pages/UDchat/UDchat";
 import UDtradehist from "./pages/UDtradehist/UDtradehist";
 import UDlistings from "./pages/UDlistings/UDlistings";
@@ -10,7 +9,7 @@ import UDcreatenew from "./pages/UDcreatenew/UDcreatenew"
 import WelcomePage from './pages/WelcomePage/WelcomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import './style.css'
-import AuthPage from "./pages/SignupPage/SignupPage.js";
+import AuthPage from "./pages/AuthPage/AuthPage.js";
 
 const App = () => {
 

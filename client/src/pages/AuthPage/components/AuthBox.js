@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import CustomTextField from './CustomTextField';
-import './SignupComponentsStyle.css';
+import './AuthComponentsStyle.css';
 import GreenBtn from '../../../components/GreenBtn/GreenBtn';
-import { Link } from 'react-router-dom';
 
 import { signup, login } from '../../../actions/auth';
 import { Button } from '@material-ui/core';
