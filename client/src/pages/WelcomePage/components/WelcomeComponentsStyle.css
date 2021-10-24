@@ -136,3 +136,9 @@ top: 311px;
 height: 80px;
 width: 80px;
 }
+
+/* showCasecss */
+
+.toggle-button > *{
+    color:white
+}

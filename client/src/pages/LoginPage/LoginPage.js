@@ -1,18 +1,18 @@
 import React from 'react';
-import SignupBox from './components/SignupBox';
+import LoginBox from './components/LoginBox';
 import { Coin1, Coin2, Coin3, Coin4 } from '../../components/Coins/Coins';
 import uplandlogo from './assets/uplandlogo.svg';
 
-import './SignupPageStyle.css';
+import './LoginPageStyle.css';
 
 const SignupPage = () => {
 	return (
 		// <>
-		<div className="signup-temp">
-		<span className="welcome">Welcome</span>
-			<div className='container'>
+		<div className="login-temp">
+			<span className="welcome">Hello!</span>
+			<div className='login-container'>
 				<img className='uplandlogo' src={uplandlogo} alt="nologo" />
-				<SignupBox />
+				<LoginBox />
 			</div>
 			<Coin1 top="20%" right="83%" />
 			<Coin2 top="50%" left="85%" />
@@ -22,8 +22,8 @@ const SignupPage = () => {
 			<Coin3 top="40%" right="85%" />
 			<Coin2 top="70%" left="50px" />
 			<Coin4 top="83%" right="40%" />
-		</div>
-		// /* </> */
+			</div>
+		// </>
 	)
 }
 export default SignupPage

@@ -9,6 +9,7 @@ import UDcreatenew from "./pages/UDcreatenew/UDcreatenew"
 
 import WelcomePage from './pages/WelcomePage/WelcomePage';
 import SignupPage from './pages/SignupPage/SignupPage.js';
+import LoginPage from './pages/LoginPage/LoginPage';
 import './style.css'
 
 const App = () => {
@@ -17,10 +18,11 @@ const App = () => {
         <Router>
         <Head/>
         <Switch>
-            <Route exact path='/'  component={UDchat}  />
+            <Route exact path='/'  component={WelcomePage}  />
             <Route exact path='/signup' component={SignupPage}  />
+            <Route exact path='/login' component={LoginPage}  />
             <Route exact path="/listings" component={UDlistings} />
-            <Route exact path="/chat" component={WelcomePage}/>
+            <Route exact path="/chat" component={UDchat}/>
             <Route exact path="/trade" component={UDtradehist}/>
             <Route exact path="/create" component={UDcreatenew}/>
         </Switch>

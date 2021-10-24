@@ -8,7 +8,7 @@ const Item = () => {
                 <td>2.1 Spark</td>
                 <td> $10 </td>
                 <td> 6-12 <br/>days</td>
-                <td> <CustomGreenBtn text={"rent"} /> </td>
+                <td> <CustomGreenBtn content={"rent"} /> </td>
                 </tr>
     )
 }
