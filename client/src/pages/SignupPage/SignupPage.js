@@ -5,7 +5,8 @@ import uplandlogo from './assets/uplandlogo.svg';
 
 import './SignupPageStyle.css';
 
-const SignupPage = () => {
+const AuthPage = () => {
+
 	return (
 		<>
 		<span className="welcome">Welcome</span>
@@ -25,4 +26,4 @@ const SignupPage = () => {
 		</>
 	)
 }
-export default SignupPage
+export default AuthPage

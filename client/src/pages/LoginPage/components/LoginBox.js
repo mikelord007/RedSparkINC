@@ -27,7 +27,7 @@ const LoginBox = () => {
 			<form onSubmit={handleSubmit} autoComplete='off' noValidate action="">
 				<CustomTextField label="Email" name="email" className="textfield" variant="outlined" margin="dense" color="green" fullWidth onChange={handleChange} />
 				<CustomTextField label="Password" name="password" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
-				<GreenBtn className="login-button" content='Login' />
+				<GreenBtn className="login-button" content='Login' type="submit" />
 			</form>
 			<p className="toggle-signup">Don't have an account yet? <Link to="/signup">Signup</Link></p>
 		</div>

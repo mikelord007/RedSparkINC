@@ -11,7 +11,7 @@ export const signup = (formData,router) => async (dispatch) => {
         console.log(data)
         router.push('/');
     } catch (error) {
-        console.log(error);
+        return error;
     }
 };
 
@@ -24,7 +24,7 @@ export const login = (formData, router) => async (dispatch) => {
 
         router.push('/');
     } catch (error) {
-        console.log(error);
+    return error;
     }
 };
 
