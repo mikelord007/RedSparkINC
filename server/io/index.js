@@ -1,4 +1,4 @@
-import { addUser, removeUser, getUser, getUsersInRoom} from './io/helperFunctions.js'
+import { addUser, removeUser, getUser, getUsersInRoom} from './io/IOhelperFns.js'
 
 const socketHandler = (socket) => {
     

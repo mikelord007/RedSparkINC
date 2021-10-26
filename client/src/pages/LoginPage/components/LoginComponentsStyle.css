@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 @font-face{
     font-family: prom;
     src:  url('../assets/prominder.regular.otf');
@@ -6,24 +5,23 @@
 .loginbox{
 margin: 15px;
 display: flex;
-justify-content: center;
 flex-direction: column;
-flex-wrap: wrap;
-padding: 1%;
+/* flex-wrap: nowrap; */
+justify-content: center;
+
 }
 
 .textfield{
-	/* margin: 100px; */
+	margin: 10px;
 }
 
-.signup-button{
-   display: inline;
+.login-button{
+   display: inline-block;
    margin-top: 10px;
    margin-inline: 30%;
 }
 
-.toggle-login{
-   display: inline;
+.toggle-signup{
+      display: inline;
    font-family: Montserrat;
 }
-

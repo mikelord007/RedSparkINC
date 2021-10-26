@@ -18,17 +18,17 @@ text-align: center;
 margin-bottom: 20px;
 }
 
-.welcome{
+.welcome span {
     width: 100%;
-    background-image: linear-gradient(to bottom, rgb(255, 255, 255) 45%, red 45%, red 53%, rgb(255, 255, 255) 53%);
+    background-image: linear-gradient(to bottom, rgb(255, 255, 255) 45%, red 45%, red 60%, rgb(255, 255, 255) 60%);
 	background-size: 0 100%;
-	background-repeat:no-repeat;
+	background-repeat: no-repeat;
     animation: red-streak 1s linear;
     animation-fill-mode: forwards;
 }
 
 
-.container{
+.login-container{
 display: flex;
 flex-direction: row;
 flex-wrap: wrap;

@@ -1,27 +1,28 @@
 import React from 'react';
-import LoginBox from './components/LoginBox';
-import Greenbtn from '../../components/GreenBtn/GreenBtn';
-import {Coin1,Coin2,Coin3,Coin4} from '../../components/Coins/Coins';
+import SignupBox from './components/SignupBox';
+import { Coin1, Coin2, Coin3, Coin4 } from '../../components/Coins/Coins';
 import uplandlogo from './assets/uplandlogo.svg';
 
 import './SignupPageStyle.css';
 
 const SignupPage = () => {
-return (
-<>
-<p className="welcome">	<span >Welcome</span></p>
-<div className='container'>
-	<img className='uplandlogo' src={uplandlogo} alt="nologo" />
-	<LoginBox />
-	<Greenbtn text='Signup' />
-	</div>
-	<Coin1 top="330px" left="1px" />
-	<Coin2 top="250px" left="300px" />
-	<Coin3 top="500px" left="280px" />
-	<Coin4 top="380px" left="150px" />
-	<Coin4 top="600px" left="290px" />
-	<Coin2 top="600px" left="30px" />
-	</>
+	return (
+		<>
+		<span className="welcome">Welcome</span>
+			<div className='container'>
+				<img className='uplandlogo' src={uplandlogo} alt="nologo" />
+				<SignupBox />
+			
+			</div>
+			<Coin1 top="20%" right="83%" />
+			<Coin2 top="50%" left="85%" />
+			<Coin3 top="80%" left="75%" />
+			<Coin3 top="80%" right="85%" />
+			<Coin3 top="20%" left="80%" />
+			<Coin3 top="40%" right="85%" />
+			<Coin2 top="90%" left="30px" />
+			<Coin4 top="90%" right="40%" />
+		</>
 	)
-	}
-	export default SignupPage
+}
+export default SignupPage
