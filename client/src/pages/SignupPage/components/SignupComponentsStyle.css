@@ -3,7 +3,7 @@
     font-family: prom;
     src:  url('../assets/prominder.regular.otf');
 }
-.loginbox{
+.signupbox{
 margin: 15px;
 display: flex;
 justify-content: center;
