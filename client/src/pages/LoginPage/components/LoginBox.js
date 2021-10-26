@@ -10,7 +10,7 @@ const LoginBox = () => {
 	<form autoComplete='off' noValidate action="">
 	<CustomTextField  label="Email" name="Email" className="textfield" variant="outlined"  margin="dense" color="green" fullWidth />		
 	<CustomTextField label="Password" name="Password1" className="textfield" variant="outlined" type="password" margin="dense" fullWidth />
-	<GreenBtn className="login-button" content='Login' />
+	<Link to={`/listings`}><GreenBtn className="login-button" content='Login' /></Link>
 	</form>
 	<p className="toggle-signup">Don't have an account yet? <Link to="/signup">Signup</Link></p>
 	</div>

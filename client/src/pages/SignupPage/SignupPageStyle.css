@@ -50,3 +50,17 @@ align-items: center;
 .uplandlogo{
 
 }
+
+
+/* showcase-css */
+.signup-temp{
+    width: 100%;
+}
+
+.welcome{
+    display: inline-block;
+}
+
+.signup-temp .container{
+    margin-top: 3rem;
+}

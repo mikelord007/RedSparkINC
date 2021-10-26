@@ -25,3 +25,10 @@ justify-content: center;
       display: inline;
    font-family: Montserrat;
 }
+
+/* showcase */
+
+.toggle-signup{
+   margin-top: 2rem;
+   text-align: center;
+}

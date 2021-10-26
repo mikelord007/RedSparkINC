@@ -50,3 +50,12 @@ align-items: center;
 .uplandlogo{
 
 }
+
+/* showcase css */
+.login-temp{
+    width: 100%;
+}
+
+.login-temp .login-container{
+    margin-top: 4rem;
+}

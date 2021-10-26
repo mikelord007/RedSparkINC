@@ -1,7 +1,7 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-
+import Head from "./components/Head/Head"
 import UDchat from "./pages/UDchat/UDchat";
 import UDtradehist from "./pages/UDtradehist/UDtradehist";
 import UDlistings from "./pages/UDlistings/UDlistings";
@@ -16,6 +16,7 @@ const App = () => {
 
     return(
         <Router>
+        <Head/>
         <Switch>
             <Route exact path='/'  component={WelcomePage}  />
             <Route exact path='/signup' component={SignupPage}  />

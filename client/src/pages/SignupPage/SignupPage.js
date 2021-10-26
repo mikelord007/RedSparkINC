@@ -7,12 +7,12 @@ import './SignupPageStyle.css';
 
 const SignupPage = () => {
 	return (
-		<>
+		// <>
+		<div className="signup-temp">
 		<span className="welcome">Welcome</span>
 			<div className='container'>
 				<img className='uplandlogo' src={uplandlogo} alt="nologo" />
 				<SignupBox />
-			
 			</div>
 			<Coin1 top="20%" right="83%" />
 			<Coin2 top="50%" left="85%" />
@@ -20,9 +20,10 @@ const SignupPage = () => {
 			<Coin3 top="80%" right="85%" />
 			<Coin3 top="20%" left="80%" />
 			<Coin3 top="40%" right="85%" />
-			<Coin2 top="90%" left="30px" />
-			<Coin4 top="90%" right="40%" />
-		</>
+			<Coin2 top="70%" left="50px" />
+			<Coin4 top="83%" right="40%" />
+		</div>
+		// /* </> */
 	)
 }
 export default SignupPage
