@@ -5,12 +5,9 @@ import User from '../models/User.js';
 const secret = "test";
 
 export const createListing = async (req, res) => {
-    const { currency, rate, amount, burner, minP, maxP, active, created } = req.body;
+    const { currency, rate, amount, burner, minP, maxP } = req.body;
 
     try {
-        console.log(req.user.id);
-        console.log(req.body);
-
         const createdDate = new Date().toString();
         const user = await User.findById(req.user.id)
         console.log(user.name)
@@ -20,6 +17,7 @@ export const createListing = async (req, res) => {
             amount: amount,
             burner: burner,
             minP: minP,
+            maxP:maxP,
             active: true,
             created: createdDate,
             user: {
@@ -30,7 +28,7 @@ export const createListing = async (req, res) => {
         console.log(listing)
         const savedListing  = await listing.save();
         // console.log(savedListing);
-        console.log('success')
+        // console.log('success')
         // return res.status(201).json({ savedListing })
 
     }
