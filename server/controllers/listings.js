@@ -1,5 +1,6 @@
 import listingModel from '../models/Listing.js';
 import jwt from 'jsonwebtoken';
+import Listing from '../models/Listing.js';
 const secret = "test";
 
 export const createListing = async (req, res) => {
@@ -9,7 +10,7 @@ export const createListing = async (req, res) => {
         console.log(req.user.id);
         console.log(req.body);
 
-        const createdDate = new Date().toString()
+        const createdDate = new Date().toString();
 
         const listing = new listingModel({
             currency: currency,
@@ -23,13 +24,24 @@ export const createListing = async (req, res) => {
         });
         console.log(listing)
         const savedListing  = await listing.save();
-        console.log(savedListing)
+        // console.log(savedListing);
+        console.log('success')
         // return res.status(201).json({ savedListing })
 
     }
     catch (error) {
         res.status(500).json({ message: "Something went wrong, please try again" });
         console.log(error);
+    }
+}
+
+export const getListings = async (req,res) => {
+    try {
+        const listings = await Listing.find().limit(10);
+        console.log(listings);
+        return res.status(200).json(listings);
+    } catch (error) {
+        console.log(error)
     }
 }
 
