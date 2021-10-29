@@ -7,6 +7,7 @@ export const createListing = (formData,router) => async (dispatch) => {
         // dispatch({type: 'CREATE', data});
         router.push('/');
     }catch(error){
+    console.log(error)
     return error;
     }
 }
@@ -17,8 +18,11 @@ export const getListings = () => async (dispatch) => {
         const {data} = await api.getListings();
         // dispatch({type: 'CREATE', data});
         // router.push('/');
-        console.log(data);
+        // console.log('actions is working');
+        console.log(data)
+        return data;
     }catch(error){
+        console.log(error)
     return error;
     }
 }

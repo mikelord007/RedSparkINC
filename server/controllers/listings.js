@@ -37,7 +37,7 @@ export const createListing = async (req, res) => {
 
 export const getListings = async (req,res) => {
     try {
-        const listings = await Listing.find().limit(10);
+        const listings = await Listing.find({}).limit(10);
         console.log(listings);
         return res.status(200).json(listings);
     } catch (error) {

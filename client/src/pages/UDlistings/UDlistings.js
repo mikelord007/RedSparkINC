@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Icon } from '@iconify/react'
-
+import {useDispatch} from 'react-redux'
 import { getListings } from '../../actions/listing'
 
 import UDfoot from '../../components/UDfoot/UDfoot'
@@ -8,11 +8,14 @@ import UDnav from '../../components/UDnav/UDnav'
 import './style.css'
 
 
-useEffect(() => {
-    getListings();   
-})
 
 const UDlistings = () => {
+const dispatch = useDispatch()
+useEffect(() => {
+    console.log('useeffect is working')
+    dispatch(getListings());   
+    // console.log(listings)
+})
     return(
         <>
         <UDnav username={`Nociphe`}/>
