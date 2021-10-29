@@ -9,8 +9,8 @@ import { signup, login } from '../../../actions/auth';
 import { Button } from '@material-ui/core';
 
 const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '' }
-const SignupBox = () => {
-	const [isSignup, setisSignup] = useState(true)
+const AuthBox = ({signupState}) => {
+	const [isSignup, setisSignup] = useState((signupState === undefined)? true : signupState)
 	const switchMode = () => {
 		setForm(initialState);
 		setisSignup((prevIsSignup) => !prevIsSignup);
@@ -51,12 +51,13 @@ const SignupBox = () => {
 				<CustomTextField label="Password" name="password" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
 				{isSignup && <CustomTextField label="Confirm Password" name="passwordConfirm" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />}				
 				<GreenBtn className="signup-button" content={ isSignup ? 'Signup':'Login'} type="submit" />
-				<Button onClick={switchMode}>
-					{isSignup ? 'Log In?':'Signin'}
-				</Button>
 			</form>
+				<Button onClick={switchMode}>
+					{isSignup ? 'Log In?':'Signin?'}
+				</Button>
+
 		</div>
 	)
 }
 
-export default SignupBox;
+export default AuthBox;

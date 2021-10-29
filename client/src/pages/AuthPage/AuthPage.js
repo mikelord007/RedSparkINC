@@ -2,17 +2,17 @@ import React from 'react';
 import AuthBox from './components/AuthBox';
 import { Coin1, Coin2, Coin3, Coin4 } from '../../components/Coins/Coins';
 import uplandlogo from './assets/uplandlogo.svg';
-
+import { useLocation } from 'react-router-dom'
 import './AuthPageStyle.css';
 
 const AuthPage = () => {
-
+	const signupState = useLocation().state
 	return (
 		<>
 		<span className="welcome">Welcome</span>
 			<div className='container'>
 				<img className='uplandlogo' src={uplandlogo} alt="nologo" />
-				<AuthBox />
+				<AuthBox signupState={signupState}/>
 			
 			</div>
 			<Coin1 top="20%" right="83%" />
