@@ -10,7 +10,10 @@ const listingSchema = mongoose.Schema(
         maxP: Number,
         active: Boolean,
         created: Date,
-        user: mongoose.ObjectId
+        user: {
+            name: String,
+            id: mongoose.ObjectId
+        }
     }
 )
 

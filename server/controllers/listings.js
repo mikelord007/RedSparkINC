@@ -1,6 +1,7 @@
 import listingModel from '../models/Listing.js';
 import jwt from 'jsonwebtoken';
 import Listing from '../models/Listing.js';
+import User from '../models/User.js';
 const secret = "test";
 
 export const createListing = async (req, res) => {
@@ -11,7 +12,8 @@ export const createListing = async (req, res) => {
         console.log(req.body);
 
         const createdDate = new Date().toString();
-
+        const user = await User.findById(req.user.id)
+        console.log(user.name)
         const listing = new listingModel({
             currency: currency,
             rate: rate,
@@ -20,7 +22,10 @@ export const createListing = async (req, res) => {
             minP: minP,
             active: true,
             created: createdDate,
-            user: req.user.id
+            user: {
+                name:user.name,
+                id:user._id
+            }
         });
         console.log(listing)
         const savedListing  = await listing.save();

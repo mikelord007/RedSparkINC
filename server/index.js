@@ -20,8 +20,8 @@ app.use(express.urlencoded({extended:true})); //instead of bodyParser use this
 app.use(cors())
 // route middlewares
 app.use('/api/user',userRoute);
-// app.use('/api',authenticateToken,listingRoute)
-app.use('/api',listingRoute)
+app.use('/api',authenticateToken,listingRoute)
+// app.use('/api',listingRoute)
 
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
