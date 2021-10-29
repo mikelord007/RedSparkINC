@@ -1,11 +1,12 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import './WelcomeComponentsStyle.css';
 
-const ToggleButton = ({text1,text2}) => {
+const ToggleButton = () => {
 	return (
 		<div className="toggle-button" >
-			<div className={'toggle-text1'} >{text1}</div>
-			<div className={'toggle-text2'} >{text2}</div>
+			<NavLink to={{ pathname: '/auth', state: false  }}><div className={'login'}>Login</div></NavLink>
+			<NavLink to={{ pathname: '/auth', state: true }}><div className={'signup'}>Signup</div></NavLink>
 		</div>
 	)
 }

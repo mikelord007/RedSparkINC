@@ -1,10 +1,10 @@
-// import passport from 'passport-jwt';
+import dotenv from 'dotenv';
 import userModel from '../models/User.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 // import {registerValidation} from './middleware/validation/
-const secret = "test";
 
+dotenv.config()
 export const registerUser = async (req, res) => {
 	const { name, email, uplandUsername, password, passwordConfirm } = req.body;
 
@@ -36,8 +36,9 @@ export const registerUser = async (req, res) => {
 
 		const savedUser = await user.save();
 		//console.log(savedUser)
-		const token = jwt.sign({ email: savedUser.email, id: savedUser._id }, secret, { expiresIn: "1h" });
-		return res.status(201).json({ savedUser, token: token })
+		const token = jwt.sign({ email: savedUser.email, id: savedUser._id }, process.env.SECRET, { expiresIn: "1h" });
+		res.cookie('token', token, { httpOnly: true });
+		return res.status(201).json({ savedUser })
 
 	}
 	catch (error) {
@@ -60,9 +61,10 @@ export const loginUser = async (req, res) => {
 
 		if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
 
-		const token = jwt.sign({ email: user.email, id: user._id }, secret, { expiresIn: "1h" });
-
-		res.status(200).json({ result: user, token });
+		const token = jwt.sign({ email: user.email, id: user._id }, process.env.SECRET, { expiresIn: "1h" });
+		// console.log('setting cookies')
+		// res.cookie('token', token, { httpOnly: true });
+		res.status(200).json({ result: user ,token});
 	}
 	catch (error) {
 		res.status(500).json({ message: "Something went wrong, please try again" });

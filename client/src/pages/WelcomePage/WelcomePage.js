@@ -33,7 +33,7 @@ const WelcomePage = () => {
 			<img src={downArrow} alt="downArrow"  className="downArrow"/>	
 		</div>
 			<Listing/>
-			<ToggleButton text1={'Signup'} text2={'Login'} />
+			<ToggleButton />
 				
 			</div>
 		</>

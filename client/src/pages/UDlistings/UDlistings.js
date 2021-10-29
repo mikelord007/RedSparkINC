@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Icon } from '@iconify/react'
+
+import { getListings } from '../../actions/listing'
 
 import UDfoot from '../../components/UDfoot/UDfoot'
 import UDnav from '../../components/UDnav/UDnav'
 import './style.css'
 
+
+useEffect(() => {
+    getListings();   
+})
 
 const UDlistings = () => {
     return(
