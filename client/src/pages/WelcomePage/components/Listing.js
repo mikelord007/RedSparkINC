@@ -4,7 +4,7 @@ import './WelcomeComponentsStyle.css';
 const Listing = () => {
     return (
         <table className='listing'>
-        <tbody>
+        <tbody className="table-body" style={{}}>
         <Item/>
         <Item/>
         <Item/>

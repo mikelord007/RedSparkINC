@@ -19,7 +19,7 @@ const UDchat = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     
-    const ENDPOINT = 'http://192.168.1.5:5000'
+    const ENDPOINT = 'http://localhost:5000'
     console.log(messages)
     
     

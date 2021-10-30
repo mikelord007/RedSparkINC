@@ -1,7 +1,8 @@
-import { addUser, removeUser, getUser, getUsersInRoom} from './io/IOhelperFns.js'
+import { addUser, removeUser, getUser, getUsersInRoom} from './IOhelperFns.js'
 
-const socketHandler = (socket) => {
-    
+const socketHandler = (io) => {
+
+    io.on("connection",(socket) => {
         socket.on('join', ({name,room}, callback) => {
             console.log("user has joined :)")
             const {error, user} = addUser({id: socket.id, name, room});
@@ -31,6 +32,8 @@ const socketHandler = (socket) => {
                 io.to(user.room).emit('message',{user: 'admin', text: `${user.name} has left!`})
             }
         })  
+    })
+        
     
 }
 
