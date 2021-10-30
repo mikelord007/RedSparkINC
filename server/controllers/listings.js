@@ -41,8 +41,8 @@ export const createListing = async (req, res) => {
 export const getListings = async (req,res) => {
     try {
         const listings = await Listing.find({}).limit(10);
-        console.log(listings);
-        return res.status(200).json(listings);
+        // console.log(listings);
+        return res.status(200).json({listings});
     } catch (error) {
         console.log(error)
     }
@@ -56,8 +56,10 @@ export const authenticateToken = (req, res, next) => {
     if (token == null) return console.log('user not auth')
 
     jwt.verify(token, process.env.SECRET, (err, user) => {
-        console.log(err)
-        if (err) return res.sendStatus(403)
+        if (err) {
+            console.log(err);
+            return res.sendStatus(403);
+        }
         req.user = user
         next()
     })

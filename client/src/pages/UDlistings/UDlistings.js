@@ -1,132 +1,24 @@
-import React, { useEffect } from 'react'
-import { Icon } from '@iconify/react'
-import {useDispatch} from 'react-redux'
-import { getListings } from '../../actions/listing'
-
-import UDfoot from '../../components/UDfoot/UDfoot'
-import UDnav from '../../components/UDnav/UDnav'
-import './style.css'
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getListings } from '../../actions/listing';
+import UDfoot from '../../components/UDfoot/UDfoot';
+import UDnav from '../../components/UDnav/UDnav';
+import Listings from './components/Listings';
+import './style.css';
 
 
 
 const UDlistings = () => {
-const dispatch = useDispatch()
-useEffect(() => {
-    console.log('useeffect is working')
-    dispatch(getListings());   
-    // console.log(listings)
-})
-    return(
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getListings());
+    }, [dispatch])
+    return (
         <>
-        <UDnav username={`Nociphe`}/>
-        <div id="UDlistings">
-            <div id="listings-head">
-            <div id="head-line"><div id="active-line"></div></div>
-                <div className="head-item">
-                    All
-                </div>
-                <div className="head-item">
-                    UPX
-                </div>
-                <div className="head-item">
-                    Fiat-Crypto
-                </div>
-            </div>
-            <div id="listings-main">
-                <div className="list-item">
-                    <div className="list-sub-item">Nociphe</div>
-                    <div className="list-sub-item">54 UPX</div>
-                    <div className="list-sub-item">4.16 Spark</div>
-                    <div className="list-sub-item">2-7 d</div>
-                    <div className="list-sub-item"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                </div>
-                <div className="list-item">
-                    <div className="list-sub-item">Nociphe</div>
-                    <div className="list-sub-item">54 UPX</div>
-                    <div className="list-sub-item">4.16 Spark</div>
-                    <div className="list-sub-item">2-7 d</div>
-                    <div className="list-sub-item"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                </div>
-                <div className="list-item">
-                    <div className="list-sub-item">Nociphe</div>
-                    <div className="list-sub-item">54 UPX</div>
-                    <div className="list-sub-item">4.16 Spark</div>
-                    <div className="list-sub-item">2-7 d</div>
-                    <div className="list-sub-item"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                </div>
-                <div className="list-item">
-                    <div className="list-sub-item">Nociphe</div>
-                    <div className="list-sub-item">54 UPX</div>
-                    <div className="list-sub-item">4.16 Spark</div>
-                    <div className="list-sub-item">2-7 d</div>
-                    <div className="list-sub-item"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                </div>
-                <div className="list-item">
-                    <div className="list-sub-item">Nociphe</div>
-                    <div className="list-sub-item">54 UPX</div>
-                    <div className="list-sub-item">4.16 Spark</div>
-                    <div className="list-sub-item">2-7 d</div>
-                    <div className="list-sub-item"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                </div>
-                <div className="list-item">
-                    <div className="list-sub-item">Nociphe</div>
-                    <div className="list-sub-item">54 UPX</div>
-                    <div className="list-sub-item">4.16 Spark</div>
-                    <div className="list-sub-item">2-7 d</div>
-                    <div className="list-sub-item"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                </div>
-                <div className="list-item">
-                    <div className="list-sub-item">Nociphe</div>
-                    <div className="list-sub-item">54 UPX</div>
-                    <div className="list-sub-item">4.16 Spark</div>
-                    <div className="list-sub-item">2-7 d</div>
-                    <div className="list-sub-item"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                </div>
-                <div className="list-item">
-                    <div className="list-sub-item">Nociphe</div>
-                    <div className="list-sub-item">54 UPX</div>
-                    <div className="list-sub-item">4.16 Spark</div>
-                    <div className="list-sub-item">2-7 d</div>
-                    <div className="list-sub-item"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                </div>
-                <div className="list-item">
-                    <div className="list-sub-item">Nociphe</div>
-                    <div className="list-sub-item">54 UPX</div>
-                    <div className="list-sub-item">4.16 Spark</div>
-                    <div className="list-sub-item">2-7 d</div>
-                    <div className="list-sub-item"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                </div>
-                <div className="list-item">
-                    <div className="list-sub-item">Nociphe</div>
-                    <div className="list-sub-item">54 UPX</div>
-                    <div className="list-sub-item">4.16 Spark</div>
-                    <div className="list-sub-item">2-7 d</div>
-                    <div className="list-sub-item"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                </div>
-                <div className="list-item">
-                    <div className="list-sub-item">Nociphe</div>
-                    <div className="list-sub-item">54 UPX</div>
-                    <div className="list-sub-item">4.16 Spark</div>
-                    <div className="list-sub-item">2-7 d</div>
-                    <div className="list-sub-item"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                </div>
-                <div className="list-item">
-                    <div className="list-sub-item">Nociphe</div>
-                    <div className="list-sub-item">54 UPX</div>
-                    <div className="list-sub-item">4.16 Spark</div>
-                    <div className="list-sub-item">2-7 d</div>
-                    <div className="list-sub-item"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                </div>
-                <div className="list-item">
-                    <div className="list-sub-item">Nociphe</div>
-                    <div className="list-sub-item">54 UPX</div>
-                    <div className="list-sub-item">4.16 Spark</div>
-                    <div className="list-sub-item">2-7 d</div>
-                    <div className="list-sub-item"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                </div>
-            </div>
-        </div>
-        <UDfoot/>
+            <UDnav username={`Nociphe`} />
+            <Listings />
+            <UDfoot />
         </>
     )
 }

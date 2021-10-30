@@ -14,12 +14,8 @@ export const createListing = (formData,router) => async (dispatch) => {
 
 export const getListings = () => async (dispatch) => {
     try {
-        // localStorage.getItem('token')
         const {data} = await api.getListings();
-        // dispatch({type: 'CREATE', data});
-        // router.push('/');
-        // console.log('actions is working');
-        console.log(data)
+        dispatch({type: 'FETCH_ALL', payload:data});
         return data;
     }catch(error){
         console.log(error)
