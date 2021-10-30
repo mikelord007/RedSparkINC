@@ -1,8 +1,10 @@
-export default (listings = [], action) => {
+
+
+export const UserListingReducer = (userListings = [], action) => {
     switch (action.type){
-        case 'FETCH_ALL':
-            return action.payload;
-        case 'CREATE':
-            return [...posts, action.payload];
+        case 'USER-LISTINGS':
+            return action.data;
+        default:
+            return userListings;
     }
 }

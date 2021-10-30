@@ -1,6 +1,9 @@
 import listingModel from '../models/Listing.js';
 import jwt from 'jsonwebtoken';
 import Listing from '../models/Listing.js';
+import mongoose from 'mongoose';
+
+
 const secret = "test";
 
 export const createListing = async (req, res) => {
@@ -58,4 +61,16 @@ export const authenticateToken = (req, res, next) => {
         req.user = user
         next()
     })
+}
+
+export const userListing = async (req,res) => {
+    const { id } = req.params
+    try {//user: {id: id}
+        var Objid = mongoose.Types.ObjectId(id);
+        const listings = await Listing.find({'user.id': Objid})
+        console.log(listings);
+        return res.status(200).json(listings);
+    } catch (error) {
+        console.log(error)
+    }
 }

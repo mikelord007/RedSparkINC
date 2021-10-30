@@ -8,11 +8,11 @@ import UDnav from '../../components/UDnav/UDnav'
 import './style.css'
 
 
-useEffect(() => {
-    getListings();   
-})
 
 const UDlistings = () => {
+    useEffect(() => {
+        getListings();   
+    })
     return(
         <>
         <UDnav username={`Nociphe`}/>
