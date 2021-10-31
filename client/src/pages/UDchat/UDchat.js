@@ -2,6 +2,8 @@ import React,{useState,useEffect} from "react";
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/avatars-bottts-sprites';
 import io from 'socket.io-client';
+import { useDispatch } from 'react-redux';
+import { fetchChat,fetchContacts } from "../../actions/chat";
 
 import UDfoot from '../../components/UDfoot/UDfoot'
 import UDnav from '../../components/UDnav/UDnav'
@@ -12,24 +14,31 @@ import ChatMain from "./components/ChatMain/ChatMain";
 import './style.css'
 
 let socket;
-const currentUserID = "user" + Math.floor(Math.random() * (100 - 1) + 1).toString()
+const currentUserID = JSON.parse(localStorage.getItem('profile')).result._id
+const currentUserName = "peter"
 
-const UDchat = () => {
+const UDchat = (otherUser,otherUserName) => {
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
     
     const ENDPOINT = 'http://localhost:5000'
-    console.log(messages)
-    
-    
-    useEffect(() => {
 
+    const dispatch = useDispatch()
+    dispatch(fetchContacts(currentUserID));
+    
+    
+    otherUser = 331
+    otherUserName = "mike"
+    const uid = otherUser<currentUserID?otherUser+currentUserID:currentUserID+otherUser
+
+    useEffect(() => {
+        dispatch(fetchChat(uid))
+    },[dispatch,uid])
+
+    useEffect(() => {
         const generateRoom = "talk"
         setRoom(generateRoom);
-        
         socket = io(ENDPOINT);
-
         socket.emit('join',{name: currentUserID,room},(error) => {
             if(error) window.alert(error)
         })
@@ -40,18 +49,17 @@ const UDchat = () => {
     },[room]);
 
     useEffect(() => {
-
-        socket.on('messaged',(message) => {
-            setMessages([...messages,message])
+        socket.on('message',(chatObj) => {
+            console.log(chatObj) //add to redux state
         })
-
-    })
+    },[])
 
     const sendMessage = (event) => {
         event.preventDefault();
 
         if(message) {
-            socket.emit('sendMessage', message, () => {setMessage('')});
+            const chatObj = {text: message,to: otherUser,toName: otherUserName,from: currentUserID,fromName: currentUserName,uid: uid}
+            socket.emit('sendMessage', chatObj, () => {setMessage('')});
         }
     }
 
@@ -72,7 +80,7 @@ const UDchat = () => {
         <UDnav username={`Nochiphe`} />
         <div id="UDchat">
             <ChatHeader svgdice2={svgdice2}/>
-            <ChatMain svgdice2={svgdice2} svgdicenociphe2={svgdicenociphe2} messages={messages} currentUserID={currentUserID}/>
+            <ChatMain svgdice2={svgdice2} svgdicenociphe2={svgdicenociphe2} socket={socket} currentUserID={currentUserID}/>
             <ChatFooter message={message} setMessage={setMessage} sendMessage={sendMessage}/>
         </div>
         <UDfoot/>
