@@ -14,12 +14,10 @@ export const registerUser = async (req, res) => {
 
         if (password != passwordConfirm) return res.status(400).json({ message: "Passwords do not match" })
 
-        // TODO: add validation
-        //add validation after this [joi]
-        // const error = registerValidation(req.body);
-
-
-        // TODO: add email confirmation 
+		// TODO: add validation
+		//add validation after this [joi]
+		// const error = registerValidation(req.body);
+		// TODO: add email confirmation 
 
         const hashedPassword = await bcrypt.hash(password, 12);
 

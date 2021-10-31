@@ -9,11 +9,20 @@ import cookieParser from 'cookie-parser';
 import socketHandler from "./io/index.js";
 import http from "http"
 import { Server } from 'socket.io';
+import mongoose from 'mongoose';
+
+import userRoute from './routes/user.js';
+import chatRoute from './routes/chat.js'
 
 const CONNECTION_URL = "mongodb+srv://root:gqLWw1AzUDMjv2RU@cluster0.kh5y6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 
 const PORT = process.env.PORT || 5000
+
+const CONNECTION_URL = "mongodb+srv://root:gqLWw1AzUDMjv2RU@cluster0.kh5y6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
+
+dotenv.config();
 
 const app = express();
 
@@ -38,7 +47,6 @@ const io = new Server(server,{cors: {
 socketHandler(io);
 
 
-// app.use(router);
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => server.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))

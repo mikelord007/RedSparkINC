@@ -5,12 +5,13 @@ import io from 'socket.io-client';
 import { useDispatch } from 'react-redux';
 import { fetchChat,fetchContacts } from "../../actions/chat";
 
+
 import UDfoot from '../../components/UDfoot/UDfoot'
 import UDnav from '../../components/UDnav/UDnav'
 import ChatFooter from "./components/ChatFooter/ChatFooter";
 import ChatHeader from "./components/ChatHeader/ChatHeader";
 import ChatMain from "./components/ChatMain/ChatMain";
-import ChatSideMenu from "./components/ChatSideMenu"
+import ChatSideMenu from "./components/ChatSideMenu/ChatSideMenu";
 
 import './style.css'
 
@@ -26,6 +27,10 @@ const UDchat = (otherUser,otherUserName) => {
 
     const dispatch = useDispatch()
     dispatch(fetchContacts(currentUserID));
+
+    // const [messages, setMessages] = useState([]);
+    const sideMenuState = useState(false);
+    
     
     
     otherUser = 331
@@ -80,9 +85,11 @@ const UDchat = (otherUser,otherUserName) => {
         <>
         <UDnav username={`Nochiphe`} />
         <div id="UDchat">
-            <ChatHeader svgdice2={svgdice2}/>
-            <ChatMain svgdice2={svgdice2} svgdicenociphe2={svgdicenociphe2} socket={socket} currentUserID={currentUserID}/>
-            <ChatFooter message={message} setMessage={setMessage} sendMessage={sendMessage}/>
+
+            <ChatHeader sideMenuState={sideMenuState} svgdice2={svgdice2}/>
+            <ChatMain sideMenuState={sideMenuState} svgdice2={svgdice2} svgdicenociphe2={svgdicenociphe2} currentUserID={currentUserID}/>
+            <ChatFooter sideMenuState={sideMenuState} message={message} setMessage={setMessage} sendMessage={sendMessage}/>
+            <ChatSideMenu currentUserID = {currentUserID} sideMenuState={sideMenuState} svgdice2={svgdice2}/>
         </div>
         <UDfoot/>
         </>

@@ -1,18 +1,27 @@
-import React from 'react';
+import React,{useRef,useEffect} from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
 //eslint-disable-next-line
 import {useSelector} from 'react-redux'
 
-const ChatMain = ({svgdice2, svgdicenociphe2, currentUserID, socket}) =>{
+const ChatMain = ({svgdice2, svgdicenociphe2, currentUserID, socket, sideMenuState}) =>{
 
     const messages = useSelector((state) => {console.log(state); return state.chatReducer})
+
+
+    const mainMenu = useRef()
     
-    //eslint-disable-next-line
-    
+    useEffect(() => {
+        if(sideMenuState[0]){
+            mainMenu.current.style.filter="blur(1px)"
+        }
+        else{
+            mainMenu.current.style.filter="blur(0)"
+        }
+    })
 
     if(messages)
     return (
-        <div id="chat-main">
+        <div ref={mainMenu} onClick={()=>sideMenuState[0]?sideMenuState[1](false):null} id="chat-main">
              <ScrollToBottom>
             {   
                 messages.map((message,index) => 
@@ -31,6 +40,7 @@ const ChatMain = ({svgdice2, svgdicenociphe2, currentUserID, socket}) =>{
             </ScrollToBottom>
             </div>
     )
+   
 }
 
 
