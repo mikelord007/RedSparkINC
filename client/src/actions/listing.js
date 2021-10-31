@@ -5,7 +5,6 @@ export const createListing = (formData,router) => async (dispatch) => {
         localStorage.getItem('token')
         const {data} = await api.createListing(formData);
         // dispatch({type: 'CREATE', data});
-        router.push('/');
     }catch(error){
     console.log(error)
     return error;
