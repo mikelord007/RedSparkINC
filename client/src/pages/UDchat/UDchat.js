@@ -10,6 +10,7 @@ import UDnav from '../../components/UDnav/UDnav'
 import ChatFooter from "./components/ChatFooter/ChatFooter";
 import ChatHeader from "./components/ChatHeader/ChatHeader";
 import ChatMain from "./components/ChatMain/ChatMain";
+import ChatSideMenu from "./components/ChatSideMenu"
 
 import './style.css'
 
