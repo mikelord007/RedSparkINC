@@ -16,11 +16,11 @@ const socketHandler = (io) => {
         })
     
     
-        socket.on('sendMessage', (message,callback) => {
+        socket.on('sendMessage', (chatObj,callback) => {
             const user = getUser(socket.id);
-            console.log("user is: ",user," message is: ", message)
-            io.to(user.room).emit('messaged',{user: user.name, text: message})
-            console.log("emitted message to all users in room: ",user.room)
+            console.log("user is: ",user," message is: ", chatObj.text)
+            io.to(user.room).emit('message',chatObj)
+            // console.log("emitted message to all users in room: ",user.room)
             callback();
         })
     

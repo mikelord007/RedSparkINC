@@ -25,7 +25,7 @@ app.use(cors())
 // route middlewares
 app.use('/api/user',userRoute);
 // app.use('/api',authenticateToken,listingRoute)
-app.use('/api/chat',listingRoute)
+// app.use('/api/chat',listingRoute)
 app.use('/api/chat',chatRoute)
 
 const server = http.createServer(app);
