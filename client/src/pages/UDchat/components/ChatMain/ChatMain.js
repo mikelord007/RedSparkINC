@@ -7,7 +7,7 @@ const ChatMain = ({svgdice2, svgdicenociphe2, currentUserID, socket, sideMenuSta
 
     const messages = useSelector((state) => {console.log(state); return state.chatReducer})
 
-
+    
     const mainMenu = useRef()
     
     useEffect(() => {

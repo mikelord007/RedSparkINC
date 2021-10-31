@@ -2,8 +2,8 @@ import React,{useState,useEffect} from "react";
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/avatars-bottts-sprites';
 import io from 'socket.io-client';
-import { useDispatch } from 'react-redux';
-import { fetchChat,fetchContacts } from "../../actions/chat";
+import { useDispatch,useSelector } from 'react-redux';
+import { fetchChat,fetchContacts,addNewMessages } from "../../actions/chat";
 
 
 import UDfoot from '../../components/UDfoot/UDfoot'
@@ -19,53 +19,53 @@ let socket;
 const currentUserID = JSON.parse(localStorage.getItem('profile')).result._id
 const currentUserName = "peter"
 
-const UDchat = (otherUser,otherUserName) => {
+const UDchat = (otherUserName) => {
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
     
+    const dispatch = useDispatch()
     const ENDPOINT = 'http://localhost:5000'
 
-    const dispatch = useDispatch()
-    dispatch(fetchContacts(currentUserID));
-
-    // const [messages, setMessages] = useState([]);
+    
+    useEffect(() => {
+        dispatch(fetchContacts(currentUserID));
+    },[dispatch])
+    
+    const otherUser = useSelector((state) => state.Recipient)
     const sideMenuState = useState(false);
     
-    
-    
-    otherUser = 331
     otherUserName = "mike"
     const uid = otherUser<currentUserID?otherUser+currentUserID:currentUserID+otherUser
+    console.log("uid is", uid)
 
     useEffect(() => {
         dispatch(fetchChat(uid))
-    },[dispatch,uid])
+    },[dispatch,uid]) //maybe take this to root component
 
     useEffect(() => {
-        const generateRoom = "talk"
-        setRoom(generateRoom);
+        
+        setRoom(uid);
         socket = io(ENDPOINT);
-        socket.emit('join',{name: currentUserID,room},(error) => {
-            if(error) window.alert(error)
-        })
+        socket.emit('join',room)
 
         return () => {
             socket.off();
         }
-    },[room]);
+    },[room,uid]);
 
     useEffect(() => {
         socket.on('message',(chatObj) => {
-            console.log(chatObj) //add to redux state
+            console.log(chatObj)
+            dispatch(addNewMessages(chatObj))
         })
-    },[])
+    },[dispatch])
 
     const sendMessage = (event) => {
         event.preventDefault();
 
         if(message) {
             const chatObj = {text: message,to: otherUser,toName: otherUserName,from: currentUserID,fromName: currentUserName,uid: uid}
-            socket.emit('sendMessage', chatObj, () => {setMessage('')});
+            socket.emit('sendMessage', chatObj, (chatObj) => {setMessage(''); dispatch(addNewMessages(chatObj)) });
         }
     }
 
@@ -85,7 +85,6 @@ const UDchat = (otherUser,otherUserName) => {
         <>
         <UDnav username={`Nochiphe`} />
         <div id="UDchat">
-
             <ChatHeader sideMenuState={sideMenuState} svgdice2={svgdice2}/>
             <ChatMain sideMenuState={sideMenuState} svgdice2={svgdice2} svgdicenociphe2={svgdicenociphe2} currentUserID={currentUserID}/>
             <ChatFooter sideMenuState={sideMenuState} message={message} setMessage={setMessage} sendMessage={sendMessage}/>

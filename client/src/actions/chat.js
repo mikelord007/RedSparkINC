@@ -12,11 +12,16 @@ export const fetchContacts = (UserID) => async (dispatch) => {
 };
 
 
+export const updateRecipient = (userID) => async ( dispatch) => {
+    dispatch({type: 'UPDATERECIPIENT', userID})
+}
+
 export const fetchChat = (uid) => async (dispatch) => {
     try{
         const {data} = await api.getChat(uid);
-
+        // console.log("this is that", data)
         dispatch({type: 'CHATMSG', data})
+
     } catch (error) {
         console.log(error);
     }

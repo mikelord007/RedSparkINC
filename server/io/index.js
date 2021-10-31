@@ -1,36 +1,25 @@
-import { addUser, removeUser, getUser, getUsersInRoom} from './IOhelperFns.js'
+import chatModel from '../models/Chat.js';
 
 const socketHandler = (io) => {
     
     const handleEvents = (socket) => {
-        socket.on('join', ({name,room}, callback) => {
+        socket.on('join', (room) => {
             console.log("user has joined :)")
-            const {error, user} = addUser({id: socket.id, name, room});
-    
-            if(error) return callback(error);
-    
-            socket.join(user.room)
-    
-            callback();
-            
+            socket.join(room)
         })
     
     
         socket.on('sendMessage', (chatObj,callback) => {
-            const user = getUser(socket.id);
-            console.log("user is: ",user," message is: ", chatObj.text)
-            io.to(user.room).emit('message',chatObj)
-            // console.log("emitted message to all users in room: ",user.room)
-            callback();
+            console.log("user is: ",chatObj.fromName," message is: ", chatObj.text)
+            chatObj.msgtime = new Date()
+            const newUpload = new chatModel(chatObj)
+            newUpload.save();
+            io.to(newUpload.uid).emit('message',newUpload)
+            callback(newUpload);
         })
     
         socket.on('disconnect', () => {
             console.log("user has left!!");
-            const user = removeUser(socket.id)
-    
-            if(user) {
-                io.to(user.room).emit('message',{user: 'admin', text: `${user.name} has left!`})
-            }
         })
     }
 

@@ -1,7 +1,9 @@
 export const chatReducer = (state = [], action) => {
     switch (action.type) {
-        case 'CHATMSG':
-            return [ action.data];
+        case 'CHATMSG':{
+            console.log("herenow", action.data)
+            return action.data;
+        }
         case 'UPDATEMSG':
             return [ ...state, action.chatObj]
         default:
@@ -17,3 +19,12 @@ export const contactsReducer = ( state = [], action) => {
             return state;
     }
 }
+
+export const Recipient = (state = {}, action) => {
+    switch (action.type) {
+        case 'UPDATERECIPIENT':
+            return action.userID
+        default :
+            return state
+    }
+} 
