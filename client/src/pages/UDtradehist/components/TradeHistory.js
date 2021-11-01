@@ -8,7 +8,6 @@ const TradeHistory = () => {
     const trades = useSelector(state => state.trades)
     useEffect(()=>{
     },[trades]);
-    console.log(trades)
     return(
         <div id="UDtradehist">
                     <div id="tradehead">Trade History</div>

@@ -13,7 +13,6 @@ export const createTrade = (formData, router) => async (dispatch) => {
 export const getTradeHist = () => async (dispatch) => {
     try {
         const { data } = await api.getTradeHist();
-        console.log(data)
         dispatch({ type: 'GET_TRADE_HIST', payload: data });
         return data;
     }
