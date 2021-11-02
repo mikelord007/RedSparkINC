@@ -7,6 +7,7 @@ export const createListing = async (req, res) => {
     const { currency, rate, amount, burner, minP, maxP, active, created } = req.body;
 
     try {
+        
         console.log(req.user.id);
         console.log(req.body);
 
