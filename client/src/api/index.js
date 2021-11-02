@@ -18,3 +18,6 @@ export const getListings = () => API.get('/get-listings',{ headers: { Authorizat
 //trade
 export const createTrade = (formData) => API.post("/create-trade",formData,{ headers: { Authorization: localStorage.getItem('token') } });
 export const getTradeHist = () => API.get("/trade-history",{ headers: { Authorization: localStorage.getItem('token') } });
+
+//creation
+export const getUserListings = (userID) => API.get(`/user-listing/${userID}`);

@@ -1,14 +1,17 @@
-import React, {useState} from 'react'
-import { Icon } from '@iconify/react';
+import React, {useState,useEffect} from 'react'
+
 import { TextField } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { createListing,getUserListings } from '../../actions/listing';
 
 import UDfoot from '../../components/UDfoot/UDfoot'
 import UDnav from '../../components/UDnav/UDnav'
+import ActiveList from './components/ActiveList'
 import GreenBtn from '../../components/GreenBtn/GreenBtn';
+
 import './style.css'
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { createListing } from '../../actions/listing';
+
 
 const listState = { currency: '', amount: '', rate: '', burner: '', minP: '', maxP: '' }
 const UDcreatenew = () => {
@@ -21,31 +24,21 @@ const UDcreatenew = () => {
         dispatch(createListing(listing,history));
     }
 
+    useEffect(() => {
+
+        dispatch(getUserListings(JSON.parse(localStorage.getItem('profile')).result._id))
+    },[dispatch])
+
+
     const handleChange = (e) => {
         setlisting({...listing, [e.target.name]:e.target.value})
     }
-
+    
     return (
         <>
             <UDnav username="Nociphe" />
             <div id="UDcreatenew">
-                <div id="active-list">
-                    <header><h2>Active Listings</h2></header>
-                    <div id="listing-box">
-                        <div className="CN-listing">
-                            <div className="CN-sn">1.</div>
-                            <div className="CN-amount">4.26 upx</div>
-                            <div className="CN-days">2-4 days</div>
-                            <div className="CN-more"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                        </div>
-                        <div className="CN-listing">
-                            <div className="CN-sn">2.</div>
-                            <div className="CN-amount">5.2 upx</div>
-                            <div className="CN-days">0-5 days</div>
-                            <div className="CN-more"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                        </div>
-                    </div>
-                </div>
+                <ActiveList/>
                 <div id="create-new">
                     <header><h2>CREATE NEW</h2></header>
                     <div id="creation-section">
@@ -59,7 +52,6 @@ const UDcreatenew = () => {
                             <GreenBtn id="CN-submit" content={"create"} type="submit" />
                         </form>
                     </div>
-                  
                 </div>
             </div>
             <UDfoot />

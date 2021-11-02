@@ -1,7 +1,8 @@
 import { authReducer } from "./auth";
-import { listingReducer } from "./listings";
-
+import { listingReducer,UserListingReducer } from "./listings";
+import {chatReducer} from './chat';
 import { combineReducers } from 'redux';
 import { tradesReducer } from "./trade";
 
-export const reducers = combineReducers({ auth: authReducer, listings: listingReducer, trades:tradesReducer });
+
+export const reducers = combineReducers({ auth: authReducer, listings: listingReducer, trades:tradesReducer, chatReducer, UserListings: UserListingReducer});
