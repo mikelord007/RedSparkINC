@@ -36,7 +36,7 @@ export const registerUser = async (req, res) => {
 
 		const savedUser = await user.save();
 		//console.log(savedUser)
-		const token = jwt.sign({ email: savedUser.email, id: savedUser._id }, process.env.SECRET, { expiresIn: "1h" });
+		const token = jwt.sign({ email: savedUser.email, id: savedUser._id }, process.env.SECRET, { expiresIn: "20h" });
 		res.cookie('token', token, { httpOnly: true });
 		return res.status(201).json({ savedUser })
 
@@ -61,7 +61,8 @@ export const loginUser = async (req, res) => {
 
 		if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
 
-		const token = jwt.sign({ email: user.email, id: user._id }, process.env.SECRET, { expiresIn: "1h" });
+		// const token = jwt.sign({ email: user.email, id: user._id }, process.env.SECRET, { expiresIn: "1h" });
+		const token = jwt.sign({ email: user.email, id: user._id }, process.env.SECRET);
 		// console.log('setting cookies')
 		// res.cookie('token', token, { httpOnly: true });
 		res.status(200).json({ result: user ,token});

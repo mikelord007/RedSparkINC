@@ -1,11 +1,10 @@
-export const listingReducer = (listings = [], action) => {
+export const tradesReducer = (trades = [], action) => {
     switch (action.type){
-        case 'FETCH_ALL':
-            // console.log(action.payload)
+        case 'GET_TRADE_HIST':
             return action.payload;
         // case 'CREATE':
         //     return [...listings, action.payload];
         default: 
-            return listings;
+            return trades;
     }
 }

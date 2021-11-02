@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { createListing } from '../../actions/listing';
 
-const listState = { currency: '', amount: '', rate: '', burner: '', min: '', max: '' }
+const listState = { currency: '', amount: '', rate: '', burner: '', minP: '', maxP: '' }
 const UDcreatenew = () => {
     const [listing, setlisting] = useState(listState);
     const dispatch = useDispatch();
@@ -54,8 +54,8 @@ const UDcreatenew = () => {
                             <TextField className="CN-input" id="Amount" label="Amount" type="text" variant="outlined" name="amount" onChange={handleChange} />
                             <TextField className="CN-input" id="Rate" label="Rate ( Per day Per spark )" type="text" variant="outlined" name="rate" onChange={handleChange} />
                             <TextField className="CN-input" id="Burner" label="Burner" type="text" variant="outlined" name="burner" onChange={handleChange} />
-                            <TextField className="CN-input" id="Min" label="Min Period" type="text" variant="outlined" name="min" onChange={handleChange} />
-                            <TextField className="CN-input" id="Max" label="Max Period" type="text" variant="outlined" name="max" onChange={handleChange} />
+                            <TextField className="CN-input" id="Min" label="Min Period" type="text" variant="outlined" name="minP" onChange={handleChange} />
+                            <TextField className="CN-input" id="Max" label="Max Period" type="text" variant="outlined" name="maxP" onChange={handleChange} />
                             <GreenBtn id="CN-submit" content={"create"} type="submit" />
                         </form>
                     </div>

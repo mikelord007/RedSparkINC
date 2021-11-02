@@ -6,6 +6,13 @@
     justify-content: space-around;
     align-items: center;
     border-radius: 13px 13px 0px 0px;
+    /* i changed from here */
+    position:fixed; 
+	bottom:0;
+	left:0;
+	right:0;
+	z-index:1000;
+	
 }
 
 #ud-footer .greenbtn{
