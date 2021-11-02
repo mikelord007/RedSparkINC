@@ -27,3 +27,9 @@ padding: 1%;
    font-family: Montserrat;
 }
 
+/* showcase */
+.toggle-login{
+   display: block;
+   text-align: center;
+   margin-top: 2rem;
+}

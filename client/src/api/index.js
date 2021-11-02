@@ -1,13 +1,7 @@
 import axios from 'axios';
 const API = axios.create({ baseURL: 'http://localhost:5000/api'});
 
-// TODO: add localstorage fetch
-// API.interceptors.request.use((req) => {
-//     if (localStorage.getItem('profile'))
-// })
 
-
-// authentication
 export const login = (formData) => API.post('/user/login',formData);
 export const signup = (formData) => API.post('/user/signup',formData);
 
@@ -21,3 +15,7 @@ export const getTradeHist = () => API.get("/trade-history",{ headers: { Authoriz
 
 //creation
 export const getUserListings = (userID) => API.get(`/user-listing/${userID}`);
+
+//chat
+export const getChat = (uid) => API.get(`chat/getChat/${uid}`)
+export const fetchContacts = (UserID) => API.get(`chat/getContacts/${UserID}`)

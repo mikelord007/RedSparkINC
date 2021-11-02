@@ -1,8 +1,9 @@
 import express from 'express';
 const router = express.Router()
 
-import {getContacts} from '../controllers/chat.js';
+import {getContacts,getChat} from '../controllers/chat.js';
 
-router.get("/contacts/:id",(getContacts));
+router.get("/getContacts/:id",(getContacts));
+router.get("/getChat/:uid",getChat)
 
 export default router;

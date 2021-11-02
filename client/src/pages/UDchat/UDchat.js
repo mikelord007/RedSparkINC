@@ -1,10 +1,18 @@
-import React from "react";
-import { Icon } from "@iconify/react";
+import React,{useState,useEffect} from "react";
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/avatars-bottts-sprites';
+import io from 'socket.io-client';
+import { useDispatch,useSelector } from 'react-redux';
+import { fetchChat,fetchContacts,addNewMessages } from "../../actions/chat";
+
 
 import UDfoot from '../../components/UDfoot/UDfoot'
 import UDnav from '../../components/UDnav/UDnav'
+import ChatFooter from "./components/ChatFooter/ChatFooter";
+import ChatHeader from "./components/ChatHeader/ChatHeader";
+import ChatMain from "./components/ChatMain/ChatMain";
+import ChatSideMenu from "./components/ChatSideMenu/ChatSideMenu";
+
 import './style.css'
 
 let socket;

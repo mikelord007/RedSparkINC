@@ -3,7 +3,7 @@ import React from 'react';
 import logoBig from './assets/logoBig.png';
 import red_curve from './assets/red_curve.svg';
 import mascot from './assets/mascot.svg';
-import downArrow from './assets/downArrow.svg'
+import downArrow from './assets/downArrow.svg';
 import './WelcomePageStyle.css';
 
 import Listing from './components/Listing';

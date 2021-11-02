@@ -1,9 +1,10 @@
 #UDchat {
-    height: 87%;
+    height: 83%;
     background-color: #FFFED4;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 }
 
 #chat-header {
@@ -23,6 +24,12 @@
     text-align: center;
 }
 
+#chat-namelist button {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
 #chat-morebutton {
     flex-basis: 20%;
     margin: auto 0;
@@ -36,7 +43,7 @@
 }
 
 #chat-img{
-    width: 18%;
+    width: 2rem;
     text-align: center;
     margin: 4px auto;
     border: 1px solid #F7F123;
@@ -74,7 +81,7 @@
 }
 
 #chat-send-wrap {
-    width: 50%;
+    width: 2rem;
     margin: auto auto;
     aspect-ratio: 1;
     position: relative;
@@ -97,7 +104,7 @@
 }
 
 #chat-emoji-wrap {
-    width: 50%;
+    width: 2rem;
     margin: auto auto;
     aspect-ratio: 1;
     position: relative;
@@ -160,9 +167,9 @@
 .main-text {
     max-width: 70%;
     background: #F1EF95;
-    padding: 0.6rem 0.3rem;
-    padding-left: 0.8rem;
+    padding: 0.6rem 0.8rem;
     border-radius: 13px;
+    word-break: break-all;
 }
 
 .home-text, .other-text{
@@ -202,4 +209,74 @@
 
 .other-text img, .home-text img{
     align-self: flex-start;
+}
+
+#side-menu {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 31%;
+    background: #F3F3F3;
+    border-radius: 0 30px 30px 0;
+    transition: ease 1s;
+    overflow: scroll;
+    transform: translateX(-100%);
+    border: 1px solid #c7c7c7;
+}
+
+.person-item {
+    height: 13%;
+    display: flex;
+    border-bottom: 2px solid #c3c3c3;
+}
+
+.chat-info-wrapper {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-icon {
+    width: 20%;
+    position: relative;
+}
+
+.chat-info {
+    height: 50%;
+    display: flex;
+    position: relative;
+}
+
+.chat-time {
+    position: absolute;
+    right: 10%;
+    top: 15%;
+}
+
+.user-name {
+    position: absolute;
+    top: 15%;
+}
+
+.user-text {
+    height: 50%;
+    position: relative;
+}
+
+.user-text span {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.profile-icon img {
+    width: 2rem;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px #F7F123 solid;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
