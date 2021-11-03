@@ -22,11 +22,13 @@ const UDcreatenew = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(createListing(listing,history));
+        e.target.reset();
     }
 
     useEffect(() => {
 
         dispatch(getUserListings(JSON.parse(localStorage.getItem('profile')).result._id))
+        console.log("now")
     },[dispatch])
 
 

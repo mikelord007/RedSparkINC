@@ -5,13 +5,9 @@ import { Icon } from '@iconify/react';
 const ActiveList = () => {
 
     const data = useSelector((state) => {return state.UserListings});
-    console.log("data", data)
+    
 
-<<<<<<< HEAD
     if(data.length !== 0)
-=======
-    if(data)
->>>>>>> creation
     return (
         <div id="active-list">
                     <header><h2>Active Listings</h2></header>
@@ -28,7 +24,6 @@ const ActiveList = () => {
                     </div>
         </div>
     )
-<<<<<<< HEAD
     else 
         return (
             <div id="active-list">
@@ -36,8 +31,6 @@ const ActiveList = () => {
                     <div id="empty-message">You don't have any active listings right now.</div>
         </div>
         )
-=======
->>>>>>> creation
 }
 
 export default ActiveList;

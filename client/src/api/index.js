@@ -14,8 +14,8 @@ export const createTrade = (formData) => API.post("/create-trade",formData,{ hea
 export const getTradeHist = () => API.get("/trade-history",{ headers: { Authorization: localStorage.getItem('token') } });
 
 //creation
-export const getUserListings = (userID) => API.get(`/user-listing/${userID}`);
+export const getUserListings = (userID) => API.get(`/user-listing/${userID}`,{ headers: { Authorization: localStorage.getItem('token') } });
 
 //chat
-export const getChat = (uid) => API.get(`chat/getChat/${uid}`)
-export const fetchContacts = (UserID) => API.get(`chat/getContacts/${UserID}`)
+export const getChat = (uid) => API.get(`chat/getChat/${uid}`,{ headers: { Authorization: localStorage.getItem('token') } })
+export const fetchContacts = (UserID) => API.get(`chat/getContacts/${UserID}`,{ headers: { Authorization: localStorage.getItem('token') } })

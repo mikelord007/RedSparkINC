@@ -5,7 +5,7 @@ export const createListing = (formData,router) => async (dispatch) => {
         localStorage.getItem('token')
         //eslint-disable-next-line
         const {data} = await api.createListing(formData);
-        // dispatch({type: 'CREATE', data});
+        dispatch({type: 'CREATED-LISTING', data});
     }catch(error){
     console.log(error)
     return error;
@@ -17,6 +17,7 @@ export const getListings = () => async (dispatch) => {
         const {data} = await api.getListings();
         dispatch({type: 'FETCH_ALL', payload:data});
         return data;
+        
     }catch(error){
         console.log(error)
     return error;
