@@ -6,7 +6,6 @@ const secret = "test";
 
 export const createListing = async (req, res) => {
     const { currency, rate, amount, burner, minP, maxP } = req.body;
-    console.log(req.user)
     try {
         const createdDate = new Date().toString();
         const user = await User.findById(req.user.id)

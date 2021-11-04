@@ -11,6 +11,10 @@ const API = axios.create({ baseURL: 'http://localhost:5000/api'});
 export const login = (formData) => API.post('/user/login',formData);
 export const signup = (formData) => API.post('/user/signup',formData);
 
+//otp 
+export const getOTP = (formData) => API.post('/otp/get',formData);
+export const verifyOTP = (formData) => API.post('/otp/verify',formData);
+
 //listing 
 export const createListing = (formData) => API.post('/create-listing', formData, { headers: { Authorization: localStorage.getItem('token') } })
 export const getListings = () => API.get('/get-listings',{ headers: { Authorization: localStorage.getItem('token') } })

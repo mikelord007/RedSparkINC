@@ -29,7 +29,6 @@ export const createTrade = async (req, res) => {
 
 export const getTradeHist = async (req,res) => {
     try {
-        console.log(req.user)
         const tradeHist = await Trade.find({$or:[{seller:req.user.id},{buyer:req.user.id}]}).limit(10);
         return res.status(200).json(tradeHist);
     } catch (error) {

@@ -8,6 +8,7 @@ const AddMinutesToDate = (date, minutes) => {
 
 export const generateOTP = async (req,res,next) => {
     const {email} = req.body;
+    if(!email) return res.status(400).send('no email')
     //Generate OTP 
     const otp = otpGenerator.generate(6, { alphabets: false, upperCase: false, specialChars: false });
     const now = new Date();
@@ -35,6 +36,7 @@ export const generateOTP = async (req,res,next) => {
     const encoded = AES.encrypt(details_string, process.env.SECRET);
     res.locals.otp = otp;
     res.locals.encoded = encoded;
+    console.log(otp)
     next();
     
 }

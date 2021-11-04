@@ -1,13 +1,61 @@
 import CryptoJS from "crypto-js";
 import OTP from "../models/OTP.js";
 
+var dates = {
+  convert:function(d) {
+      // Converts the date in d to a date-object. The input can be:
+      //   a date object: returned without modification
+      //  an array      : Interpreted as [year,month,day]. NOTE: month is 0-11.
+      //   a number     : Interpreted as number of milliseconds
+      //                  since 1 Jan 1970 (a timestamp) 
+      //   a string     : Any format supported by the javascript engine, like
+      //                  "YYYY/MM/DD", "MM/DD/YYYY", "Jan 31 2009" etc.
+      //  an object     : Interpreted as an object with year, month and date
+      //                  attributes.  **NOTE** month is 0-11.
+      return (
+          d.constructor === Date ? d :
+          d.constructor === Array ? new Date(d[0],d[1],d[2]) :
+          d.constructor === Number ? new Date(d) :
+          d.constructor === String ? new Date(d) :
+          typeof d === "object" ? new Date(d.year,d.month,d.date) :
+          NaN
+      );
+  },
+  compare:function(a,b) {
+      // Compare two dates (could be of any type supported by the convert
+      // function above) and returns:
+      //  -1 : if a < b
+      //   0 : if a = b
+      //   1 : if a > b
+      // NaN : if a or b is an illegal date
+      return (
+          isFinite(a=this.convert(a).valueOf()) &&
+          isFinite(b=this.convert(b).valueOf()) ?
+          (a>b)-(a<b) :
+          NaN
+      );
+  },
+  inRange:function(d,start,end) {
+      // Checks if date in d is between dates in start and end.
+      // Returns a boolean or NaN:
+      //    true  : if d is between start and end (inclusive)
+      //    false : if d is before start or after end
+      //    NaN   : if one or more of the dates is illegal.
+     return (
+          isFinite(d=this.convert(d).valueOf()) &&
+          isFinite(start=this.convert(start).valueOf()) &&
+          isFinite(end=this.convert(end).valueOf()) ?
+          start <= d && d <= end :
+          NaN
+      );
+  }
+}
+
 export const verifyOTP = async (req, res) => {
- 
   try {
  
     var currentdate = new Date();
     const { verification_key, otp, check } = req.body;
-   console.log("hello")
     if (!verification_key) {
       const response = { "Status": "Failure", "Details": "Verification Key not provided" }
       return res.status(400).send(response)
@@ -22,13 +70,12 @@ export const verifyOTP = async (req, res) => {
     }
 
     let decoded;
-
     //Check if verification key is altered or not and store it in variable decoded after decryption
     try {
       decoded = CryptoJS.AES.decrypt(verification_key,process.env.SECRET);
     }
     catch (err) {
-      const response = { "Status": "Failure", "Details": "Bad Request" }
+      const response = { "Status": "Failure", "Details": "fucking  Request" }
       return res.status(400).send(response);
     }
     var obj = JSON.parse(decoded.toString(CryptoJS.enc.Utf8))
@@ -47,7 +94,7 @@ export const verifyOTP = async (req, res) => {
       if (otp_instance.verified != true) {
 
         //Check if OTP is expired or not
-        if (otp_instance.expiration_time < currentdate) {
+        if (dates.compare(otp_instance.expiration_time,currentdate) == 1) {
 
           //Check if OTP is equal to the OTP in the DB
           if (otp === otp_instance.otp) {
@@ -75,7 +122,7 @@ export const verifyOTP = async (req, res) => {
       }
     }
     else {
-      const response = { "Status": "Failure", "Details": "Bad Request" }
+      const response = { "Status": "Failure", "Details": "Fucking hell" }
       return res.status(400).send(response)
     }
   } catch (err) {

@@ -3,12 +3,12 @@ import React from "react";
 
 import "./style.css"
 
-const GreenBtn = ({className, content, id,to}) => {
+const GreenBtn = ({className, content, id,to,onClick}) => {
 
     className += ' greenbtn';
 
     return(
-        <button id={id} key={to} className={className}>{content}</button>
+        <button id={id} key={to} className={className} onClick={onClick}>{content}</button>
         )
 }
 
