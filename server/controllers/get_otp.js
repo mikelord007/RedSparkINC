@@ -6,6 +6,6 @@ export const sendOTP = async (req, res) => {
     // send otp to email
 
     // return verif key to react
-    return res.status(200).json({verification_key:res.locals.encoded.toString(),otp:res.locals.otp});
+    return res.status(200).json({verification_key:res.locals.encoded.toString()});
 
 }
