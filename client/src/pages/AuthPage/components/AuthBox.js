@@ -53,7 +53,7 @@ const AuthBox = ({ signupState }) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	}
 	const handleOtp = (otp) => {
-		setOtp(otp)
+		setOtp(otp);
 	}
 	return (
 
