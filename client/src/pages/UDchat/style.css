@@ -145,6 +145,7 @@
     overflow: auto;
     font-family: roboto, sans-serif;
     padding: 0 0.6rem;
+    position: relative;
 }
 
 #chat-main img {
@@ -279,4 +280,48 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+
+#close-trade {
+    position: sticky;
+    border-radius: 50%;
+    border: 2px solid darkolivegreen;
+    display: flex;
+    width: 32px;
+    margin-left: auto;
+    bottom: 20px;
+    top: 20px;
+}
+
+#close-section > button{
+    margin: 0.7rem 0;
+}
+
+#close-section {
+    position: fixed;
+    background-color: #dfdfdf;
+    width: 90%;
+    height: 77%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 13px;
+    border: 3px solid #efff47;
+}
+
+#close-section > h1{
+    margin: 0;
+    font-family: prominder;
+    font-size: 25px;
+}
+
+#close-section svg.iconify.iconify--carbon{
+    position: absolute;
+    top: 7px;
+    right: 10px;
 }

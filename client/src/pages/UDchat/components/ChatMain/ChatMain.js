@@ -1,11 +1,11 @@
 import React,{useRef,useEffect} from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
-//eslint-disable-next-line
+import { Icon } from "@iconify/react";
 import {useSelector} from 'react-redux'
 
-const ChatMain = ({otherUserPic, currentUserPic, currentUserID, socket, sideMenuState}) =>{
+const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, setEdit}) =>{
 
-    const messages = useSelector((state) => {console.log(state); return state.chatReducer})
+    const messages = useSelector((state) => state.chatReducer)
 
     
     const mainMenu = useRef()
@@ -38,7 +38,10 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, socket, sideMenu
                 )
             }
             </ScrollToBottom>
+            <div id = "close-trade">
+                <Icon icon="teenyicons:tick-circle-solid" onClick={() => {console.log("hello"); setEdit(true)}} color="#52bd00" height="32" />
             </div>
+        </div>
     )
    
 }

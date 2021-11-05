@@ -3,7 +3,6 @@ import * as api from '../api/index.js';
 export const fetchContacts = (UserID) => async (dispatch) => {
     try {
         const {data} = await api.fetchContacts(UserID);
-        console.log("fetch contacts", data)
         dispatch({ type: 'CONTACTS', data });
 
     } catch (error) {
@@ -14,6 +13,14 @@ export const fetchContacts = (UserID) => async (dispatch) => {
 
 export const updateRecipient = (userID) => async ( dispatch) => {
     dispatch({type: 'UPDATERECIPIENT', userID})
+    
+}
+
+export const currentListing = (userID) => async ( dispatch, getState) => {
+    const recipient = getState().Recipient;
+    const contacts = getState().contactsReducer
+    dispatch({type: 'CURRENT_LISTING_REF',userID,recipient,contacts})
+
 }
 
 export const fetchChat = (uid) => async (dispatch) => {

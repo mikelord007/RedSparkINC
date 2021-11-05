@@ -1,7 +1,6 @@
 export const chatReducer = (state = [], action) => {
     switch (action.type) {
         case 'CHATMSG':{
-            console.log("herenow", action.data)
             return action.data;
         }
         case 'UPDATEMSG':
@@ -15,6 +14,8 @@ export const contactsReducer = ( state = [], action) => {
     switch(action.type) {
         case 'CONTACTS':
             return action.data.contacts;
+        case 'NEW-CONTACT':
+            return state;
         default:
             return state;
     }
@@ -27,4 +28,14 @@ export const Recipient = (state = {}, action) => {
         default :
             return state
     }
-} 
+}
+
+export const listingRef = (state = {}, action) => {
+    switch(action.type) {
+        case 'CURRENT_LISTING_REF':
+            const lRef = action.contacts.find((elem) => elem.id === action.recipient)
+            return lRef.id
+        default:
+            return state
+    }
+}

@@ -12,6 +12,7 @@ import ChatFooter from "./components/ChatFooter/ChatFooter";
 import ChatHeader from "./components/ChatHeader/ChatHeader";
 import ChatMain from "./components/ChatMain/ChatMain";
 import ChatSideMenu from "./components/ChatSideMenu/ChatSideMenu";
+import Creation from "../../components/Creation/Creation"
 
 import './style.css'
 
@@ -22,6 +23,7 @@ const currentUserName = "peter"
 const UDchat = (otherUserName) => {
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
+    const [edit, setEdit] = useState(false);
     
     const dispatch = useDispatch()
     const ENDPOINT = 'http://localhost:5000'
@@ -50,7 +52,6 @@ const UDchat = (otherUserName) => {
     
     otherUserName = "mike"
     const uid = otherUser<currentUserID?otherUser+currentUserID:currentUserID+otherUser
-    console.log("uid is", uid)
 
     useEffect(() => {
         dispatch(fetchChat(uid))
@@ -90,9 +91,10 @@ const UDchat = (otherUserName) => {
         <UDnav username={`Nochiphe`} />
         <div id="UDchat">
             <ChatHeader sideMenuState={sideMenuState} otherUserPic={otherUserPic}/>
-            <ChatMain sideMenuState={sideMenuState} otherUserPic={otherUserPic} currentUserPic={currentUserPic} currentUserID={currentUserID}/>
+            <ChatMain sideMenuState={sideMenuState} otherUserPic={otherUserPic} currentUserPic={currentUserPic} currentUserID={currentUserID} setEdit={setEdit}/>
             <ChatFooter sideMenuState={sideMenuState} message={message} setMessage={setMessage} sendMessage={sendMessage}/>
             <ChatSideMenu  sideMenuState={sideMenuState}/>
+            {edit?<Creation id={'close-section'} edit={edit} buttonText={"Close Deal"} setEdit={setEdit}/>:null}
         </div>
         <UDfoot/>
         </>

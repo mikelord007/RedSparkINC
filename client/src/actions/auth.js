@@ -18,7 +18,7 @@ export const login = (formData, router) => async (dispatch) => {
 
         dispatch({ type: 'AUTH', data });
 
-        router.push('/');
+        router.push('/listings');
     } catch (error) {
     return error;
     }

@@ -19,3 +19,5 @@ export const getUserListings = (userID) => API.get(`/user-listing/${userID}`,{ h
 //chat
 export const getChat = (uid) => API.get(`chat/getChat/${uid}`,{ headers: { Authorization: localStorage.getItem('token') } })
 export const fetchContacts = (UserID) => API.get(`chat/getContacts/${UserID}`,{ headers: { Authorization: localStorage.getItem('token') } })
+
+export const addNewContact = (listing) => API.post(`/add-contact`, listing, { headers: { Authorization: localStorage.getItem('token') } })
