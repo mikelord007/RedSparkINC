@@ -13,6 +13,11 @@ import chatRoute from './routes/chat.js'
 import userRoute from './routes/user.js';
 import listingRoute from './routes/listing.js';
 import tradeRoute from './routes/trade.js';
+<<<<<<< HEAD
+=======
+import otpRoute from "./routes/otp.js";
+import cookieParser from 'cookie-parser';
+>>>>>>> auth
 
 const CONNECTION_URL = "mongodb+srv://root:gqLWw1AzUDMjv2RU@cluster0.kh5y6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
@@ -30,6 +35,7 @@ app.use(express.urlencoded({extended:true})); //instead of bodyParser use this
 app.use(cors())
 // route middlewares
 app.use('/api/user',userRoute);
+app.use('/api/otp',otpRoute)
 app.use('/api',authenticateToken,listingRoute)
 app.use('/api',authenticateToken,tradeRoute)
 app.use('/api/chat',chatRoute)

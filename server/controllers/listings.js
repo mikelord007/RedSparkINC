@@ -8,7 +8,6 @@ const secret = "test";
 
 export const createListing = async (req, res) => {
     const { currency, rate, amount, burner, minP, maxP } = req.body;
-    console.log(req.user)
     try {
         
         console.log(req.user.id);

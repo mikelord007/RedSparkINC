@@ -5,7 +5,7 @@ export const createListing = (formData,router) => async (dispatch) => {
         localStorage.getItem('token')
         //eslint-disable-next-line
         const {data} = await api.createListing(formData);
-        // dispatch({type: 'CREATE', data});
+        dispatch({type: 'CREATE', data});
     }catch(error){
     console.log(error)
     return error;
