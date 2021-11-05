@@ -9,8 +9,7 @@ import { Server } from 'socket.io';
 
 import { authenticateToken } from './middleware/authenticateToken.js';
 import userRoute from './routes/user.js';
-import chatRoute from './routes/chat.js'
-import userRoute from './routes/user.js';
+import chatRoute from './routes/chat.js';
 import listingRoute from './routes/listing.js';
 import tradeRoute from './routes/trade.js';
 
@@ -32,7 +31,7 @@ app.use(cors())
 app.use('/api/user',userRoute);
 app.use('/api',authenticateToken,listingRoute)
 app.use('/api',authenticateToken,tradeRoute)
-app.use('/api/chat',chatRoute)
+app.use('/api/chat',authenticateToken,chatRoute)
 
 const server = http.createServer(app);
 const io = new Server(server,{cors: {

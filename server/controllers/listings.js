@@ -75,3 +75,16 @@ export const userListing = async (req,res) => {
         console.log(error)
     }
 }
+
+export const addContact = async (req,res) => {
+    const { id } = req.user
+    console.log("meeee", id)
+    try {
+        var Objid = mongoose.Types.ObjectId(user);
+        const listings = await Listing.find({'user.id': Objid})
+        console.log(listings);
+        return res.status(200).json(listings);
+    } catch (error) {
+        console.log(error)
+    }
+}
