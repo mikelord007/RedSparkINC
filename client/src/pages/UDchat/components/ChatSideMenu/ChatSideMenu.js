@@ -1,6 +1,6 @@
 import React,{useRef,useEffect} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { updateRecipient,currentListing } from '../../../../actions/chat';
+import { updateRecipient } from '../../../../actions/chat';
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/avatars-bottts-sprites';
 
@@ -15,9 +15,8 @@ const ChatSideMenu = ({sideMenuState}) =>{
         else sideMenu.current.style.transform="translateX(-100%)";
     },[sideMenuState])
 
-    const handleUpdate = (id) => {
-        dispatch(updateRecipient(id));
-        dispatch(currentListing(id));
+    const handleUpdate = (elem) => {
+        dispatch(updateRecipient(elem));
         sideMenuState[1](false);
     }
 
@@ -31,7 +30,7 @@ const ChatSideMenu = ({sideMenuState}) =>{
                                                             scale: 80
                                                             });
                         return( 
-                        <div onClick={() => handleUpdate(elem.id)} className="person-item" key={index}>
+                        <div onClick={() => handleUpdate(elem)} className="person-item" key={index}>
                             <div className="profile-icon"><img src={profilePic} alt=""/></div>
                             <div className="chat-info-wrapper">
                             <div className="chat-info">

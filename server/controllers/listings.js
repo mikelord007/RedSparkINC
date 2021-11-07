@@ -8,7 +8,6 @@ const secret = "test";
 
 export const createListing = async (req, res) => {
     const { currency, rate, amount, burner, minP, maxP } = req.body;
-    console.log(req.user)
     try {
         
         console.log(req.user.id);
@@ -78,12 +77,29 @@ export const userListing = async (req,res) => {
 
 export const addContact = async (req,res) => {
     const { id } = req.user
-    console.log("meeee", id)
+    const listing = req.body
+    let contact;
+
     try {
-        var Objid = mongoose.Types.ObjectId(user);
-        const listings = await Listing.find({'user.id': Objid})
-        console.log(listings);
-        return res.status(200).json(listings);
+        if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No user with that id')
+
+        const user = await User.findById(id)
+        const existingContact = user.contacts.find((elem) => elem.id === listing.user.id)
+        if(existingContact){
+            existingContact.listingRef = listing._id;
+            contact = existingContact;
+            user.contacts.map((elem) => elem.id===listing.user.id?existingContact:elem)
+            console.log("updatedRef: ", user)
+        }
+        else{
+            const newContact = {id: listing.user.id, name: listing.user.name, listingRef: listing._id}
+            contact = newContact;
+            user.contacts.push(newContact)
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(id, user);
+
+        return res.status(200).json(contact);
     } catch (error) {
         console.log(error)
     }

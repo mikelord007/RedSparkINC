@@ -14,8 +14,7 @@ export const contactsReducer = ( state = [], action) => {
     switch(action.type) {
         case 'CONTACTS':
             return action.data.contacts;
-        case 'NEW-CONTACT':
-            return state;
+        
         default:
             return state;
     }
@@ -23,8 +22,10 @@ export const contactsReducer = ( state = [], action) => {
 
 export const Recipient = (state = {}, action) => {
     switch (action.type) {
-        case 'UPDATERECIPIENT':
-            return action.userID
+        case 'UPDATE_RECIPIENT':
+            return action.elem
+        case 'NEW-CONTACT':
+            return action.data;
         default :
             return state
     }

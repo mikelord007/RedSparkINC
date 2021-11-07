@@ -36,11 +36,11 @@ export const getUserListings = (UserID) => async (dispatch) => {
 
 export const addNewContact = (listing,history) => async(dispatch) => {
     try{
-        console.log("helloddd")
+
         const {data} = await api.addNewContact(listing)
-        console.log("hello",data)
-        dispatch({type: 'NEW-CONTACT'})
+        dispatch({type: 'NEW-CONTACT', data})
         history.push("/chat")
+
     }
     catch(error){
         console.log(error)

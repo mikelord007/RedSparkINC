@@ -11,8 +11,8 @@ export const fetchContacts = (UserID) => async (dispatch) => {
 };
 
 
-export const updateRecipient = (userID) => async ( dispatch) => {
-    dispatch({type: 'UPDATERECIPIENT', userID})
+export const updateRecipient = (elem) => async ( dispatch) => {
+    dispatch({type: 'UPDATE_RECIPIENT', elem})
     
 }
 

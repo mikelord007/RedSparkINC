@@ -20,7 +20,7 @@ let socket;
 const currentUserID = JSON.parse(localStorage.getItem('profile')).result._id
 const currentUserName = "peter"
 
-const UDchat = (otherUserName) => {
+const UDchat = () => {
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
     const [edit, setEdit] = useState(false);
@@ -28,7 +28,9 @@ const UDchat = (otherUserName) => {
     const dispatch = useDispatch()
     const ENDPOINT = 'http://localhost:5000'
 
-    const otherUser = useSelector((state) => state.Recipient)
+    const recipient = useSelector((state) => state.Recipient)
+    const otherUser = recipient.id
+    const otherUserName = recipient.name
     const sideMenuState = useState(false);
 
     let otherUserPic = createAvatar(style, {
@@ -49,8 +51,6 @@ const UDchat = (otherUserName) => {
     },[dispatch])
     
     
-    
-    otherUserName = "mike"
     const uid = otherUser<currentUserID?otherUser+currentUserID:currentUserID+otherUser
 
     useEffect(() => {
@@ -83,8 +83,6 @@ const UDchat = (otherUserName) => {
             socket.emit('sendMessage', chatObj, (chatObj) => {setMessage(''); dispatch(addNewMessages(chatObj)) });
         }
     }
-
-
 
     return (
         <>

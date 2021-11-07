@@ -24,7 +24,7 @@ export const getChat = async (req, res) => {
 	try {
 		
 		const chat  = await chatModel.find({uid: uid})
-		console.log("chat messages are:", chat)
+		// console.log("chat messages are:", chat)
 		return res.status(200).json(chat)
 	}
 	

@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
 	password : {type: String, required: true},
 	uplandUsername : {type: String, required: true},
 	created: { type: Date, default: Date.now },
-	contacts: [{otherUserId: mongoose.Types.ObjectId}]
+	contacts: []
 })
 
 export default mongoose.model("User", userSchema);
