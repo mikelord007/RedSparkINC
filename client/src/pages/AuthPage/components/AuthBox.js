@@ -9,8 +9,10 @@ import { signup, login } from '../../../actions/auth';
 import { Button } from '@material-ui/core';
 import OtpInput from 'react-otp-input';
 import { getOTP } from '../../../actions/otp';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
-const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '' }
+const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '', rememberMe: false }
 const AuthBox = ({ signupState }) => {
 	const [isSignup, setisSignup] = useState((signupState === undefined) ? true : signupState)
 	const [otpToggle, setOtpToggle] = useState(false);
@@ -18,6 +20,9 @@ const AuthBox = ({ signupState }) => {
 	const EnterOtp = () => {
 		dispatch(getOTP(form.email));
 		setOtpToggle(true);
+	}
+	const handleCheck = () => {
+		setForm({...form,rememberMe:!form.rememberMe});
 	}
 	const switchMode = () => {
 		setForm(initialState);
@@ -29,18 +34,11 @@ const AuthBox = ({ signupState }) => {
 	const verification_key =  useSelector((state) => { return state.otp.verification_key });
 	const handleLogin = (e) => {
 		e.preventDefault();
-		if (isSignup && otp) {
-			const s = dispatch(signup(form, history));
-			console.log(s)
-		}
-		else {
 			try {
 				dispatch(login(form, history));
 			} catch (error) {
-
-				console.log('this is the error:' + error);
+				console.log('Error:'+ error);
 			}
-		}
 	};
 
 	const handleSignup = (e) => {
@@ -71,7 +69,7 @@ const AuthBox = ({ signupState }) => {
 						<CustomTextField label="Email" name="email" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
 						<CustomTextField label="Password" name="password" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
 						{isSignup && <CustomTextField label="Confirm Password" name="passwordConfirm" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />}
-						{!isSignup && <GreenBtn className="signup-button" content='Login' onClick={handleLogin} />}
+						{!isSignup && <>  <FormControlLabel control={<Checkbox onChange={handleCheck} size="small" />} label="Remember Me" /> <GreenBtn className="signup-button" content='Login' onClick={handleLogin} /> </> }
 					</form>
 					{isSignup && <GreenBtn className="signup-button" content='Signup' onClick={EnterOtp} />}
 					<Button onClick={switchMode}>

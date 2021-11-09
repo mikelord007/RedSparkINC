@@ -30,13 +30,3 @@ export const Recipient = (state = {}, action) => {
             return state
     }
 }
-
-export const listingRef = (state = {}, action) => {
-    switch(action.type) {
-        case 'CURRENT_LISTING_REF':
-            const lRef = action.contacts.find((elem) => elem.id === action.recipient)
-            return lRef.id
-        default:
-            return state
-    }
-}

@@ -1,4 +1,6 @@
 import chatModel from '../models/Chat.js';
+import {checkUserInContact} from '../controllers/io.js'
+
 
 const socketHandler = (io) => {
     
@@ -9,8 +11,16 @@ const socketHandler = (io) => {
         })
     
     
-        socket.on('sendMessage', (chatObj,callback) => {
-            console.log("user is: ",chatObj.fromName," message is: ", chatObj.text)
+        socket.on('sendMessage', (chatObj, recipient, callback) => {
+            let confirmInContacts = false
+
+            if(!confirmInContacts){
+                checkUserInContact(chatObj, recipient)
+                confirmInContacts = true
+            }
+
+            // console.log("user is: ",chatObj.fromName," message is: ", chatObj.text)
+            // console.log("chatobj: ", chatObj)
             chatObj.msgtime = new Date()
             const newUpload = new chatModel(chatObj)
             newUpload.save();
