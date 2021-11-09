@@ -9,6 +9,8 @@ import { signup, login } from '../../../actions/auth';
 import { Button } from '@material-ui/core';
 import OtpInput from 'react-otp-input';
 import { getOTP } from '../../../actions/otp';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '' }
 const AuthBox = ({ signupState }) => {
@@ -71,7 +73,7 @@ const AuthBox = ({ signupState }) => {
 						<CustomTextField label="Email" name="email" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
 						<CustomTextField label="Password" name="password" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
 						{isSignup && <CustomTextField label="Confirm Password" name="passwordConfirm" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />}
-						{!isSignup && <GreenBtn className="signup-button" content='Login' onClick={handleLogin} />}
+						{!isSignup && <>  <FormControlLabel control={<Checkbox defaultChecked size="small" />} label="Remember Me" /> <GreenBtn className="signup-button" content='Login' onClick={handleLogin} /> </> }
 					</form>
 					{isSignup && <GreenBtn className="signup-button" content='Signup' onClick={EnterOtp} />}
 					<Button onClick={switchMode}>

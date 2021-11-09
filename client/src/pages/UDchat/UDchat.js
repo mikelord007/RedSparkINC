@@ -4,6 +4,7 @@ import * as style from '@dicebear/avatars-bottts-sprites';
 import io from 'socket.io-client';
 import { useDispatch,useSelector } from 'react-redux';
 import { fetchChat,fetchContacts,addNewMessages } from "../../actions/chat";
+import { getCurrentListing } from "../../actions/listing";
 
 
 import UDfoot from '../../components/UDfoot/UDfoot'
@@ -29,6 +30,8 @@ const UDchat = () => {
     const ENDPOINT = 'http://localhost:5000'
 
     const recipient = useSelector((state) => state.Recipient)
+    const listState = useSelector((state) => state.currentListing)
+    
     const otherUser = recipient.id
     const otherUserName = recipient.name
     const sideMenuState = useState(false);
@@ -48,7 +51,8 @@ const UDchat = () => {
 
     useEffect(() => {
         dispatch(fetchContacts(currentUserID));
-    },[dispatch])
+        dispatch(getCurrentListing(recipient.listingRef))
+    },[dispatch,recipient])
     
     
     const uid = otherUser<currentUserID?otherUser+currentUserID:currentUserID+otherUser
@@ -80,7 +84,7 @@ const UDchat = () => {
 
         if(message) {
             const chatObj = {text: message,to: otherUser,toName: otherUserName,from: currentUserID,fromName: currentUserName,uid: uid}
-            socket.emit('sendMessage', chatObj, (chatObj) => {setMessage(''); dispatch(addNewMessages(chatObj)) });
+            socket.emit('sendMessage', chatObj, recipient, (chatObj) => {setMessage(''); dispatch(addNewMessages(chatObj)) });
         }
     }
 
@@ -92,7 +96,9 @@ const UDchat = () => {
             <ChatMain sideMenuState={sideMenuState} otherUserPic={otherUserPic} currentUserPic={currentUserPic} currentUserID={currentUserID} setEdit={setEdit}/>
             <ChatFooter sideMenuState={sideMenuState} message={message} setMessage={setMessage} sendMessage={sendMessage}/>
             <ChatSideMenu  sideMenuState={sideMenuState}/>
-            {edit?<Creation id={'close-section'} edit={edit} buttonText={"Close Deal"} setEdit={setEdit}/>:null}
+            {edit?<Creation autofill={true} id={'close-section'} edit={edit} buttonText={"Close Deal"} setEdit={setEdit} 
+                listState={listState}
+            />:null}
         </div>
         <UDfoot/>
         </>

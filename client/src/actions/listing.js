@@ -2,7 +2,6 @@ import * as api from '../api/index.js';
 
 export const createListing = (formData,router) => async (dispatch) => {
     try {
-        localStorage.getItem('token')
         //eslint-disable-next-line
         const {data} = await api.createListing(formData);
         dispatch({type: 'CREATED-LISTING', data});
@@ -45,4 +44,30 @@ export const addNewContact = (listing,history) => async(dispatch) => {
     catch(error){
         console.log(error)
     }
+}
+
+export const getCurrentListing = (lID) => async(dispatch) => {
+    try{
+        const {data} = await api.getCurrentListing(lID)
+        
+        dispatch({type: "CURRENT-LISTING", data})
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
+
+export const closeListing = (listing, history) => async (dispatch) => {
+
+    try {
+        //eslint-disable-next-line
+        const {data} = await api.closeListing(listing);
+        dispatch({type: 'CLOSE-LISTING', data});
+        history.push("/trade")
+    }catch(error){
+        console.log(error)
+        return error;
+    }
+
 }

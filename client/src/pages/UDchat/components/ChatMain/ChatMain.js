@@ -6,7 +6,7 @@ import {useSelector} from 'react-redux'
 const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, setEdit}) =>{
 
     const messages = useSelector((state) => state.chatReducer)
-
+    const listingOwner = useSelector((state) => state.Recipient.listingOwner)
     
     const mainMenu = useRef()
     
@@ -38,9 +38,14 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
                 )
             }
             </ScrollToBottom>
+            {
+            listingOwner?
             <div id = "close-trade">
-                <Icon icon="teenyicons:tick-circle-solid" onClick={() => {console.log("hello"); setEdit(true)}} color="#52bd00" height="32" />
+                <Icon icon="teenyicons:tick-circle-solid" onClick={() => { setEdit(true)}} color="#52bd00" height="32" />
             </div>
+            :
+            null
+            }
         </div>
     )
    

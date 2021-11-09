@@ -87,14 +87,16 @@ export const addContact = async (req,res) => {
         const existingContact = user.contacts.find((elem) => elem.id === listing.user.id)
         if(existingContact){
             existingContact.listingRef = listing._id;
+            existingContact.listingOwner = false;
             contact = existingContact;
             user.contacts.map((elem) => elem.id===listing.user.id?existingContact:elem)
-            console.log("updatedRef: ", user)
+            // console.log("updatedRef: ")
         }
         else{
-            const newContact = {id: listing.user.id, name: listing.user.name, listingRef: listing._id}
+            const newContact = {id: listing.user.id, name: listing.user.name, listingRef: listing._id, listingOwner: false}
             contact = newContact;
             user.contacts.push(newContact)
+            // console.log("newRef")
         }
 
         const updatedUser = await User.findByIdAndUpdate(id, user);
@@ -103,4 +105,17 @@ export const addContact = async (req,res) => {
     } catch (error) {
         console.log(error)
     }
+}
+
+
+export const getCurrentListing = async (req,res) =>{
+    const {lID} = req.params
+    
+    try {
+        const data = await listingModel.findById(lID)
+        return res.status(200).json(data);
+    } catch(error) {
+        console.log(error)
+    }
+
 }

@@ -20,3 +20,12 @@ export const UserListingReducer = (userListings = [], action) => {
             return userListings;
     }
 }
+
+export const currentListing = (state = {}, action) => {
+    switch(action.type){
+        case 'CURRENT-LISTING':
+            return action.data;
+        default:
+            return state
+    }
+}

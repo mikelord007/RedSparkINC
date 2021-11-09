@@ -1,31 +1,43 @@
-import listingModel from '../models/Listing.js';
-import jwt from 'jsonwebtoken';
-import Listing from '../models/Listing.js';
-import User from '../models/User.js';
 import Trade from '../models/Trade.js';
+import Listing from '../models/Listing.js';
+import mongoose from 'mongoose';
 const secret = "test";
 
-export const createTrade = async (req, res) => {
-    const { listing_id, seller_id, buyer_id, rate } = req.body;
 
-    try {
-        const date =  new Date().toString();
-        const trade = new Trade({
-            listing: listing_id,
-            buyer: buyer_id,
-            seller:seller_id,
-            rate: rate,
-            date: date
-        });
-        const savedTrade = await trade.save();
-        return res.status(201).json(savedTrade);
+export const closeListing = async(req, res) => {
+    const listing = req.body
+    console.log("here",listing._id)
+    const {id} = req.params
+
+    try
+    {   const newTrade = {
+            seller: mongoose.Types.ObjectId(listing.user.id),
+            buyer: mongoose.Types.ObjectId(id),
+            listing: listing._id,
+            currency: listing.currency,
+            rate: listing.rate,
+            amount: listing.amount,
+            burner: listing.burner,
+            minP: listing.minP,
+            maxP: listing.maxP,
+            created: Date()
+        }
+
+        const trade = new Trade(newTrade)
+        const savedTrade = await trade.save()
+
+        await Listing.find
+
+        
+        return res.status(200).json(savedTrade)
     }
-
-    catch (error) {
+    catch(error) {
         res.status(500).json({ message: "Something went wrong, please try again" });
-        console.log(error);
+        console.log(error)
     }
+
 }
+
 
 export const getTradeHist = async (req,res) => {
     try {

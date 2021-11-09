@@ -10,7 +10,7 @@ import GreenBtn from '../../../components/GreenBtn/GreenBtn'
 
 const Listings = () => {
 
-    const listings = useSelector((state) => { console.log(state.listings); return state.listings.listings });
+    const listings = useSelector((state) => { console.log(state); return state.listings.listings });
     const [currentListing, setCurrentListing] = useState()
     const UDlist = useRef(false)
     const [ping , setPing] = useState(false)

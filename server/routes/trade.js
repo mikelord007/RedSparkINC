@@ -1,9 +1,9 @@
 import express from 'express';
 const router = express.Router()
 
-import { createTrade, getTradeHist } from '../controllers/trade.js';
+import { closeListing , getTradeHist } from '../controllers/trade.js';
 
-router.post("/create-trade", createTrade);
+router.post("/create-trade", closeListing);
 router.get("/trade-history",getTradeHist);
 
 export default router;
