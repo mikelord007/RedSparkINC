@@ -17,13 +17,9 @@ const UDcreatenew = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-
         dispatch(getUserListings(JSON.parse(localStorage.getItem('profile')).result._id))
     },[dispatch])
-
-
-    
-    
+ 
     return (
         <>
             <UDnav username="Nociphe" />

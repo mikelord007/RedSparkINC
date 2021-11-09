@@ -29,7 +29,6 @@ const Creation = ({id, edit, buttonText, setEdit, listState, autofill}) => {
 
     const handleChange = (e) => {
         setlisting({...listing, [e.target.name]: e.target.value})
-        console.log(listing)
     }
 
     return(

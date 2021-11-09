@@ -18,7 +18,7 @@ import Creation from "../../components/Creation/Creation"
 import './style.css'
 
 let socket;
-const currentUserID = JSON.parse(localStorage.getItem('profile')).result._id
+const currentUserID = JSON.parse(localStorage.getItem('profile'))._id
 const currentUserName = "peter"
 
 const UDchat = () => {
@@ -74,7 +74,6 @@ const UDchat = () => {
 
     useEffect(() => {
         socket.on('message',(chatObj) => {
-            console.log(chatObj)
             dispatch(addNewMessages(chatObj))
         })
     },[dispatch])

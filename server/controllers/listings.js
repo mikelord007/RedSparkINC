@@ -10,9 +10,6 @@ export const createListing = async (req, res) => {
     const { currency, rate, amount, burner, minP, maxP } = req.body;
     try {
         
-        console.log(req.user.id);
-        console.log(req.body);
-
         const createdDate = new Date().toString();
         const user = await User.findById(req.user.id)
         const listing = new listingModel({
@@ -68,7 +65,6 @@ export const userListing = async (req,res) => {
     try {//user: {id: id}
         var Objid = mongoose.Types.ObjectId(id);
         const listings = await Listing.find({'user.id': Objid})
-        console.log(listings);
         return res.status(200).json(listings);
     } catch (error) {
         console.log(error)
