@@ -48,10 +48,7 @@ export const loginUser = async (req, res) => {
 	const { email, password } = req.body;
 	try {
 		const user = await userModel.findOne({ email: email });
-		if (!user) return res.status(404).json({ message: "Invalid credentials" })
-
-		//add validation after this [joi]
-		// const error = registerValidation(req.body);
+		if (!user) return res.status(404).json({ message: "Invalid credentials" });
 
 		const isPasswordCorrect = await bcrypt.compare(password, user.password);
 

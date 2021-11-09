@@ -74,7 +74,6 @@ const UDchat = () => {
 
     useEffect(() => {
         socket.on('message',(chatObj) => {
-            console.log(chatObj)
             dispatch(addNewMessages(chatObj))
         })
     },[dispatch])

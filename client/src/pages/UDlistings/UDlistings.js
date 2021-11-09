@@ -14,6 +14,7 @@ const UDlistings = () => {
     useEffect(() => {
         dispatch(getListings());
     }, [dispatch])
+
     return (
         <>
             <UDnav username={`Nociphe`} />

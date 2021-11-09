@@ -6,7 +6,6 @@ const secret = "test";
 
 export const closeListing = async(req, res) => {
     const listing = req.body
-    console.log("here",listing._id)
     const {id} = req.params
 
     try
@@ -26,9 +25,9 @@ export const closeListing = async(req, res) => {
         const trade = new Trade(newTrade)
         const savedTrade = await trade.save()
 
-        await Listing.find
+        listing.active = false
+        await Listing.findByIdAndUpdate(listing._id, listing)
 
-        
         return res.status(200).json(savedTrade)
     }
     catch(error) {

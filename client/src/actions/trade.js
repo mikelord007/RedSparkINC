@@ -1,14 +1,6 @@
 import * as api from '../api/index.js';
 
-export const createTrade = (formData, router) => async (dispatch) => {
-    try {
 
-    }
-    catch (error) {
-        console.log(error);
-        return error;
-    }
-}
 
 export const getTradeHist = () => async (dispatch) => {
     try {

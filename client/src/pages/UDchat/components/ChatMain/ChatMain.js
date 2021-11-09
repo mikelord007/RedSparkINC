@@ -6,7 +6,7 @@ import {useSelector} from 'react-redux'
 const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, setEdit}) =>{
 
     const messages = useSelector((state) => state.chatReducer)
-    const listingOwner = useSelector((state) => state.Recipient.listingOwner)
+    const listingOwner = useSelector((state) => {console.log("here", state.Recipient.listingOwner); return state.Recipient.listingOwner})
     
     const mainMenu = useRef()
     

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Trade from "./Trade";
 
 const TradeHistory = () => {
-    const trades = useSelector(state => state.trades)
+    const trades = useSelector(state => {return state.trades})
     useEffect(()=>{
     },[trades]);
     return(
@@ -13,7 +13,7 @@ const TradeHistory = () => {
                     <div id="tradehead">Trade History</div>
                     <div id="trade-main">
                    {trades?.map((trade,index) => (
-                   <Trade key={index} count={index+1}  name={'name'} date={trade.date} />
+                   <Trade key={index} count={index+1}  name={'name'} date={trade.created} />
                    ))}
                     </div>
                 </div>
