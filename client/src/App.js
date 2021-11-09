@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch,Redirect } from 'react-router-dom';
 
 import Head from "./components/Head/Head"
 import UDchat from "./pages/UDchat/UDchat";
@@ -12,8 +12,9 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import './style.css'
 import AuthPage from "./pages/AuthPage/AuthPage.js";
 
-const App = () => {
 
+const App = () => {
+    
     return(
         <Router>
         <Head/>
