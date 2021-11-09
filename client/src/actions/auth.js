@@ -6,7 +6,7 @@ export const signup = (formData,router) => async (dispatch) => {
         const {form,otp,verification_key} = formData;
         const otp_verify = { verification_key:verification_key,otp:otp,check:form.email}
         const response = await api.verifyOTP(otp_verify);
-        console.log(response);
+        // console.log(response);
         if(response.status === 200 && response.data.Status === "Success" ){
         const { data } = await api.signup(form);
         console.log(data)
@@ -18,21 +18,20 @@ export const signup = (formData,router) => async (dispatch) => {
         }
     } catch (error) {
         console.log(error);
-        return error;
     }
 };
 
 
 export const login = (formData, router) => async (dispatch) => {
-    try {
-        const { data } = await api.login(formData);
+    // try {
+    //     const { data } = await api.login(formData);
 
-        dispatch({ type: 'AUTH', data });
+    //     dispatch({ type: 'AUTH', data });
 
-        router.push('/');
-    } catch (error) {
-    return error;
-    }
+    //     router.push('/');
+    // } catch (error) {
+    // console.log(error.message)
+    // }
+     await api.login(formData).catch((error)=>console.log(error))
 };
 
-// export const logout = (formData, router) => async 

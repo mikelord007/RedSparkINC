@@ -13,7 +13,6 @@ const AuthPage = () => {
 			<div className='container'>
 				<img className='uplandlogo' src={uplandlogo} alt="nologo" />
 				<AuthBox signupState={signupState}/>
-			
 			</div>
 			<Coin1 top="20%" right="83%" />
 			<Coin2 top="50%" left="85%" />

@@ -5,10 +5,17 @@ import cors from 'cors';
 // import routes
 import { authenticateToken } from './middleware/authenticateToken.js';
 import userRoute from './routes/user.js';
+import chatRoute from './routes/chat.js'
 import listingRoute from './routes/listing.js';
 import tradeRoute from './routes/trade.js';
 import otpRoute from "./routes/otp.js";
-import cookieParser from 'cookie-parser';
+
+const CONNECTION_URL = "mongodb+srv://root:gqLWw1AzUDMjv2RU@cluster0.kh5y6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
+
+const PORT = process.env.PORT || 5000
+
+dotenv.config();
 
 // const CONNECTION_URL = "mongodb+srv://root:gqLWw1AzUDMjv2RU@cluster0.kh5y6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const app = express();
