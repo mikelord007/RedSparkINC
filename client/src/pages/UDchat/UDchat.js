@@ -5,6 +5,7 @@ import io from 'socket.io-client';
 import { useDispatch,useSelector } from 'react-redux';
 import { fetchChat,fetchContacts,addNewMessages } from "../../actions/chat";
 import { getCurrentListing } from "../../actions/listing";
+import { Redirect } from "react-router-dom";
 
 
 import UDfoot from '../../components/UDfoot/UDfoot'
@@ -88,6 +89,9 @@ const UDchat = () => {
             socket.emit('sendMessage', chatObj, recipient, (chatObj) => {setMessage(''); dispatch(addNewMessages(chatObj)) });
         }
     }
+    const loggedIn = useSelector((state)=>state.auth.loggedIn);
+    if (loggedIn === false)
+    {return <Redirect to="/"/>}
     return (
         <>
         <UDnav username={`Nochiphe`} />

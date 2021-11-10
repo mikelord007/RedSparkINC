@@ -6,8 +6,7 @@ export const authReducer = (state = { authData: null, loggedIn: false }, action)
             localStorage.setItem('profile', JSON.stringify({ ...action?.data }));
             
             localStorage.setItem('token',action.data.token);
-
-            return { ...state, authData: action.data ,loggedIn: true };
+            return { ...state, authData: action.data.result ,loggedIn: true };
         case 'LOGOUT':
             localStorage.clear();
 
