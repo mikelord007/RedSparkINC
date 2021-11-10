@@ -18,7 +18,7 @@ const UDcreatenew = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getUserListings(JSON.parse(localStorage.getItem('profile')).result._id))
+        dispatch(getUserListings(JSON.parse(localStorage.getItem('profile'))?._id))
     },[dispatch])
     const loggedIn = useSelector((state)=>state.auth.loggedIn);
     if (loggedIn === false)

@@ -23,7 +23,7 @@ let socket;
 
 
 const UDchat = () => {
-    const currentUserID = JSON.parse(localStorage.getItem('profile')).result._id;
+    const currentUserID = JSON.parse(localStorage.getItem('profile'))?._id;
     const currentUserName = "peter";
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
