@@ -33,4 +33,13 @@ export const login = (formData, router) => async (dispatch) => {
     }
 };
 
-// export const logout = (formData, router) => async 
+export const logout = (router) => async (dispatch) => {
+    try {
+        localStorage.removeItem('token');
+        localStorage.removeItem('profile');
+        dispatch({type: 'LOGOUT'});
+        router.push('/');
+    } catch (error) {
+        console.log(error)
+    }
+}

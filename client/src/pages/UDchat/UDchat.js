@@ -5,6 +5,7 @@ import io from 'socket.io-client';
 import { useDispatch,useSelector } from 'react-redux';
 import { fetchChat,fetchContacts,addNewMessages } from "../../actions/chat";
 import { getCurrentListing } from "../../actions/listing";
+import { Redirect } from "react-router-dom";
 
 
 import UDfoot from '../../components/UDfoot/UDfoot'
@@ -18,16 +19,18 @@ import Creation from "../../components/Creation/Creation"
 import './style.css'
 
 let socket;
-const currentUserID = JSON.parse(localStorage.getItem('profile'))._id
-const currentUserName = "peter"
+
+
 
 const UDchat = () => {
+    const currentUserID = JSON.parse(localStorage.getItem('profile'))?._id;
+    const currentUserName = "peter";
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
     const [edit, setEdit] = useState(false);
     
     const dispatch = useDispatch()
-    const ENDPOINT = 'http://localhost:5000'
+    const ENDPOINT = 'http://localhost:5000';
 
     const recipient = useSelector((state) => state.Recipient)
     const listState = useSelector((state) => state.currentListing)
@@ -52,7 +55,7 @@ const UDchat = () => {
     useEffect(() => {
         dispatch(fetchContacts(currentUserID));
         dispatch(getCurrentListing(recipient.listingRef))
-    },[dispatch,recipient])
+    },[dispatch,recipient,currentUserID])
     
     
     const uid = otherUser<currentUserID?otherUser+currentUserID:currentUserID+otherUser
@@ -86,7 +89,9 @@ const UDchat = () => {
             socket.emit('sendMessage', chatObj, recipient, (chatObj) => {setMessage(''); dispatch(addNewMessages(chatObj)) });
         }
     }
-
+    const loggedIn = useSelector((state)=>state.auth.loggedIn);
+    if (loggedIn === false)
+    {return <Redirect to="/"/>}
     return (
         <>
         <UDnav username={`Nochiphe`} />
