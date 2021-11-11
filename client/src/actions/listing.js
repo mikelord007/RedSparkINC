@@ -18,8 +18,10 @@ export const getListings = () => async (dispatch) => {
         return data;
 
     } catch (error) {
-        console.log(error)
-        return error;
+        console.log(error) //remove this in prod
+        if (error.response.status === 403){
+            dispatch({type:'LOGOUT'});
+        }        
     }
 }
 
@@ -29,7 +31,10 @@ export const getUserListings = (UserID) => async (dispatch) => {
         dispatch({ type: 'USER-LISTINGS', data })
     }
     catch (error) {
-        console.log(error)
+        console.log(error) //remove this in prod
+        if (error.response.status === 403){
+            dispatch({type:'LOGOUT'});
+        }   
     }
 }
 
@@ -42,7 +47,10 @@ export const addNewContact = (listing, history) => async (dispatch) => {
 
     }
     catch (error) {
-        console.log(error)
+        console.log(error) //remove this in prod
+        if (error.response.status === 403){
+            dispatch({type:'LOGOUT'});
+        }   
     }
 }
 
@@ -53,7 +61,10 @@ export const getCurrentListing = (lID) => async (dispatch) => {
         dispatch({ type: "CURRENT-LISTING", data })
     }
     catch (error) {
-        console.log(error)
+        console.log(error) //remove this in prod
+        if (error.response.status === 403){
+            dispatch({type:'LOGOUT'});
+        }   
     }
 }
 
@@ -66,8 +77,10 @@ export const closeListing = (listing, history) => async (dispatch) => {
         dispatch({ type: 'CLOSE-LISTING', data });
         history.push("/trade")
     } catch (error) {
-        console.log(error)
-        return error;
+        console.log(error) //remove this in prod
+        if (error.response.status === 403){
+            dispatch({type:'LOGOUT'});
+        }   
     }
 
 }

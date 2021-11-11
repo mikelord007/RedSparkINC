@@ -32,6 +32,8 @@
 }
 
 #active-line{
+    position:absolute;
+    left:33.3%;
     height: 100%;
     width: 33.3%;
     background-color: #D1C904;
