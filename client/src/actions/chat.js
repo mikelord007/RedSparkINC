@@ -6,7 +6,10 @@ export const fetchContacts = (UserID) => async (dispatch) => {
         dispatch({ type: 'CONTACTS', data });
 
     } catch (error) {
-        console.log(error);
+        console.log(error) //remove this in prod
+        if (error.response.status === 403){
+            dispatch({type:'LOGOUT'});
+        }   
     }
 };
 
@@ -29,7 +32,10 @@ export const fetchChat = (uid) => async (dispatch) => {
         dispatch({type: 'CHATMSG', data})
 
     } catch (error) {
-        console.log(error);
+        console.log(error) //remove this in prod
+        if (error.response.status === 403){
+            dispatch({type:'LOGOUT'});
+        }   
     }
 }
 
