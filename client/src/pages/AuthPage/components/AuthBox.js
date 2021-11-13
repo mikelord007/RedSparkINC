@@ -14,7 +14,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '', rememberMe: false }
 const AuthBox = ({ signupState }) => {
-	const [isSignup, setisSignup] = useState((!signupState) ? true : signupState)
+	// console.log(signupState)
+	const [isSignup, setisSignup] = useState((signupState === undefined) ? true : signupState);
+	console.log(isSignup)
 	const [otpToggle, setOtpToggle] = useState(false);
 	const [otp, setOtp] = useState("");
 	const EnterOtp = () => {
@@ -64,9 +66,9 @@ const AuthBox = ({ signupState }) => {
 							<>
 								<CustomTextField label="Name" name="name" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
 								<CustomTextField label="Upland Username" name="uplandUsername" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
-								<CustomTextField label="Confirm Password" name="passwordConfirm" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
 								<CustomTextField label="Email" name="email" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
 								<CustomTextField label="Password" name="password" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
+								<CustomTextField label="Confirm Password" name="passwordConfirm" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
 								<GreenBtn className="signup-button" content='Signup' onClick={EnterOtp} />
 							</>
 						)}
