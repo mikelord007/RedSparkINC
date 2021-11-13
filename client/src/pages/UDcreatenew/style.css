@@ -78,20 +78,14 @@
     padding: none;
 }
 
-.CN-input{
-    width: 80%;
-    height: 8%;
-    display: block;
-    margin: 0.4rem auto !important;
-}
-
 .CN-input:first-child{
     margin-top: 0 !important;
 }
 
-#CN-submit{
-    margin: 1.2rem 0;
+#CN-submit {
+    margin: 1.2rem auto;
     height: 2.4rem;
+    width: 50%;
 }
 
 #empty-message {
@@ -100,4 +94,14 @@
     align-items: center;
     height: 70%;
     font-size: 1.1rem;
+}
+
+.form-wrapper {
+    width: 80%;
+    margin: auto auto;
+}
+
+.form-element > * {
+    width: 100%;
+    margin-top: 1rem !important;
 }

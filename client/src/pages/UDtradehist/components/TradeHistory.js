@@ -13,7 +13,7 @@ const TradeHistory = () => {
                     <div id="tradehead">Trade History</div>
                     <div id="trade-main">
                    {trades?.map((trade,index) => (
-                   <Trade key={index} count={index+1}  name={'name'} date={trade.created} />
+                   <Trade key={index} count={index+1} date={trade.created} otherPerson={trade.buyerName}/>
                    ))}
                     </div>
                 </div>

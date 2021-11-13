@@ -1,12 +1,15 @@
 import Trade from '../models/Trade.js';
 import Listing from '../models/Listing.js';
+import userModel from '../models/User.js'
 import mongoose from 'mongoose';
 const secret = "test";
 
 
 export const closeListing = async(req, res) => {
     const listing = req.body
-    const {id} = req.params
+    const {id} = req.user
+
+    const buyerName = await userModel.findById(id)
 
     try
     {   const newTrade = {
@@ -19,7 +22,9 @@ export const closeListing = async(req, res) => {
             burner: listing.burner,
             minP: listing.minP,
             maxP: listing.maxP,
-            created: Date()
+            created: Date(),
+            sellerName: listing.user.name,
+            buyerName: buyerName.uplandUsername
         }
 
         const trade = new Trade(newTrade)

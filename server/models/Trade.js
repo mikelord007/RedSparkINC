@@ -11,7 +11,9 @@ const tradeSchema = mongoose.Schema(
     burner: String,
     minP: Number,
     maxP: Number,
-    created: Date
+    created: Date,
+    sellerName: String,
+    buyerName: String
 })
 
 

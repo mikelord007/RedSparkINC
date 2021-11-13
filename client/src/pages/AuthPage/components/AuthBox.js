@@ -14,7 +14,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '' }
 const AuthBox = ({ signupState }) => {
-	const [isSignup, setisSignup] = useState((signupState === undefined) ? true : signupState)
+	const [isSignup, setisSignup] = useState((!signupState) ? true : signupState)
 	const [otpToggle, setOtpToggle] = useState(false);
 	const [otp, setOtp] = useState("");
 	const EnterOtp = () => {
@@ -68,27 +68,40 @@ const AuthBox = ({ signupState }) => {
 							<>
 								<CustomTextField label="Name" name="name" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
 								<CustomTextField label="Upland Username" name="uplandUsername" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
+								<CustomTextField label="Confirm Password" name="passwordConfirm" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
+								<CustomTextField label="Email" name="email" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
+								<CustomTextField label="Password" name="password" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
+								<GreenBtn className="signup-button" content='Signup' onClick={EnterOtp} />
 							</>
 						)}
-						<CustomTextField label="Email" name="email" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
-						<CustomTextField label="Password" name="password" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
-						{isSignup && <CustomTextField label="Confirm Password" name="passwordConfirm" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />}
-						{!isSignup && <>  <FormControlLabel control={<Checkbox defaultChecked size="small" />} label="Remember Me" /> <GreenBtn className="signup-button" content='Login' onClick={handleLogin} /> </> }
+						
+						{!isSignup && 
+						<>	
+							<div>
+							<CustomTextField label="Email" name="email" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
+							<CustomTextField label="Password" name="password" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
+							</div>
+							<FormControlLabel control={<Checkbox defaultChecked size="small" />} label="Remember Me" />
+							<GreenBtn className="signup-button" content='Login' onClick={handleLogin} />
+						</> 
+						}
+						<Button onClick={switchMode}>
+							{isSignup ? 'Log In?' : 'Sign Up?'}
+						</Button>
 					</form>
-					{isSignup && <GreenBtn className="signup-button" content='Signup' onClick={EnterOtp} />}
-					<Button onClick={switchMode}>
-						{isSignup ? 'Log In?' : 'Signin?'}
-					</Button>
 				</>
 			)}
 			{otpToggle && (
 				<>
+					<div id="otp-headline">Please enter OTP sent to your mail</div>
+					<div id="otp-box">
 					<OtpInput
 						value={otp}
 						onChange={handleOtp}
 						numInputs={6}
 						separator={<span> - </span>}
 					/>
+					</div>
 					<GreenBtn className="signup-button" content='Submit' onClick={handleSignup} />
 				</> 
 			)}

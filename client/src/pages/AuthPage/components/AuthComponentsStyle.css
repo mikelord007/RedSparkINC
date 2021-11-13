@@ -3,13 +3,17 @@
     font-family: prom;
     src:  url('../assets/prominder.regular.otf');
 }
-.signupbox{
-margin: 15px;
-display: flex;
-justify-content: center;
-flex-direction: column;
-flex-wrap: wrap;
-padding: 1%;
+
+.signupbox {
+   margin: 0 15px;
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   flex-wrap: wrap;
+   padding: 1%;
+   height: 72%;
+   text-align: center;
+   justify-content: space-around;
 }
 
 .textfield{
@@ -31,4 +35,21 @@ padding: 1%;
    display: block;
    text-align: center;
    margin-top: 2rem;
+}
+
+.signupbox form {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   height: 100%;
+   justify-content: space-around;
+}
+
+.signupbox button label {
+   font-size: large;
+}
+
+#otp-box > * {
+   display: flex;
+   justify-content: center;
 }
