@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 import { useDispatch,useSelector } from 'react-redux';
 import { fetchChat,fetchContacts,addNewMessages } from "../../actions/chat";
 import { getCurrentListing } from "../../actions/listing";
-// import { Redirect } from "react-router";
+import { Redirect } from "react-router-dom";
 
 
 import UDfoot from '../../components/UDfoot/UDfoot'
@@ -21,22 +21,16 @@ import './style.css'
 let socket;
 
 
+
 const UDchat = () => {
-
-    if(!JSON.parse(localStorage.getItem('profile')).result._id){
-        localStorage.setItem('profile',
-        '{"result":{"_id":"617c4b768d9906ef94363db7","name":"Manu Jasan","email":"manujasan23@gmail.com","password":"$2a$12$5WlblfExzpdHHVmWGSVexuwNzOanLj1jhZ.Pz/puKeWCtDSzQMIC2","uplandUsername":"mike007","created":"2021-10-29T19:28:54.000Z","listings":[],"contacts":[{"id":"6172f44ab6c6765cab7f27f2","name":"cryptoKing","listingRef":"617c3f31cb464bc20b274284","listingOwner":false},{"id":"6172f44ab6c6765cab7f27d8","name":"Emgi","listingRef":"617c3f31cb464bc20b274286","listingOwner":false},{"id":"6172f44ab6c6765cab7f27d2","name":"benn","listingRef":"617c3f31cb464bc20b274289","listingOwner":false},{"id":"6172f44ab6c6765cab7f27e3","name":"coinSourous","listingRef":"617c3f31cb464bc20b274285","listingOwner":false},{"id":"6172f44ab6c6765cab7f27d3","name":"benn","listingRef":"6187d9cec5654b812eed0518","listingOwner":true}],"__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hbnVqYXNhbjIzQGdtYWlsLmNvbSIsImlkIjoiNjE3YzRiNzY4ZDk5MDZlZjk0MzYzZGI3IiwiaWF0IjoxNjM2NjkxMTU3fQ.B2xQvyYkxDptaA2n3UrEzlxp4z6Pz9vQF-GrdTQj4To"}')
-    }
-
-    const currentUserID = JSON.parse(localStorage.getItem('profile')).result._id
-    const currentUserName = "peter"
-
+    const currentUserID = JSON.parse(localStorage.getItem('profile'))?._id;
+    const currentUserName = "peter";
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
     const [edit, setEdit] = useState(false);
     
     const dispatch = useDispatch()
-    const ENDPOINT = 'http://localhost:5000'
+    const ENDPOINT = 'http://localhost:5000';
 
     const recipient = useSelector((state) => state.Recipient)
     const listState = useSelector((state) => state.currentListing)
@@ -95,7 +89,9 @@ const UDchat = () => {
             socket.emit('sendMessage', chatObj, recipient, (chatObj) => {setMessage(''); dispatch(addNewMessages(chatObj)) });
         }
     }
-
+    const loggedIn = useSelector((state)=>state.auth.loggedIn);
+    if (loggedIn === false)
+    {return <Redirect to="/"/>}
     return (
         <>
         <UDnav username={`Nochiphe`} />

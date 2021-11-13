@@ -1,20 +1,20 @@
 
 
-export const authReducer = (state = { authData: null }, action) => {
+export const authReducer = (state = { authData: null, loggedIn: false }, action) => {
     switch (action.type) {
         case 'AUTH':
-            console.log('reducer')
-            console.log(action.data)
-            localStorage.setItem('profile', JSON.stringify({ ...action?.data }));
+            localStorage.setItem('profile', JSON.stringify({ ...action?.data.result }));
             
             localStorage.setItem('token',action.data.token);
-
-            return { ...state, authData: action.data, loading: false, errors: null };
+            return { ...state, authData: action.data.result ,loggedIn: true };
         case 'LOGOUT':
             localStorage.clear();
 
-            return { ...state, authData: null, loading: false, errors: null };
+            return { ...state, authData: null, loggedIn: false };
         default:
-            return state;
+            const profile = localStorage.getItem('profile');
+            if (profile !== null )
+            return {authData:profile, loggedIn:true};
+            else return {authData:null, loggedIn:false};
     }
 };

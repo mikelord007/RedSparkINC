@@ -6,10 +6,8 @@ export const signup = (formData,router) => async (dispatch) => {
         const {form,otp,verification_key} = formData;
         const otp_verify = { verification_key:verification_key,otp:otp,check:form.email}
         const response = await api.verifyOTP(otp_verify);
-        console.log(response);
         if(response.status === 200 && response.data.Status === "Success" ){
         const { data } = await api.signup(form);
-        console.log(data)
         dispatch({ type: 'AUTH', data });
         router.push('/listings');
         }
@@ -35,4 +33,13 @@ export const login = (formData, router) => async (dispatch) => {
     }
 };
 
-// export const logout = (formData, router) => async 
+export const logout = (router) => async (dispatch) => {
+    try {
+        localStorage.removeItem('token');
+        localStorage.removeItem('profile');
+        dispatch({type: 'LOGOUT'});
+        router.push('/');
+    } catch (error) {
+        console.log(error)
+    }
+}

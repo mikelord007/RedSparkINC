@@ -12,7 +12,7 @@ import { getOTP } from '../../../actions/otp';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '' }
+const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '', rememberMe: false }
 const AuthBox = ({ signupState }) => {
 	const [isSignup, setisSignup] = useState((!signupState) ? true : signupState)
 	const [otpToggle, setOtpToggle] = useState(false);
@@ -20,6 +20,9 @@ const AuthBox = ({ signupState }) => {
 	const EnterOtp = () => {
 		dispatch(getOTP(form.email));
 		setOtpToggle(true);
+	}
+	const handleCheck = () => {
+		setForm({...form,rememberMe:!form.rememberMe});
 	}
 	const switchMode = () => {
 		setForm(initialState);
@@ -31,18 +34,11 @@ const AuthBox = ({ signupState }) => {
 	const verification_key =  useSelector((state) => { return state.otp.verification_key });
 	const handleLogin = (e) => {
 		e.preventDefault();
-		if (isSignup && otp) {
-			const s = dispatch(signup(form, history));
-			console.log(s)
-		}
-		else {
 			try {
 				dispatch(login(form, history));
 			} catch (error) {
-
-				console.log('this is the error:' + error);
+				console.log('Error:'+ error);
 			}
-		}
 	};
 
 	const handleSignup = (e) => {

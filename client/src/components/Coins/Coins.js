@@ -93,7 +93,7 @@ export const Coin5 = ({ top, bottom, right, left, width}) => {
         msTransition: 'all',
         all: "initial",
         zIndex: "-1",
-        position: "absolute",
+        position: "fixed",
         height: "100px",
         width: "auto",
         padding: 0,

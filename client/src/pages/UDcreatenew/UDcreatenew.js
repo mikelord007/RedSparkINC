@@ -1,5 +1,6 @@
 import React, { useEffect} from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { getUserListings } from '../../actions/listing';
 import UDfoot from '../../components/UDfoot/UDfoot'
@@ -17,11 +18,11 @@ const UDcreatenew = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-
-        dispatch(getUserListings(JSON.parse(localStorage.getItem('profile')).result._id))
+        dispatch(getUserListings(JSON.parse(localStorage.getItem('profile'))?._id))
     },[dispatch])
-    
-    
+    const loggedIn = useSelector((state)=>state.auth.loggedIn);
+    if (loggedIn === false)
+    {return <Redirect to="/"/>}
     return (
         <>
             <UDnav username="Nociphe" />

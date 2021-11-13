@@ -36,7 +36,7 @@ export const generateOTP = async (req,res,next) => {
     const encoded = AES.encrypt(details_string, process.env.SECRET);
     res.locals.otp = otp;
     res.locals.encoded = encoded;
-    console.log(otp)
+    console.log(otp) //remove this in production
     next();
     
 }

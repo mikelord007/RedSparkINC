@@ -7,7 +7,7 @@ import * as style from '@dicebear/avatars-bottts-sprites';
 const ChatSideMenu = ({sideMenuState}) =>{
     
     const sideMenu = useRef();
-    const contacts = useSelector((state) => { console.log(state); return state.contactsReducer;});
+    const contacts = useSelector((state) => { return state.contactsReducer;});
     const dispatch = useDispatch()
 
     useEffect(() => {

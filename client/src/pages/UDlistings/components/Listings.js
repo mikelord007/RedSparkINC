@@ -10,13 +10,30 @@ import GreenBtn from '../../../components/GreenBtn/GreenBtn'
 
 const Listings = () => {
 
-    const listings = useSelector((state) => { console.log(state); return state.listings.listings });
+    const listings = useSelector((state) => {  return state.listings.listings });
     const [currentListing, setCurrentListing] = useState()
-    const UDlist = useRef(false)
+    const UDlist = useRef()
     const [ping , setPing] = useState(false)
     const history = useHistory();
     const dispatch = useDispatch();
+    const activeLine = useRef();
+    const changeCurr = (e) => {
+       switch(e.target.name){
+        case "all": 
+            activeLine.current.style.left = "0";
+            break;
+        case "upx": 
+            activeLine.current.style.left = "33.3px";
+            break;
+        case "fiat-crypto": 
+            activeLine.current.style.left = "66.6";
+            break;  
+        default:
+            activeLine.current.style.left = "0";
 
+       }
+       
+    }
     useEffect(() => {
         if(ping)
         UDlist.current.style.filter="blur(1px)"
@@ -28,14 +45,14 @@ const Listings = () => {
         <>
         <div ref={UDlist} id="UDlistings">
             <div  id="listings-head">
-                <div id="head-line"><div id="active-line"></div></div>
-                <div className="head-item">
+                <div id="head-line"><div id="active-line" ref={activeLine}></div></div>
+                <div onClick={changeCurr} name="all" className="head-item">
                     All
                 </div>
-                <div className="head-item">
+                <div onClick={changeCurr} className="head-item" name="upx">
                     UPX
                 </div>
-                <div className="head-item">
+                <div onClick={changeCurr} className="head-item" name="fiat-crypto">
                     Fiat-Crypto
                 </div>
             </div>
