@@ -1,9 +1,5 @@
 import * as api from '../api/index.js';
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e5283f76a148661adfa098ea5ade9958229921cf
 
 export const getTradeHist = () => async (dispatch) => {
     try {

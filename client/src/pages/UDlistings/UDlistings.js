@@ -16,14 +16,9 @@ const UDlistings = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getListings());
-<<<<<<< HEAD
-    }, [dispatch])
-
-=======
     }, [dispatch]);
     if (loggedIn === false)
     {return <Redirect to="/"/>}
->>>>>>> e5283f76a148661adfa098ea5ade9958229921cf
     return (
         <>
             <UDnav username={`Nociphe`} />
