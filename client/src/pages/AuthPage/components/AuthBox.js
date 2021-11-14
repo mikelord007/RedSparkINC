@@ -21,9 +21,11 @@ const AuthBox = ({ signupState }) => {
 		dispatch(getOTP(form.email));
 		setOtpToggle(true);
 	}
-	const handleCheck = () => {
-		setForm({...form,rememberMe:!form.rememberMe});
-	}
+
+	// const handleCheck = () => {
+	// 	setForm({...form,rememberMe:!form.rememberMe});
+	// }
+
 	const switchMode = () => {
 		setForm(initialState);
 		setisSignup((prevIsSignup) => !prevIsSignup);
