@@ -1,5 +1,5 @@
 import express from 'express';
-import { generate } from 'otp-generator';
+// import { generate } from 'otp-generator';
 import { generateOTP } from '../middleware/otp_generation.js';
 const router = express.Router()
 

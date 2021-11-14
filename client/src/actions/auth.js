@@ -3,11 +3,11 @@ import * as api from '../api/index.js';
 
 export const signup = (formData,router) => async (dispatch) => {
     try{
-        const {form,otp,verification_key} = formData;
-        const otp_verify = { verification_key:verification_key,otp:otp,check:form.email}
-        const response = await api.verifyOTP(otp_verify);
-        if(response.status === 200 && response.data.Status === "Success" ){
-        const { data } = await api.signup(form);
+        const response = await api.signup(formData);
+        console.log(response)
+        if(response.status === 201){
+        
+        const {data} = response;
         dispatch({ type: 'AUTH', data });
         router.push('/listings');
         }
