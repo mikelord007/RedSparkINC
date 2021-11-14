@@ -15,6 +15,7 @@ const UDlistings = () => {
     
     const dispatch = useDispatch();
     useEffect(() => {
+        console.log('calling listings');
         dispatch(getListings());
     }, [dispatch]);
     if (loggedIn === false)

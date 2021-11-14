@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import { Icon } from '@iconify/react';
 import { useHistory } from "react-router-dom";
-import { addNewContact } from '../../../actions/listing';
+import { addNewContact, getListings } from '../../../actions/listing';
 
 import '../style.css';
 import Listing from './Listing';
@@ -10,27 +10,32 @@ import GreenBtn from '../../../components/GreenBtn/GreenBtn'
 
 const Listings = () => {
 
-    const listings = useSelector((state) => {  return state.listings.listings });
-    const [currentListing, setCurrentListing] = useState()
-    const UDlist = useRef()
+    const allListings = useSelector((state) => {  return state.listings.listings });
+    const [Listings, setListings] = useState(allListings);
+    const [currentListing, setCurrentListing] = useState();
+    const UDlist = useRef();
     const [ping , setPing] = useState(false)
     const history = useHistory();
     const dispatch = useDispatch();
     const activeLine = useRef();
     const changeCurr = (e) => {
-       switch(e.target.name){
+       switch(e.target.getAttribute('name')){
         case "all": 
             activeLine.current.style.left = "0";
-            break;
+            console.log('all')
+            return;
         case "upx": 
-            activeLine.current.style.left = "33.3px";
-            break;
+            activeLine.current.style.left = "33.3%";
+            console.log('upx')
+            setListings(allListings.filter((listing => listing.currency === "UPX")));
+            return;
         case "fiat-crypto": 
-            activeLine.current.style.left = "66.6";
-            break;  
+            activeLine.current.style.left = "66.6%";
+            console.log('fiat')
+            setListings(allListings.filter((listing => listing.currency !== "UPX")));
+            return;  
         default:
             activeLine.current.style.left = "0";
-
        }
        
     }
@@ -57,7 +62,7 @@ const Listings = () => {
                 </div>
             </div>
             <div id="listings-main">
-                {listings?.map((listing) => (
+                {Listings?.map((listing) => (
                     <Listing key={listing._id} username={listing.user.name} rate={listing.rate} amount={listing.amount} minP={listing.minP} maxP={listing.maxP} currency={listing.currency} setPing={setPing} listing={listing} setCurrentListing={setCurrentListing}/>
                 ))}
             </div>
