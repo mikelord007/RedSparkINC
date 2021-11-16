@@ -16,7 +16,6 @@ const initialState = { name: '', email: '', uplandUsername: '', password: '', pa
 const AuthBox = ({ signupState }) => {
 	// console.log(signupState)
 	const [isSignup, setisSignup] = useState((signupState === undefined) ? true : signupState);
-	console.log(isSignup)
 	const [otpToggle, setOtpToggle] = useState(false);
 	const [otp, setOtp] = useState("");
 	const EnterOtp = () => {

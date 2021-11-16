@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs';
 
 dotenv.config()
 export const registerUser = async (req, res) => {
-    const { name, email, uplandUsername, password, passwordConfirm } = req.body;
+    const { name, email, uplandUsername, password, passwordConfirm } = req.body.form;
 
     try {
         const oldUser = await userModel.findOne({ email: email });
@@ -62,3 +62,7 @@ export const loginUser = async (req, res) => {
 		console.log(error);
 	}
 }
+
+export const resetPassword = () => {
+
+} 

@@ -51,15 +51,13 @@ var dates = {
   }
 }
 
-export const verifyOTP = async (req, res) => {
+export const verifyOTP = async (req, res,next) => {
   try {
  
     var currentdate = new Date();
     const { verification_key, otp } = req.body;
-    console.log(req.body)
-    
-    console.log(req.body.form);
-    const check = "s";
+    const {email} = req.body.form;
+    const check = email;
     if (!verification_key) {
       const response = { "Status": "Failure", "Details": "Verification Key not provided" }
       return res.status(400).send(response)
@@ -79,7 +77,7 @@ export const verifyOTP = async (req, res) => {
       decoded = CryptoJS.AES.decrypt(verification_key,process.env.SECRET);
     }
     catch (err) {
-      const response = { "Status": "Failure", "Details": "Request Error" }
+      const response = { "Status": "Failure", "Details": "Request" }
       return res.status(400).send(response);
     }
     var obj = JSON.parse(decoded.toString(CryptoJS.enc.Utf8))
@@ -106,8 +104,8 @@ export const verifyOTP = async (req, res) => {
             otp_instance.verified = true;
             otp_instance.updated_at = new Date();
             otp_instance.save();
-            const response = { "Status": "Success", "Details": "OTP Matched", "Check": check }
-            return res.status(200).send(response)
+            // const response = { "Status": "Success", "Details": "OTP Matched", "Check": check }
+            next();
           }
           else {
             const response = { "Status": "Failure", "Details": "OTP NOT Matched" }
@@ -125,7 +123,7 @@ export const verifyOTP = async (req, res) => {
       }
     }
     else {
-      const response = { "Status": "Failure", "Details": "Fucking hell" }
+      const response = { "Status": "Failure", "Details": "OTP not provided" }
       return res.status(400).send(response)
     }
   } catch (err) {
