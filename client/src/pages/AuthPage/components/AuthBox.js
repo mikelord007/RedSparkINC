@@ -85,7 +85,7 @@ const AuthBox = ({ signupState }) => {
 							<GreenBtn className="signup-button" content='Login' onClick={handleLogin} />
 						</> 
 						}
-						<Button onClick={switchMode}>
+						<Button id="toggle-button-auth" onClick={switchMode}>
 							{isSignup ? 'Log In?' : 'Sign Up?'}
 						</Button>
 					</form>

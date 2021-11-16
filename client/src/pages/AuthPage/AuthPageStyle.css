@@ -23,7 +23,7 @@ margin-bottom: 20px;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 45%, red 45%, red 53%, rgba(255, 255, 255, 0) 53%);
 	background-size: 0 100%;
 	background-repeat:no-repeat;
-    animation: red-streak 1s linear;
+    animation: red-streak 3s cubic-bezier(0.28, 0.6, 0.59, 1.1);
     animation-fill-mode: forwards;
 
 }
@@ -40,27 +40,34 @@ box-sizing: border-box;
 box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
 border-radius: 30px;
 width: 80%;
-height: auto;
 margin-right: auto;
 margin-left: auto;
 padding-bottom: 20px;
 padding-top: 20px;
 align-items: center;
-height: 70%;
 }
 
 
 /* showcase-css */
-.signup-temp{
+.signup-temp {
     width: 100%;
     height: 100%;
     z-index: 3;
+    display: flex;
+    flex-direction: column;
 }
 
 .welcome{
     display: inline-block;
 }
 
-.signup-temp .container{
-    margin-top: 3rem;
+.auth-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+button#toggle-button-auth {
+    margin-top: 0.6rem;
 }

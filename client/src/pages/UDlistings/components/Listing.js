@@ -11,7 +11,7 @@ const Listing = ({username,amount,currency,minP,maxP,rate, setPing, listing, set
     return(
         <>
                 <div className="list-item">
-                    <div className="list-sub-item name"> {username} </div>
+                    <div className="list-sub-item1 name"> {username} </div>
                     <div className="list-sub-item currency">{rate} {currency}</div>
                     <div className="list-sub-item amount">{amount} Spark</div>
                     <div className="list-sub-item period">{minP}-{maxP} d</div>

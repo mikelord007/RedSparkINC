@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import { Icon } from '@iconify/react';
 import { useHistory } from "react-router-dom";
-import { addNewContact, getListings } from '../../../actions/listing';
+import { addNewContact } from '../../../actions/listing';
 
 import '../style.css';
 import Listing from './Listing';
