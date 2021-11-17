@@ -1,37 +1,41 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector,useDispatch } from 'react-redux';
-import { Icon } from '@iconify/react';
+import { useSelector} from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { addNewContact, getListings } from '../../../actions/listing';
+import { addNewContact } from '../../../actions/listing';
+import { Icon } from '@iconify/react';
+
 
 import '../style.css';
 import Listing from './Listing';
-import GreenBtn from '../../../components/GreenBtn/GreenBtn'
+import Popup from '../../../components/Popup/Popup';
 
 const Listings = () => {
 
-    const allListings = useSelector((state) => {  return state.listings.listings });
+    const allListings = useSelector((state) => state.listings.listings);
     const [Listings, setListings] = useState(allListings);
     const [currentListing, setCurrentListing] = useState();
-    const UDlist = useRef();
     const [ping , setPing] = useState(false)
+    const [dispArray, setdispArray] = useState([])
+    const UDlist = useRef();
     const history = useHistory();
-    const dispatch = useDispatch();
     const activeLine = useRef();
+
+    useEffect(() => {
+        setListings(allListings);
+    },[allListings])
+    
     const changeCurr = (e) => {
        switch(e.target.getAttribute('name')){
         case "all": 
             activeLine.current.style.left = "0";
-            console.log('all')
+            setListings(allListings);
             return;
         case "upx": 
             activeLine.current.style.left = "33.3%";
-            console.log('upx')
             setListings(allListings.filter((listing => listing.currency === "UPX")));
             return;
         case "fiat-crypto": 
             activeLine.current.style.left = "66.6%";
-            console.log('fiat')
             setListings(allListings.filter((listing => listing.currency !== "UPX")));
             return;  
         default:
@@ -45,6 +49,34 @@ const Listings = () => {
         else
         UDlist.current.style.filter="blur(0)"
     }, [ping])
+
+    useEffect(() => {
+
+        if(currentListing)
+        setdispArray([<div className="ping-username" key={0}>
+                    <div className="ping-icon"><Icon icon="bi:file-person-fill" color="black" width="32" /></div>
+                    <div className="ping-text">{currentListing.user.name}</div>
+                </div>,
+                <div className="ping-rate" key={1}>
+                    <div className="ping-icon"><Icon icon="bx:bx-transfer" color="black" width="40" /></div>
+                    <div className="ping-text">{currentListing.rate} per day per spark</div>
+                </div>,
+                <div className="ping-duration" key={2}>
+                    <div className="ping-icon"><Icon icon="bi:clock-history" color="black" width="32" /></div>
+                    <div className="ping-text">{currentListing.minP?currentListing.minP:0}-{currentListing.maxP?currentListing.maxP:`*`} days</div>
+                </div>,
+                <div className="ping-amount" key={3}>
+                    <div className="ping-icon"><Icon icon="clarity:coin-bag-solid" color="black" width="32" /></div>
+                    <div className="ping-text">{currentListing.amount} sparks</div>
+                </div>,
+                <div className="ping-burner" key={4}>
+                    <div className="ping-icon"><Icon icon="ps:facebook-places" color="black" width="28" /></div>
+                    <div className="ping-text">{currentListing.burner}</div>
+                </div>])
+},[currentListing])
+
+
+    const GreenBtnFnArgs = [currentListing,history]
 
     return (
         <>
@@ -68,30 +100,7 @@ const Listings = () => {
             </div>
             </div>
             {ping?
-                <div id="listing-ping">
-                <Icon onClick={() => setPing(false)} icon="carbon:close-filled" color="black" width="32" />
-                <div className="ping-username">
-                    <div className="ping-icon"><Icon icon="bi:file-person-fill" color="black" width="32" /></div>
-                    <div className="ping-text">{currentListing.user.name}</div>
-                </div>
-                <div className="ping-rate">
-                    <div className="ping-icon"><Icon icon="bx:bx-transfer" color="black" width="40" /></div>
-                    <div className="ping-text">{currentListing.rate} per day per spark</div>
-                </div>
-                <div className="ping-duration">
-                    <div className="ping-icon"><Icon icon="fa-solid:calendar-day" color="black" width="32" /></div>
-                    <div className="ping-text">{currentListing.minP?currentListing.minP:0}-{currentListing.maxP?currentListing.maxP:`*`} days</div>
-                </div>
-                <div className="ping-amount">
-                    <div className="ping-icon"><Icon icon="clarity:coin-bag-solid" color="black" width="32" /></div>
-                    <div className="ping-text">{currentListing.amount} sparks</div>
-                </div>
-                <div className="ping-burner">
-                    <div className="ping-icon"><Icon icon="ps:facebook-places" color="black" width="28" /></div>
-                    <div className="ping-text">{currentListing.burner}</div>
-                </div>
-                <GreenBtn content={'Ping'} id={'ping-button'} onClick={() => { dispatch(addNewContact(currentListing,history))} }/>
-            </div>
+                <Popup dispArray={dispArray} CloseButtonFn={setPing} GreenBool={true} GreenBtnFn={addNewContact} GreenBtnFnArgs={GreenBtnFnArgs} GreenBtnContent={'Ping'} doDispatch={true} />
             :null
             }
             </>

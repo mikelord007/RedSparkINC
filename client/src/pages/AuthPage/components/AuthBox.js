@@ -22,9 +22,11 @@ const AuthBox = ({ signupState }) => {
 		dispatch(getOTP(form.email));
 		setOtpToggle(true);
 	}
-	const handleCheck = () => {
-		setForm({...form,rememberMe:!form.rememberMe});
-	}
+
+	// const handleCheck = () => {
+	// 	setForm({...form,rememberMe:!form.rememberMe});
+	// }
+
 	const switchMode = () => {
 		setForm(initialState);
 		setisSignup((prevIsSignup) => !prevIsSignup);
@@ -85,7 +87,7 @@ const AuthBox = ({ signupState }) => {
 						<Button onClick={switchMode}>
 							<Redirect></Redirect>
 						</Button>
-						<Button onClick={switchMode}>
+						<Button id="toggle-button-auth" onClick={switchMode}>
 							{isSignup ? 'Log In?' : 'Sign Up?'}
 						</Button>
 					</form>
