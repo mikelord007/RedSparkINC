@@ -60,8 +60,8 @@ export const authenticateToken = (req, res, next) => {
 }
 
 export const userListing = async (req,res) => {
-    const { id } = req.params
-    try {//user: {id: id}
+    const { id } = req.user
+    try {
         var Objid = mongoose.Types.ObjectId(id);
         const listings = await Listing.find({'user.id': Objid})
         return res.status(200).json(listings);

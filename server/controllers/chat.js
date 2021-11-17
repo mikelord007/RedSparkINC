@@ -4,7 +4,7 @@ import chatModel from '../models/Chat.js';
 
 export const getContacts = async (req, res) => {
 
-	const { id } = req.params;
+	const { id } = req.user;
 	try {
 		
 		const data = await userModel.findOne({_id: id},'contacts')

@@ -11,7 +11,6 @@ import './style.css';
 
 const UDlistings = () => {
     const loggedIn = useSelector((state)=>state.auth.loggedIn);
-    // const loggedIn = useSelector((state)=>{console.log(state)});
     
     const dispatch = useDispatch();
     useEffect(() => {
