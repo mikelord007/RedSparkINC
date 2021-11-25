@@ -5,8 +5,8 @@ import './WelcomeComponentsStyle.css';
 const ToggleButton = () => {
 	return (
 		<div className="toggle-button" >
-			<NavLink to={{ pathname: '/auth', state: false  }}><div className={'login'}>Login</div></NavLink>
-			<NavLink to={{ pathname: '/auth', state: true }}><div className={'signup'}>Signup</div></NavLink>
+			<NavLink to={{ pathname: '/auth', state: "login"  }}><div className={'login'}>Login</div></NavLink>
+			<NavLink to={{ pathname: '/auth', state: "signup" }}><div className={'signup'}>Signup</div></NavLink>
 		</div>
 	)
 }

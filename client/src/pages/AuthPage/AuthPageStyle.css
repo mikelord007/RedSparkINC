@@ -71,3 +71,7 @@ align-items: center;
 button#toggle-button-auth {
     margin-top: 0.6rem;
 }
+
+button#reset-password {
+    margin-top: 0.6rem;
+}

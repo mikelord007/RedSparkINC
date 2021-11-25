@@ -15,12 +15,19 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '', rememberMe: false }
 const AuthBox = ({ signupState }) => {
 	// console.log(signupState)
-	const [isSignup, setisSignup] = useState((signupState === undefined) ? true : signupState);
+	const [boxState, setBoxState] = useState(signupState?signupState:"signup");
 	const [otpToggle, setOtpToggle] = useState(false);
 	const [otp, setOtp] = useState("");
 	const EnterOtp = () => {
 		dispatch(getOTP(form.email));
-		setOtpToggle(true);
+		// setOtpToggle(true);
+		setBoxState("otp")
+	}
+
+	
+	const getPassOTP = () => {
+		// dispatch(resetPassword)
+		setBoxState("resetPass")
 	}
 
 	// const handleCheck = () => {
@@ -29,7 +36,7 @@ const AuthBox = ({ signupState }) => {
 
 	const switchMode = () => {
 		setForm(initialState);
-		setisSignup((prevIsSignup) => !prevIsSignup);
+		setBoxState((prevState) => {if(prevState === "signup")return  "login"; else return "signup" });
 	};
 	const [form, setForm] = useState(initialState);
 	const dispatch = useDispatch();
@@ -59,11 +66,11 @@ const AuthBox = ({ signupState }) => {
 	return (
 
 		<div className="signupbox">
-			{!otpToggle && (
+			{(boxState === "login" || boxState === "signup") && (
 				<>
 
 					<form autoComplete='off' noValidate action="">
-						{isSignup && (
+						{boxState === "signup" && (
 							<>
 								<CustomTextField label="Name" name="name" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
 								<CustomTextField label="Upland Username" name="uplandUsername" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
@@ -74,7 +81,7 @@ const AuthBox = ({ signupState }) => {
 							</>
 						)}
 						
-						{!isSignup && 
+						{boxState === "login" && 
 						<>	
 							<div>
 							<CustomTextField label="Email" name="email" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
@@ -84,16 +91,16 @@ const AuthBox = ({ signupState }) => {
 							<GreenBtn className="signup-button" content='Login' onClick={handleLogin} />
 						</> 
 						}
-						{/* <Button onClick={switchMode}>
-							<Redirect></Redirect>
-						</Button> */}
+						<Button id="toggle-button-auth" onClick={getPassOTP}>
+							Forgot Password?
+						</Button>
 						<Button id="toggle-button-auth" onClick={switchMode}>
-							{isSignup ? 'Log In?' : 'Sign Up?'}
+							{boxState === "signup" ? 'Log In?' : 'Sign Up?'}
 						</Button>
 					</form>
 				</>
 			)}
-			{otpToggle && (
+			{boxState === "otp" && (
 				<>
 					<div id="otp-headline">Please enter OTP sent to your mail</div>
 					<div id="otp-box">
@@ -107,6 +114,11 @@ const AuthBox = ({ signupState }) => {
 					<GreenBtn className="signup-button" content='Submit' onClick={handleSignup} />
 				</> 
 			)}
+			{boxState === "resetPass" && (<>
+				<CustomTextField label="Email" name="email" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
+				<GreenBtn className="signup-button" content='Submit' onClick={EnterOtp} />
+
+			</>)}
 		</div>
 	)
 }
