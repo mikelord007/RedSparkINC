@@ -49,7 +49,7 @@ export const authenticateToken = (req, res, next) => {
     // console.log(authHeader)
     // const token = authHeader && authHeader.split(' ')[1]
     // if (token == null) return res.sendStatus(401)
-    if (token == null) return console.log('user not auth')
+    if (token == null) return console.log('user not auth');
 
     jwt.verify(token, process.env.SECRET, (err, user) => {
         console.log(err)

@@ -1,48 +1,62 @@
 import nodemailer from "nodemailer";
+
 export const sendOTP = async (req, res) => {
 
     // add email stuff here 
     // send otp to email
-    const { email } = req.body;
+    const { email, type } = req.body;
     try {
-
-        const email_subject = "OTP for Signing up!";
-        const email_message = `Here's your OTP: ${res.locals.otp}`;
-        // Create nodemailer transporter
-        const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 587,
-            secure: false,
-            auth: {
-                user: `${process.env.EMAIL}`,
-                pass: `${process.env.PASS}`
-            },
-            tls: {
-                ciphers:'SSLv3'
+        let subject;
+        let email_message;
+        if (!type) {
+            const response = { "Status": "Failure", "Details": "Type not provided" }
+            return res.status(400).send(response)
+        }
+        if (type){
+            if(type === 'VERIFICATION'){
+                subject = "Here's your otp";
+                email_message = `Thank you for signing up,OTP: ${res.locals.otp}`
             }
-        });
-        
+            if(type === 'RESET'){
+                subject = "OTP for reseting your password";
+                email_message = `Forgot your password? No worries, we got you.` + `\nYour OTP:${res.locals.otp}`;
+            }
+        }
+            // Create nodemailer transporter
+            const transporter = nodemailer.createTransport({
+                host: 'smtp.gmail.com',
+                port: 587,
+                secure: false,
+                auth: {
+                    user: `${process.env.EMAIL}`,
+                    pass: `${process.env.PASS}`
+                },
+                tls: {
+                    ciphers: 'SSLv3'
+                }
+            });
 
         const mailOptions = {
             from: `"RedSparks Inc"<${process.env.EMAIL}>`,
             to: `${email}`,
-            subject: email_subject,
+            subject: subject,
             text: email_message,
         };
 
         transporter.verify(function (error, success) {
             if (error) {
-              console.log(error);
+                console.log(error);
             } else {
-              console.log("Server is ready to take our messages");
-            }});
+                console.log("Server is ready to take our messages");
+            }
+        });
 
         //Send Email
         transporter.sendMail(mailOptions, (err, response) => {
             if (err) {
                 return res.status(400).send({ "Status": "Failure", "Details": err });
             } else {
-                return res.status(200).json({"Status":"Success",verification_key:res.locals.encoded.toString()});
+                return res.status(200).json({ "Status": "Success", verification_key: res.locals.encoded.toString() });
 
             }
         });

@@ -6,13 +6,13 @@ import bcrypt from 'bcryptjs';
 
 dotenv.config()
 export const registerUser = async (req, res) => {
-    const { name, email, uplandUsername, password, passwordConfirm } = req.body.form;
+	const { name, email, uplandUsername, password, passwordConfirm } = req.body.form;
 
-    try {
-        const oldUser = await userModel.findOne({ email: email });
-        if (oldUser) return res.status(400).json({ message: "Email already in use" })
+	try {
+		const oldUser = await userModel.findOne({ email: email });
+		if (oldUser) return res.status(400).json({ message: "Email already in use" })
 
-        if (password != passwordConfirm) return res.status(400).json({ message: "Passwords do not match" })
+		if (password != passwordConfirm) return res.status(400).json({ message: "Passwords do not match" })
 
 		// TODO: add validation
 		//add validation after this [joi]
@@ -55,8 +55,8 @@ export const loginUser = async (req, res) => {
 
 		if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
 
-		const token = jwt.sign({ email: user.email, id: user._id }, process.env.SECRET,{ expiresIn: rememberMe? "15d":"1h"  });
-		res.status(200).json({ result: user ,token});
+		const token = jwt.sign({ email: user.email, id: user._id }, process.env.SECRET, { expiresIn: rememberMe ? "15d" : "1h" });
+		res.status(200).json({ result: user, token });
 	}
 	catch (error) {
 		res.status(500).json({ message: "Something went wrong, please try again" });
@@ -64,6 +64,25 @@ export const loginUser = async (req, res) => {
 	}
 }
 
-export const resetPassword = () => {
+export const resetPassword = async (req, res) => {
+	const {password,passwordConfirm} = req.body.form;
+	if (password != passwordConfirm) return res.status(400).json({ message: "Passwords do not match" })
 
-} 
+	try {
+		// TODO: add validation
+		//add validation after this [joi]
+		// const error = registerValidation(req.body);
+		// TODO: add email confirmation 
+
+		const hashedPassword = await bcrypt.hash(password, 12);
+		console.log(req.body.form)
+		// create a new user 
+		const updatedUser = await userModel.findOneAndUpdate({email:req.body.form.email},{password:hashedPassword});
+		return res.status(200).json({ updatedUser })
+
+	}
+	catch (error) {
+		res.status(500).json({ message: "Something went wrong, please try again" });
+		console.log(error);
+	}
+}
