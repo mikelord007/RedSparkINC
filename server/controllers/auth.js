@@ -29,7 +29,8 @@ export const registerUser = async (req, res) => {
 			password: hashedPassword,
 			name: name,
 			uplandUsername: uplandUsername,
-			created: createdDate
+			created: createdDate,
+			contacts: []
 		});
 
 		const savedUser = await user.save();

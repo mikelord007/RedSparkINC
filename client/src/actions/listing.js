@@ -80,7 +80,21 @@ export const closeListing = (listing, history) => async (dispatch) => {
         console.log(error) //remove this in prod
         if (error.response.status === 403){
             dispatch({type:'LOGOUT'});
-        }   
+        }
+    }
+}
+
+export const deleteListing = (lID) => async(dispatch) => {
+
+    try {
+        await api.deleteListing(lID);
+        dispatch({type: 'DELETE-LISTING', lID});
+        
+    } catch (error) {
+        console.log(error) //remove this in prod
+        if (error.response.status === 403){
+            dispatch({type:'LOGOUT'});
+        }
     }
 
 }

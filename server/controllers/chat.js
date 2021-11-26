@@ -8,7 +8,7 @@ export const getContacts = async (req, res) => {
 	try {
 		
 		const data = await userModel.findOne({_id: id},'contacts')
-		console.log("contacts are:", data)
+		// console.log("contacts are:", data)
 		return res.status(200).json(data)
 	}
 	
@@ -22,7 +22,7 @@ export const getChat = async (req, res) => {
 
 	const { uid } = req.params;
 	try {
-		
+		console.log("uid here is: ", uid)
 		const chat  = await chatModel.find({uid: uid})
 		// console.log("chat messages are:", chat)
 		return res.status(200).json(chat)

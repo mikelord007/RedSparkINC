@@ -19,7 +19,7 @@ const ChatFooter = ({sendMessage,message,setMessage,sideMenuState}) =>{
         <div ref={footer} id="chat-footer">
                 <div id="chat-emoji"><div id="chat-emoji-wrap"><Icon icon="entypo:emoji-happy" color="#959226" height="28" /></div></div>
                 <div id="chat-textbox"><input placeholder="Type something here..." onKeyPress={(event) => event.key === 'Enter'?sendMessage(event): null} value = {message} onChange={(event) => setMessage(event.target.value)}></input></div>
-                <div id="chat-send"><div id="chat-send-wrap"><Icon icon="carbon:send-alt-filled" color="#959226" height="28" /></div></div>
+                <div id="chat-send" onClick={(event) => {sendMessage(event)}} ><div id="chat-send-wrap"><Icon icon="carbon:send-alt-filled" color="#959226" height="28" /></div></div>
         </div>
     )
 }

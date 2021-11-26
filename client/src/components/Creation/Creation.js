@@ -36,7 +36,7 @@ const Creation = ({id, edit, buttonText, setEdit, listState}) => {
     }
 
     return(
-        <form className="form-wrapper" onSubmit={handleSubmit} >
+        <form className="form-wrapper"  onSubmit={handleSubmit} >
         <FormControl fullWidth id={id} autoComplete="off" noValidate action="" >
             { edit?
                 <>
@@ -47,17 +47,17 @@ const Creation = ({id, edit, buttonText, setEdit, listState}) => {
                 null
             }
             <InputLabel id="currency-selection-label" >Currency</InputLabel>
-                <Select
-                    labelId="currency-selection-label"
-                    id="currency-selection"
-                    label="Currency"
-                    onChange={handleChangeForDropdown}
-                    value={listing.currency}
-                >
-                    <MenuItem value={"UPX"}>UPX</MenuItem>
-                    <MenuItem value={"BTC"}>BTC</MenuItem>
-                    <MenuItem value={"OTHER"}>OTHER</MenuItem>
-                </Select>
+                    <Select
+                        labelId="currency-selection-label"
+                        id="currency-selection"
+                        label="Currency"
+                        onChange={handleChangeForDropdown}
+                        value={listing.currency}
+                    >
+                        <MenuItem value={"UPX"}>UPX</MenuItem>
+                        <MenuItem value={"BTC"}>BTC</MenuItem>
+                        <MenuItem value={"OTHER"}>OTHER</MenuItem>
+                    </Select>
             <div className="form-element">
             <TextField  value={listing.amount} id="Amount" label="Amount" type="text" variant="outlined" name="amount" onChange={handleChange} />
             </div>

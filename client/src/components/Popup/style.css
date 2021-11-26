@@ -11,6 +11,7 @@ div#listing-ping {
     align-items: center;
     justify-content: space-evenly;
     border-radius: 12px;
+    z-index: 2;
     box-shadow: 4px 3px 20px -7px rgb(0 0 0 / 53%);
 }
 

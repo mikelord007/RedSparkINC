@@ -294,7 +294,7 @@
     top: 20px;
 }
 
-#close-section > button{
+#close-section  button{
     margin: 0.7rem 0;
 }
 
@@ -314,7 +314,7 @@
     border: 3px solid #efff47;
 }
 
-#close-section > h1{
+#close-section  h1{
     margin: 0;
     font-family: prominder;
     font-size: 25px;
@@ -324,4 +324,14 @@
     position: absolute;
     top: 7px;
     right: 10px;
+}
+
+.form-wrapper {
+    width: 80%;
+    margin: auto auto;
+}
+
+.form-element > * {
+    width: 100%;
+    margin-top: 1rem !important;
 }

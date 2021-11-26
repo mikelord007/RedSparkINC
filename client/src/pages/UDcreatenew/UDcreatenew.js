@@ -36,7 +36,7 @@ const UDcreatenew = () => {
                 </div>,
                 <div className="ping-rate" key={1}>
                     <div className="ping-icon"><Icon icon="bx:bx-transfer" color="black" width="40" /></div>
-                    <div className="ping-text">{currentListing.rate} per day per spark</div>
+                    <div className="ping-text">{currentListing.rate +' '+ currentListing.currency} per day per spark</div>
                 </div>,
                 <div className="ping-duration" key={2}>
                     <div className="ping-icon"><Icon icon="bi:clock-history" color="black" width="32" /></div>
@@ -65,7 +65,7 @@ const UDcreatenew = () => {
                 <div id="create-new">
                     <header><h2>CREATE NEW</h2></header>
                     <div id="creation-section">
-                        {!createPopup?<Creation  buttonText={"create"}/>:null}
+                        <Creation  buttonText={"create"}/>
                     </div>
                 </div>
             </div>

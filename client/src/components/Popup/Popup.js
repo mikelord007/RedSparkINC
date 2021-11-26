@@ -16,7 +16,7 @@ const Popup = ({dispArray,CloseButtonFn,GreenBool,GreenBtnFn, GreenBtnFnArgs, Gr
                 <Icon onClick={() => CloseButtonFn(false)} icon="carbon:close-filled" color="black" width="32" />
                 {dispArray}
                 {GreenBool?<GreenBtn content={GreenBtnContent} id={'ping-button'} onClick={() => { doDispatch?dispatch(GreenBtnFn(...GreenBtnFnArgs)): GreenBtnFn(...GreenBtnFnArgs)} }/>:null}
-            </div>
+        </div>
     )
 }
 

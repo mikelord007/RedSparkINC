@@ -32,7 +32,7 @@ const UDchat = () => {
     const dispatch = useDispatch()
     const ENDPOINT = 'http://localhost:5000';
 
-    const recipient = useSelector((state) => state.Recipient)
+    const recipient = useSelector((state) => { console.log(state); return state.Recipient})
     const listState = useSelector((state) => state.currentListing)
     
     const otherUser = recipient.id
@@ -51,7 +51,6 @@ const UDchat = () => {
     scale: 80
     });
 
-
     useEffect(() => {
         dispatch(fetchContacts(currentUserID));
         dispatch(getCurrentListing(recipient.listingRef))
@@ -59,6 +58,7 @@ const UDchat = () => {
     
     
     const uid = otherUser<currentUserID?otherUser+currentUserID:currentUserID+otherUser
+    console.log("dfldjfldk  ", uid)
 
     useEffect(() => {
         dispatch(fetchChat(uid))

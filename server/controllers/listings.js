@@ -76,10 +76,11 @@ export const addContact = async (req,res) => {
     let contact;
 
     try {
+
         if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No user with that id')
 
         const user = await User.findById(id)
-        const existingContact = user.contacts.find((elem) => elem.id === listing.user.id)
+        const existingContact = user.contacts?.find((elem) => elem.id === listing.user.id)
         if(existingContact){
             existingContact.listingRef = listing._id;
             existingContact.listingOwner = false;
@@ -95,6 +96,24 @@ export const addContact = async (req,res) => {
         }
 
         const updatedUser = await User.findByIdAndUpdate(id, user);
+
+        const otherUser = await User.findById(listing.user.id)
+        
+        const newContact = {
+            id: id,
+            name: "hardcodingrn",
+            listingRef: listing._id,
+            listingOwner: true
+        }
+
+        otherUser.contacts.push(newContact)
+
+        const newUserObj = new User((
+            otherUser
+        ))
+        
+        const otherUserObj = await User.findByIdAndUpdate(otherUser.id, newUserObj);
+        console.log("machane updated user: ", otherUserObj)
 
         return res.status(200).json(contact);
     } catch (error) {

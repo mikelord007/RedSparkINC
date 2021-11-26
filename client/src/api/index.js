@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API = axios.create({ baseURL: 'http://localhost:5000/api'});
+const API = axios.create({ baseURL: 'http://192.168.1.18:5000/api'});
 
 
 export const login = (formData) => API.post('/user/login',formData);
@@ -22,6 +22,7 @@ export const closeListing = (listing) => API.post("/close-deal", listing, { head
 
 //creation
 export const getUserListings = (userID) => API.get(`/user-listing/${userID}`,{ headers: { Authorization: localStorage.getItem('token') } });
+export const deleteListing = (lID) => API.delete(`/user-lisitng/${lID}`,{ headers: { Authorization: localStorage.getItem('token') } })
 
 //chat
 export const getChat = (uid) => API.get(`chat/getChat/${uid}`,{ headers: { Authorization: localStorage.getItem('token') } })

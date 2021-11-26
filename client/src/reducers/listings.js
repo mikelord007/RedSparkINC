@@ -13,6 +13,8 @@ export const UserListingReducer = (userListings = [], action) => {
             return action.data;
         case 'CREATED-LISTING':
             return [...userListings,action.data.savedListing]
+        case 'DELETE-LISTING':
+            return 
         default:
             return userListings;
     }
