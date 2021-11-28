@@ -33,6 +33,17 @@ export const login = (formData, router) => async (dispatch) => {
     }
 };
 
+export const resetPass = (formData,router) => async (dispatch) => {
+    try{
+        const {data} = await api.resetPass(formData)
+        // dispatch({type:'RESET',data});
+        // router.push('/');
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
 export const logout = (router) => async (dispatch) => {
     try {
         localStorage.removeItem('token');

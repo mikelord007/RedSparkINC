@@ -56,6 +56,8 @@ export const verifyOTP = async (req, res,next) => {
  
     var currentdate = new Date();
     const { verification_key, otp } = req.body;
+    const {otp_code,type} = otp
+
     const {email} = req.body.form;
     const check = email;
     if (!verification_key) {
@@ -63,7 +65,7 @@ export const verifyOTP = async (req, res,next) => {
       return res.status(400).send(response)
     }
     if (!otp) {
-      const response = { "Status": "Failure", "Details": "OTP not Provided" }
+      const response = { "Status": "Failure", "Details": "otp_code not Provided" }
       return res.status(400).send(response)
     }
     if (!check) {
@@ -94,14 +96,15 @@ export const verifyOTP = async (req, res,next) => {
     //Check if OTP is available in the DB
     if (otp_instance != null) {
       //Check if OTP is already used or not
-      if (otp_instance.verified != true) {
+      if (otp_instance.verified == true) {
 
         //Check if OTP is expired or not
         if (dates.compare(otp_instance.expiration_time,currentdate) == 1) {
 
           //Check if OTP is equal to the OTP in the DB
-          if (otp === otp_instance.otp) {
+          if (otp_code === otp_instance.otp) {
             // Mark OTP as verified or used
+
             otp_instance.verified = true;
             otp_instance.updated_at = new Date();
             otp_instance.save();
@@ -109,6 +112,8 @@ export const verifyOTP = async (req, res,next) => {
             next();
           }
           else {
+            console.log(otp_code)
+            console.log(otp_instance)
             const response = { "Status": "Failure", "Details": "OTP NOT Matched" }
             return res.status(400).send(response)
           }

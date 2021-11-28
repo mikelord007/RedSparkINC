@@ -4,6 +4,7 @@ const API = axios.create({ baseURL: 'http://localhost:5000/api'});
 //auth
 export const login = (formData) => API.post('/user/login',formData);
 export const signup = (formData) => API.post('/user/signup',formData);
+export const resetPass = (formData) => API.post('/user/reset-password',formData);
 
 //otp 
 export const getOTP = (formData) => API.post('/otp/get',formData);

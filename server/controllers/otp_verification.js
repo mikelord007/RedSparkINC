@@ -53,13 +53,9 @@ var dates = {
 
 export const verifyOTP = async (req, res) => {
   try {
- 
-    var currentdate = new Date();
-    const { verification_key, otp } = req.body;
     console.log(req.body)
-    
-    console.log(req.body.form);
-    const check = "s";
+    var currentdate = new Date();
+    const { verification_key, otp , check} = req.body;
     if (!verification_key) {
       const response = { "Status": "Failure", "Details": "Verification Key not provided" }
       return res.status(400).send(response)
@@ -84,6 +80,8 @@ export const verifyOTP = async (req, res) => {
     }
     var obj = JSON.parse(decoded.toString(CryptoJS.enc.Utf8))
     const check_obj = obj.check
+    console.log(check_obj)
+    console.log(check)
     // Check if the OTP was meant for the same email or phone number for which it is being verified 
     if (check_obj != check) {
       const response = { "Status": "Failure", "Details": "OTP was not sent to this particular email or phone number" }

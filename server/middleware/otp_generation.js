@@ -21,7 +21,7 @@ export const generateOTP = async (req,res,next) => {
       expiration_time: expiration_time
     });
     const otpSaved = await otp_instance.save();
-
+    console.log(otpSaved)
     // Create details object containing the email and otp id
     const  details={
       "timestamp": now, 

@@ -19,9 +19,9 @@ const App = () => {
         <Router>
         <Head/>
         <Switch>
-            <Route exact path='/'  component={WelcomePage}  />
+            <Route exact path='/' render={()=>{if(localStorage.getItem('token'))return <UDlistings/>; else return <WelcomePage/>}}  />
             <Route exact path='/auth' component={AuthPage}  />
-            <Route exact path='/login' component={LoginPage}  />
+            {/* <Route exact path='/login' component={LoginPage}  /> */}
             <Route exact path="/listings" component={UDlistings} />
             <Route exact path="/chat" component={UDchat}/>
             <Route exact path="/trade" component={UDtradehist}/>
