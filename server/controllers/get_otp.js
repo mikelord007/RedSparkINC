@@ -12,6 +12,7 @@ export const sendOTP = async (req, res) => {
             const response = { "Status": "Failure", "Details": "Type not provided" }
             return res.status(400).send(response)
         }
+        console.log(type)
         if (type){
             if(type === 'VERIFICATION'){
                 subject = "Here's your otp";
@@ -57,7 +58,6 @@ export const sendOTP = async (req, res) => {
                 return res.status(400).send({ "Status": "Failure", "Details": err });
             } else {
                 return res.status(200).json({ "Status": "Success", verification_key: res.locals.encoded.toString() });
-
             }
         });
     }
