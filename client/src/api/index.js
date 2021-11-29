@@ -1,13 +1,15 @@
 import axios from 'axios';
 const API = axios.create({ baseURL: 'http://192.168.1.18:5000/api'});
 
-
+//auth
 export const login = (formData) => API.post('/user/login',formData);
 export const signup = (formData) => API.post('/user/signup',formData);
+export const resetPass = (formData) => API.post('/user/reset-password',formData);
 
 //otp 
 export const getOTP = (formData) => API.post('/otp/get',formData);
 export const verifyOTP = (formData) => API.post('/otp/verify',formData);
+export const resetPassOTP = (formData) => API.post('/otp/verify',formData);
 
 //listing 
 export const createListing = (formData) => API.post('/create-listing', formData, { headers: { Authorization: localStorage.getItem('token') } })

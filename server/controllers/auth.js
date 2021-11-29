@@ -55,7 +55,7 @@ export const loginUser = async (req, res) => {
 
 		if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
 
-		const token = jwt.sign({ email: user.email, id: user._id }, process.env.SECRET, { expiresIn: rememberMe ? "15d" : "1h" });
+		const token = jwt.sign({ email: user.email, id: user._id ,name:user.name}, process.env.SECRET, { expiresIn: rememberMe ? "15d" : "1h" });
 		res.status(200).json({ result: user, token });
 	}
 	catch (error) {
@@ -65,7 +65,9 @@ export const loginUser = async (req, res) => {
 }
 
 export const resetPassword = async (req, res) => {
-	const {password,passwordConfirm} = req.body.form;
+	const {password,passwordConfirm,email} = req.body;
+	console.log(email)
+	console.log(req.body)
 	if (password != passwordConfirm) return res.status(400).json({ message: "Passwords do not match" })
 
 	try {
@@ -76,8 +78,11 @@ export const resetPassword = async (req, res) => {
 
 		const hashedPassword = await bcrypt.hash(password, 12);
 		console.log(req.body.form)
-		// create a new user 
-		const updatedUser = await userModel.findOneAndUpdate({email:req.body.form.email},{password:hashedPassword});
+		const user = await userModel.findOne({ email: email });
+		console.log(user)
+		// update user password
+		const updatedUser = await userModel.findOneAndUpdate({email:email},{password:hashedPassword},{new:true});
+		console.log(updatedUser)
 		return res.status(200).json({ updatedUser })
 
 	}
