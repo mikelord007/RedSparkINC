@@ -23,8 +23,10 @@ let socket;
 
 
 const UDchat = () => {
+
     const currentUserID = JSON.parse(localStorage.getItem('profile'))?._id;
-    const currentUserName = JSON.parse(localStorage.getItem('profile')).name;
+    const currentUserName = JSON.parse(localStorage.getItem('profile'))?.name;
+    
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
     const [edit, setEdit] = useState(false);
@@ -89,12 +91,18 @@ const UDchat = () => {
             socket.emit('sendMessage', chatObj, recipient, (chatObj) => {setMessage(''); dispatch(addNewMessages(chatObj)) });
         }
     }
+    
+    const username = JSON.parse(localStorage.getItem('profile')).uplandUsername
+
     const loggedIn = useSelector((state)=>state.auth.loggedIn);
+
+    
     if (loggedIn === false)
     {return <Redirect to="/"/>}
+
     return (
         <>
-        <UDnav username={`Nochiphe`} />
+        <UDnav username={username} />
         <div id="UDchat">
             <ChatHeader sideMenuState={sideMenuState} otherUserPic={otherUserPic}/>
             <ChatMain sideMenuState={sideMenuState} otherUserPic={otherUserPic} currentUserPic={currentUserPic} currentUserID={currentUserID} setEdit={setEdit}/>

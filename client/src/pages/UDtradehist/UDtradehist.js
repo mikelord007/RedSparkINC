@@ -16,9 +16,12 @@ const UDtradehist = () => {
     const loggedIn = useSelector((state)=>state.auth.loggedIn);
     if (loggedIn === false)
     {return <Redirect to="/"/>}
+
+    const username = JSON.parse(localStorage.getItem('profile')).uplandUsername
+
     return(
         <>
-            <UDnav username={`nochiphe`}/>
+            <UDnav username={username}/>
                 <TradeHistory/>
             <UDfoot/>
         </>

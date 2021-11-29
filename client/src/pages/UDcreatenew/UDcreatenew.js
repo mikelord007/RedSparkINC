@@ -57,9 +57,10 @@ const UDcreatenew = () => {
     if (loggedIn === false)
     {return <Redirect to="/"/>}
     
+    const username = JSON.parse(localStorage.getItem('profile')).uplandUsername
     return (
         <>
-            <UDnav username="Nociphe" />
+            <UDnav username={username} />
             <div id="UDcreatenew">
                 <ActiveList setCurrentListing={setCurrentListing} setCreatePopup={setCreatePopup} />
                 <div id="create-new">

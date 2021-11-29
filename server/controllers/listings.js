@@ -80,8 +80,9 @@ const addContactHelper = (user,listingID,listingOwner,userToAddID,userToAddName)
             contact = existingContact;
             user.contacts = user.contacts.map((elem) => elem.id===userToAddID?existingContact:elem)
         }
-
+        
         else{
+            console.log("here",userToAddID,userToAddName)
             const newContact = {id: userToAddID, name: userToAddName, listingRef: listingID, listingOwner: listingOwner, lastMessage: "", lastMsgTime: null}
             contact = newContact;
             user.contacts.push(newContact)
@@ -94,7 +95,7 @@ const addContactHelper = (user,listingID,listingOwner,userToAddID,userToAddName)
 
 
 export const addContact = async (req,res) => {
-    const { id } = req.user
+    const { id,name } = req.user
     const listing = req.body
 
     try {
@@ -109,7 +110,7 @@ export const addContact = async (req,res) => {
 
         const otherUser = await User.findById(listing.user.id);
 
-        const [ otherUserUpdated, otherContact ] = addContactHelper(otherUser,listing._id,true,id,"testname");
+        const [ otherUserUpdated, otherContact ] = addContactHelper(otherUser,listing._id,true,id,name);
 
         await User.findByIdAndUpdate(otherUser.id, otherUserUpdated);
 

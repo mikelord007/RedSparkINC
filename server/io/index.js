@@ -3,12 +3,16 @@ import User from '../models/User.js';
 import {checkUserInContact} from '../controllers/io.js'
 
 
-const updateLastMessage = async (chatObj) => {
-    const otherUser = await User.findById(chatObj.to)
+const updateLastMessage = async (userID,otherUserID,message,msgTime) => {
 
-    otherUser.contacts.map((contact) => { if (contact.id===chatObj.from) { contact.lastMessage=chatObj.text; contact.lastMsgTime = chatObj.msgtime; return contact } else return contact } )
+    const user = await User.findById(userID)
 
-    User.findByIdAndUpdate(chatObj.to, otherUser)
+    console.log("first",user)
+    user.contacts = user.contacts.map((contact) => { if (contact.id===otherUserID) { contact.lastMessage=message; contact.lastMsgTime = msgTime; return contact } else return contact } )
+    console.log(user)
+
+    await User.findByIdAndUpdate(userID, user)
+
 }
 
 
@@ -37,7 +41,8 @@ const socketHandler = (io) => {
             io.to(newUpload.uid).emit('message',newUpload)
             callback(newUpload);
 
-            updateLastMessage(chatObj);
+            updateLastMessage(chatObj.from,chatObj.to,chatObj.text,chatObj.msgtime);
+            updateLastMessage(chatObj.to,chatObj.from,chatObj.text,chatObj.msgtime);
 
         })
     

@@ -14,14 +14,17 @@ const UDlistings = () => {
     
     const dispatch = useDispatch();
     useEffect(() => {
-        console.log('calling listings');
+        // console.log('calling listings');
         dispatch(getListings());
     }, [dispatch]);
     if (loggedIn === false)
     {return <Redirect to="/"/>}
+
+    const username = JSON.parse(localStorage.getItem('profile')).uplandUsername
+
     return (
         <>
-            <UDnav username={`Nociphe`} />
+            <UDnav username={username} />
             <Listings />
             <UDfoot />
         </>

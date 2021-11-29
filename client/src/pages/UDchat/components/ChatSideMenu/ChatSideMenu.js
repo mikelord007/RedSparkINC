@@ -38,7 +38,7 @@ const ChatSideMenu = ({sideMenuState}) =>{
                                 <div className="user-name">{elem.name}</div>
                                 <div className="chat-time">{moment(elem.lastMsgTime).fromNow()}</div>
                             </div>
-                            <div className="user-text"><span>{elem.lastMessage}</span></div>
+                            <div className="user-text"><span>{elem.lastMessage?elem.lastMessage:' ...'}</span></div>
                             </div>
                         </div>)
                     
