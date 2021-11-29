@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API = axios.create({ baseURL: 'http://192.168.1.18:5000/api'});
+const API = axios.create({ baseURL: 'http://localhost:5000/api'});
 
 
 export const login = (formData) => API.post('/user/login',formData);
@@ -13,7 +13,7 @@ export const verifyOTP = (formData) => API.post('/otp/verify',formData);
 export const createListing = (formData) => API.post('/create-listing', formData, { headers: { Authorization: localStorage.getItem('token') } })
 export const getListings = () => API.get('/get-listings',{ headers: { Authorization: localStorage.getItem('token') } })
 export const addNewContact = (listing) => API.post(`/add-contact`, listing, { headers: { Authorization: localStorage.getItem('token') } })
-export const getCurrentListing = (lID) => API.get(`/current-listing/${lID}`, { headers: { Authorization: localStorage.getItem('token') } })
+export const getCurrentListing = (lID) => API.get(`/current-listing/${lID}`, { headers: { Authorization: localStorage.getItem('token') } }) 
 
 //trade
 export const createTrade = (formData) => API.post("/create-trade",formData,{ headers: { Authorization: localStorage.getItem('token') } });
