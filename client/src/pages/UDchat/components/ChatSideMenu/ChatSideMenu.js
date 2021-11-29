@@ -3,6 +3,7 @@ import { useSelector,useDispatch } from 'react-redux';
 import { updateRecipient } from '../../../../actions/chat';
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/avatars-bottts-sprites';
+import moment from 'moment';
 
 const ChatSideMenu = ({sideMenuState}) =>{
     
@@ -35,9 +36,9 @@ const ChatSideMenu = ({sideMenuState}) =>{
                             <div className="chat-info-wrapper">
                             <div className="chat-info">
                                 <div className="user-name">{elem.name}</div>
-                                <div className="chat-time">11.35 PM</div>
+                                <div className="chat-time">{moment(elem.lastMsgTime).fromNow()}</div>
                             </div>
-                            <div className="user-text"><span>We're gonna do this</span></div>
+                            <div className="user-text"><span>{elem.lastMessage}</span></div>
                             </div>
                         </div>)
                     

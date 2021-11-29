@@ -39,6 +39,7 @@ const AuthBox = ({ signupState }) => {
 		setForm(initialState);
 		setBoxState((prevState) => { if (prevState === "signup") return "login"; else return "signup" });
 	};
+
 	const [form, setForm] = useState(initialState);
 	const dispatch = useDispatch();
 	const history = useHistory();

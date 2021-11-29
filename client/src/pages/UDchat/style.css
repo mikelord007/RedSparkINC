@@ -247,28 +247,23 @@
     height: 50%;
     display: flex;
     position: relative;
-}
-
-.chat-time {
-    position: absolute;
-    right: 10%;
-    top: 15%;
-}
-
-.user-name {
-    position: absolute;
-    top: 15%;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 1rem;
 }
 
 .user-text {
     height: 50%;
     position: relative;
+    margin-right: 1rem;
+    overflow: hidden;
 }
 
 .user-text span {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    white-space: nowrap;
 }
 
 .profile-icon img {

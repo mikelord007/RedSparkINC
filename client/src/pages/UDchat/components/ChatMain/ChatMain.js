@@ -1,7 +1,8 @@
 import React,{useRef,useEffect} from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import { Icon } from "@iconify/react";
-import {useSelector} from 'react-redux'
+import {useSelector} from 'react-redux';
+import moment from 'moment';
 
 const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, setEdit}) =>{
 
@@ -21,6 +22,7 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
     })
 
     if(messages)
+    
     return (
         <div ref={mainMenu} onClick={()=>sideMenuState[0]?sideMenuState[1](false):null} id="chat-main">
              <ScrollToBottom>
@@ -30,8 +32,8 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
                     <img src={(message.from===currentUserID?currentUserPic:otherUserPic)} alt=""/>
                     <div className="main-content">
                     <div className="text-info">
-                        <div className="text-username">{message.from===currentUserID?'you':message.toName}</div>
-                        <div className="text-time">11:34 AM</div>
+                        <div className="text-username">{message.from===currentUserID?'':message.toName}</div>
+                        <div className="text-time">{moment(message.msgtime).fromNow()}</div>
                     </div>
                     <div className="main-text">{message.text}</div>
                     </div>  

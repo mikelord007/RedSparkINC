@@ -70,52 +70,51 @@ export const userListing = async (req,res) => {
     }
 }
 
+
+const addContactHelper = (user,listingID,listingOwner,userToAddID,userToAddName) => {
+    let contact;
+    const existingContact = user.contacts?.find((elem) => elem.id === userToAddID)
+        if(existingContact){
+            existingContact.listingRef = listingID;
+            existingContact.listingOwner = listingOwner;
+            contact = existingContact;
+            user.contacts = user.contacts.map((elem) => elem.id===userToAddID?existingContact:elem)
+        }
+
+        else{
+            const newContact = {id: userToAddID, name: userToAddName, listingRef: listingID, listingOwner: listingOwner, lastMessage: "", lastMsgTime: null}
+            contact = newContact;
+            user.contacts.push(newContact)
+
+        }
+
+        return [user,contact];
+
+}
+
+
 export const addContact = async (req,res) => {
     const { id } = req.user
     const listing = req.body
-    let contact;
 
     try {
 
         if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No user with that id')
 
         const user = await User.findById(id)
-        const existingContact = user.contacts?.find((elem) => elem.id === listing.user.id)
-        if(existingContact){
-            existingContact.listingRef = listing._id;
-            existingContact.listingOwner = false;
-            contact = existingContact;
-            user.contacts.map((elem) => elem.id===listing.user.id?existingContact:elem)
-            // console.log("updatedRef: ")
-        }
-        else{
-            const newContact = {id: listing.user.id, name: listing.user.name, listingRef: listing._id, listingOwner: false}
-            contact = newContact;
-            user.contacts.push(newContact)
-            // console.log("newRef")
-        }
+        console.log("listing is: ", listing)
+        const [userUpdated, contact] = addContactHelper(user,listing._id,false,listing.user.id,listing.user.name)
 
-        const updatedUser = await User.findByIdAndUpdate(id, user);
+        await User.findByIdAndUpdate(id, userUpdated);
 
-        const otherUser = await User.findById(listing.user.id)
-        
-        const newContact = {
-            id: id,
-            name: "hardcodingrn",
-            listingRef: listing._id,
-            listingOwner: true
-        }
+        const otherUser = await User.findById(listing.user.id);
 
-        otherUser.contacts.push(newContact)
+        const [ otherUserUpdated, otherContact ] = addContactHelper(otherUser,listing._id,true,id,"testname");
 
-        const newUserObj = new User((
-            otherUser
-        ))
-        
-        const otherUserObj = await User.findByIdAndUpdate(otherUser.id, newUserObj);
-        console.log("machane updated user: ", otherUserObj)
+        await User.findByIdAndUpdate(otherUser.id, otherUserUpdated);
 
         return res.status(200).json(contact);
+
     } catch (error) {
         console.log(error)
     }
