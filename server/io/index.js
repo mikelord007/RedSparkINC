@@ -1,5 +1,15 @@
 import chatModel from '../models/Chat.js';
+import User from '../models/User.js';
 import {checkUserInContact} from '../controllers/io.js'
+
+
+const updateLastMessage = async (chatObj) => {
+    const otherUser = await User.findById(chatObj.to)
+
+    otherUser.contacts.map((contact) => { if (contact.id===chatObj.from) { contact.lastMessage=chatObj.text; contact.lastMsgTime = chatObj.msgtime; return contact } else return contact } )
+
+    User.findByIdAndUpdate(chatObj.to, otherUser)
+}
 
 
 const socketHandler = (io) => {
@@ -26,6 +36,9 @@ const socketHandler = (io) => {
             newUpload.save();
             io.to(newUpload.uid).emit('message',newUpload)
             callback(newUpload);
+
+            updateLastMessage(chatObj);
+
         })
     
         socket.on('disconnect', () => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory,Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import CustomTextField from './CustomTextField';
 import './AuthComponentsStyle.css';
 import GreenBtn from '../../../components/GreenBtn/GreenBtn';
@@ -31,6 +31,7 @@ const AuthBox = ({ signupState }) => {
 		setForm(initialState);
 		setisSignup((prevIsSignup) => !prevIsSignup);
 	};
+
 	const [form, setForm] = useState(initialState);
 	const dispatch = useDispatch();
 	const history = useHistory();
