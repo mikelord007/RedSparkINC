@@ -3,8 +3,6 @@ import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/avatars-bottts-sprites';
 import io from 'socket.io-client';
 import { useDispatch,useSelector } from 'react-redux';
-import { fetchChat,fetchContacts,addNewMessages } from "../../actions/chat";
-import { getCurrentListing } from "../../actions/listing";
 import { Redirect } from "react-router-dom";
 
 
@@ -15,6 +13,8 @@ import ChatHeader from "./components/ChatHeader/ChatHeader";
 import ChatMain from "./components/ChatMain/ChatMain";
 import ChatSideMenu from "./components/ChatSideMenu/ChatSideMenu";
 import Creation from "../../components/Creation/Creation"
+import { getCurrentListing } from "../../actions/listing";
+import { fetchChat,fetchContacts,addNewMessages,updateRecipient } from "../../actions/chat";
 
 import './style.css'
 
@@ -34,9 +34,24 @@ const UDchat = () => {
     const dispatch = useDispatch()
     const ENDPOINT = 'http://localhost:5000';
 
-    const recipient = useSelector((state) => { console.log(state); return state.Recipient})
-    const listState = useSelector((state) => state.currentListing)
+    const recipient = useSelector((state) => { console.log(state); return state?.Recipient})
     
+    useEffect(() => {
+        dispatch(fetchContacts(currentUserID));
+        dispatch(getCurrentListing(recipient.listingRef))
+    },[dispatch,recipient,currentUserID])
+
+    const contacts = useSelector((state) => state.contactsReducer);
+
+    useEffect(() => {
+        if(Object.keys(recipient).length===0 && contacts.length){
+            dispatch(updateRecipient(contacts[0]))
+        }
+    },[dispatch,contacts,recipient])
+
+
+    const listState = useSelector((state) => state.currentListing)
+
     const otherUser = recipient.id
     const otherUserName = recipient.name
     const sideMenuState = useState(false);
@@ -53,12 +68,8 @@ const UDchat = () => {
     scale: 80
     });
 
-    useEffect(() => {
-        dispatch(fetchContacts(currentUserID));
-        dispatch(getCurrentListing(recipient.listingRef))
-    },[dispatch,recipient,currentUserID])
-    
-    
+
+
     const uid = otherUser<currentUserID?otherUser+currentUserID:currentUserID+otherUser
 
     useEffect(() => {
