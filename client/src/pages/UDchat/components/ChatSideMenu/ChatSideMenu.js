@@ -1,9 +1,10 @@
 import React,{useRef,useEffect} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { updateRecipient } from '../../../../actions/chat';
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/avatars-bottts-sprites';
 import moment from 'moment';
+
+import { updateRecipient } from '../../../../actions/chat';
 
 const ChatSideMenu = ({sideMenuState}) =>{
     
@@ -21,10 +22,17 @@ const ChatSideMenu = ({sideMenuState}) =>{
         sideMenuState[1](false);
     }
 
+    const sortingFn = (a,b) => {
+        return new Date(b.lastMsgTime) - new Date(a.lastMsgTime)
+    }
+
+    contacts.sort(sortingFn)
+
     return (
         <div ref={sideMenu} id="side-menu">
                 {
                     contacts.map((elem,index) => {
+
                         let profilePic = createAvatar(style, {
                                                             seed: elem.id,
                                                             dataUri: true,
@@ -36,7 +44,7 @@ const ChatSideMenu = ({sideMenuState}) =>{
                             <div className="chat-info-wrapper">
                             <div className="chat-info">
                                 <div className="user-name">{elem.name}</div>
-                                <div className="chat-time">{moment(elem.lastMsgTime).fromNow()}</div>
+                                <div className="chat-time">{moment(elem.lastMsgTime).fromNow(true)}</div>
                             </div>
                             <div className="user-text"><span>{elem.lastMessage?elem.lastMessage:' ...'}</span></div>
                             </div>

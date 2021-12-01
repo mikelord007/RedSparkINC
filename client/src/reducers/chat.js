@@ -27,6 +27,6 @@ export const Recipient = (state = {}, action) => {
         case 'NEW-CONTACT':
             return action.data;
         default :
-            return state
+            return state;
     }
 }
