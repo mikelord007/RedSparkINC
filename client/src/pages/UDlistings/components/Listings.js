@@ -77,6 +77,7 @@ const Listings = () => {
 
 
     const GreenBtnFnArgs = [currentListing,history]
+    const currentUserID = JSON.parse(localStorage.getItem('profile'))?._id;
 
     return (
         <>
@@ -100,7 +101,7 @@ const Listings = () => {
             </div>
             </div>
             {ping?
-                <Popup dispArray={dispArray} CloseButtonFn={setPing} GreenBool={true} GreenBtnFn={addNewContact} GreenBtnFnArgs={GreenBtnFnArgs} GreenBtnContent={'Ping'} doDispatch={true} />
+                <Popup dispArray={dispArray} CloseButtonFn={setPing} GreenBool={true} GreenBtnFn={addNewContact} GreenBtnFnArgs={GreenBtnFnArgs} GreenBtnContent={'Ping'} doDispatch={true} disableButton={currentUserID===currentListing.user.id?true:false}/>
             :null
             }
             </>
