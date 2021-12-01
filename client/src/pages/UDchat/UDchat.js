@@ -58,7 +58,6 @@ const UDchat = () => {
     
     
     const uid = otherUser<currentUserID?otherUser+currentUserID:currentUserID+otherUser
-    console.log("dfldjfldk  ", uid)
 
     useEffect(() => {
         dispatch(fetchChat(uid))
