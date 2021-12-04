@@ -4,11 +4,11 @@ import { useHistory } from 'react-router-dom';
 import CustomTextField from './CustomTextField';
 import './AuthComponentsStyle.css';
 import GreenBtn from '../../../components/GreenBtn/GreenBtn';
-// import { Typography } from '@mui/material';
+import { Typography, Alert, Snackbar } from '@mui/material';
 import { signup, login } from '../../../actions/auth';
 import { Button } from '@material-ui/core';
 import OtpInput from 'react-otp-input';
-import { resetPass, verifyOTP as vOTP } from '../../../api';
+import { resetPass, resetPassOTP, verifyOTP as vOTP } from '../../../api';
 import { getOTP } from '../../../actions/otp';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -16,8 +16,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '', rememberMe: false }
 const AuthBox = ({ signupState }) => {
 	const [boxState, setBoxState] = useState(signupState ? signupState : "signup");
-	// const [otpToggle, setOtpToggle] = useState(false);
-	const [otp, setOtp] = useState({otp_code:"",type:""});
+	const [otpToggle, setOtpToggle] = useState(false); //remove this
+	const [otp, setOtp] = useState({ otp_code: "", type: "" });
 	const EnterOtp = (type) => {
 		dispatch(getOTP({ email: form.email, type: type }));
 		// setOtpToggle(true);
