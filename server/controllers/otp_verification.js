@@ -55,7 +55,7 @@ export const verifyOTP = async (req, res) => {
   try {
     console.log(req.body)
     var currentdate = new Date();
-    const { verification_key, otp , check} = req.body;
+    const { verification_key, otp , check, type} = req.body;
     if (!verification_key) {
       const response = { "Status": "Failure", "Details": "Verification Key not provided" }
       return res.status(400).send(response)
@@ -104,6 +104,15 @@ export const verifyOTP = async (req, res) => {
             otp_instance.verified = true;
             otp_instance.updated_at = new Date();
             otp_instance.save();
+            switch (type) {
+              case "VERIFICATION":
+                const User = await User.findOne({email:check})
+                break;
+              case "RESET":
+                break;
+              default:
+                break;
+            }
             const response = { "Status": "Success", "Details": "OTP Matched", "Check": check }
             return res.status(200).send(response)
           }

@@ -18,7 +18,13 @@ export const getListings = () => async (dispatch) => {
         return data;
 
     } catch (error) {
-        console.log(error) //remove this in prod
+        for (var key in error) {
+            if (Object.prototype.hasOwnProperty.call(error, key)) {
+                var val = error[key];
+                console.log(`${key}: ${val}`) //remove this in prod
+            }
+        }
+        
         if (error.response.status === 403){
             dispatch({type:'LOGOUT'});
         }        
