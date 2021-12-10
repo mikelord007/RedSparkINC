@@ -9,24 +9,10 @@ import { Server } from 'socket.io';
 
 import { authenticateToken } from './middleware/authenticateToken.js';
 import userRoute from './routes/user.js';
-<<<<<<< HEAD
-import chatRoute from './routes/chat.js'
-import listingRoute from './routes/listing.js';
-import tradeRoute from './routes/trade.js';
-import otpRoute from "./routes/otp.js";
-
-const CONNECTION_URL = "mongodb+srv://root:gqLWw1AzUDMjv2RU@cluster0.kh5y6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
-
-const PORT = process.env.PORT || 5000
-
-dotenv.config();
-=======
 import chatRoute from './routes/chat.js';
 import listingRoute from './routes/listing.js';
 import tradeRoute from './routes/trade.js';
 import otpRoute from "./routes/otp.js";
->>>>>>> 5bb0741354ff8b4fbb3895d55d4f2e93d7acb15c
 
 const CONNECTION_URL = "mongodb+srv://root:gqLWw1AzUDMjv2RU@cluster0.kh5y6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 

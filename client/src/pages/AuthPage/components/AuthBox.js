@@ -60,6 +60,7 @@ const AuthBox = ({ signupState }) => {
 		e.preventDefault()
 		const send = { form: form, otp: otp, verification_key: verification_key }
 		dispatch(signup(send, history));
+		setBoxState("login")
 	}
 	const handleChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
