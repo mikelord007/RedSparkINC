@@ -39,10 +39,9 @@ export const login = (formData, router) => async (dispatch) => {
     }
 };
 
-export const resetPass = (formData,router) => async (dispatch) => {
-    try{
-        const {data} = await api.resetPass(formData)
-        console.log(data)
+export const resetPass = (formData, router) => async (dispatch) => {
+    try {
+        const { data } = await api.resetPass(formData)
         // dispatch({type:'RESET',data});
         // router.push('/');
     }
