@@ -290,7 +290,7 @@
 }
 
 #close-section  button{
-    margin: 0.7rem 0;
+    margin: 0.3rem 0;
 }
 
 #close-section {
@@ -326,7 +326,15 @@
     margin: auto auto;
 }
 
+.form-element{
+    width: 100%;
+}
+
 .form-element > * {
     width: 100%;
-    margin-top: 1rem !important;
+    margin-top: 0.5rem !important;
+}
+
+.form-element-width-setter{
+    margin: 0 30px;
 }

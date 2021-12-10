@@ -16,7 +16,6 @@ const Creation = ({id, edit, buttonText, setEdit, listState}) => {
     const history = useHistory();
 
     const handleSubmit = (e) => {
-        console.log("fucking here")
         e.preventDefault();
 
         if(!listState)
@@ -46,6 +45,8 @@ const Creation = ({id, edit, buttonText, setEdit, listState}) => {
                 :
                 null
             }
+            <div className="form-element-width-setter">
+            <div className="form-element">
             <InputLabel id="currency-selection-label" >Currency</InputLabel>
                     <Select
                         labelId="currency-selection-label"
@@ -58,6 +59,7 @@ const Creation = ({id, edit, buttonText, setEdit, listState}) => {
                         <MenuItem value={"BTC"}>BTC</MenuItem>
                         <MenuItem value={"OTHER"}>OTHER</MenuItem>
                     </Select>
+            </div>
             <div className="form-element">
             <TextField  value={listing.amount} id="Amount" label="Amount" type="text" variant="outlined" name="amount" onChange={handleChange} />
             </div>
@@ -72,6 +74,7 @@ const Creation = ({id, edit, buttonText, setEdit, listState}) => {
             </div>
             <div className="form-element">
             <TextField  value={listing.maxP} id="Max" label="Max Period" type="text" variant="outlined" name="maxP" onChange={handleChange} />
+            </div>
             </div>
             <GreenBtn id="CN-submit" content={buttonText} type="submit" />
         </FormControl>
