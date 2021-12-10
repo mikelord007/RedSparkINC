@@ -6,10 +6,9 @@ export const signup = (formData, router) => async (dispatch) => {
         const response = await api.signup(formData);
         console.log(response)
         if (response.status === 201) {
-
             const { data } = response;
-            dispatch({ type: 'AUTH', data });
-            router.push('/listings');
+            // dispatch({ type: 'AUTH', data });
+            // router.push('/auth');
         }
         else {
             const { error } = response;
@@ -18,7 +17,6 @@ export const signup = (formData, router) => async (dispatch) => {
         }
     } catch (error) {
         console.log(error);
-        return error;
     }
 };
 

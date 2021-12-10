@@ -53,14 +53,14 @@ export const loginUser = async (req, res) => {
 
 		const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
-		if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
+		if (!isPasswordCorrect) throw { message: "Invalid credentials" };
 
 		const token = jwt.sign({ email: user.email, id: user._id ,name:user.name}, process.env.SECRET, { expiresIn: rememberMe ? "15d" : "1h" });
 		res.status(200).json({ result: user, token });
 	}
 	catch (error) {
-		res.status(500).json({ message: "Something went wrong, please try again" });
-		console.log(error);
+		console.log(error)
+		res.status(400).json(error);
 	}
 }
 
