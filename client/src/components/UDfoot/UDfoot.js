@@ -1,5 +1,6 @@
 import React from 'react'
 import { Icon } from '@iconify/react';
+import {Link} from 'react-router-dom'
 
 import GreenBtn from '../GreenBtn/GreenBtn'
 import './style.css'
@@ -14,10 +15,10 @@ const UDfoot = () => {
 
     return(
         <div id="ud-footer">
-            <GreenBtn to="/create" content={createicon}/>
-            <GreenBtn to="/" content={listing}/>
-            <GreenBtn to="/chat" content={chat}/>
-            <GreenBtn to="/trade" content={history}/>
+            <Link to={'/create'}><GreenBtn to="/create" content={createicon}/></Link>
+            <Link to={'/listings'}><GreenBtn to="/" content={listing}/></Link>
+            <Link to={'/chat'}><GreenBtn to="/chat" content={chat}/></Link>
+            <Link to={'/trade'}><GreenBtn to="/trade" content={history}/></Link>
         </div>
     )
 }

@@ -21,7 +21,7 @@ export const generateOTP = async (req,res,next) => {
       expiration_time: expiration_time
     });
     const otpSaved = await otp_instance.save();
-
+    console.log(otpSaved)
     // Create details object containing the email and otp id
     const  details={
       "timestamp": now, 
@@ -36,7 +36,7 @@ export const generateOTP = async (req,res,next) => {
     const encoded = AES.encrypt(details_string, process.env.SECRET);
     res.locals.otp = otp;
     res.locals.encoded = encoded;
-    console.log(otp)
+    console.log(otp) //remove this in production
     next();
     
 }

@@ -1,25 +1,58 @@
-@font-face{
-    font-family: prom;
-    src:  url('./assets/prominder.regular.otf');
-
+#root img.logo {
+    height: 14%;
+    margin: auto auto;
 }
-.welcome-container{
+
+.welcome-container {
+    height: 86%;
+}
+
+.hero-section {
+    display: flex;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-family: prominder;
+    height: 30%;
+}
+
+.home-page-listing {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    height: 70%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.home-listing-description {
+    font-family: monospace;
+    font-weight: 800;
+    font-size: 0.9rem;
+    width: 55%;
+    margin-top: 1rem;
+}
+
+.home-page-listing img.downArrow {
+    width: 3rem;
+    margin-top: 1rem;
+}
+
+/* .welcome-container{
     display: flex;
     flex-wrap: wrap;
     padding-bottom:15px;
     justify-content: center;
-    /*overflow: hidden;*/
+    /*overflow: hidden;
 }
 
-.logo{
-width: 306px;
-height: 106px;
-margin-left: auto;
-margin-right: auto;
-display: flex;
-justify-content: center;
-margin-bottom: 20px;
-
+.logo {
+    height: 14%;
+    aspect-ratio: 3;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 .welcome-message{
@@ -65,4 +98,4 @@ color: #000000;
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;
-}
+} */

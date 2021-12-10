@@ -1,7 +1,9 @@
 import listingModel from '../models/Listing.js';
-
 import Listing from '../models/Listing.js';
 import User from '../models/User.js';
+import mongoose from 'mongoose';
+
+
 const secret = "test";
 
 export const createListing = async (req, res) => {
@@ -42,3 +44,92 @@ export const getListings = async (req,res) => {
     }
 }
 
+export const authenticateToken = (req, res, next) => {
+    const token = req.headers['authorization']
+    // console.log(authHeader)
+    // const token = authHeader && authHeader.split(' ')[1]
+    // if (token == null) return res.sendStatus(401)
+    if (token == null) return console.log('user not auth');
+
+    jwt.verify(token, process.env.SECRET, (err, user) => {
+        console.log(err)
+        if (err) return res.sendStatus(403)
+        req.user = user
+        next()
+    })
+}
+
+export const userListing = async (req,res) => {
+    const { id } = req.user
+    try {
+        var Objid = mongoose.Types.ObjectId(id);
+        const listings = await Listing.find({'user.id': Objid})
+        return res.status(200).json(listings);
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+const addContactHelper = (user,listingID,listingOwner,userToAddID,userToAddName) => {
+    let contact;
+    const existingContact = user.contacts?.find((elem) => elem.id === userToAddID)
+        if(existingContact){
+            existingContact.listingRef = listingID;
+            existingContact.listingOwner = listingOwner;
+            contact = existingContact;
+            user.contacts = user.contacts.map((elem) => elem.id===userToAddID?existingContact:elem)
+        }
+        
+        else{
+            console.log("here",userToAddID,userToAddName)
+            const newContact = {id: userToAddID, name: userToAddName, listingRef: listingID, listingOwner: listingOwner, lastMessage: "", lastMsgTime: null}
+            contact = newContact;
+            user.contacts.push(newContact)
+
+        }
+
+        return [user,contact];
+
+}
+
+
+export const addContact = async (req,res) => {
+    const { id,name } = req.user
+    const listing = req.body
+
+    try {
+
+        if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No user with that id')
+
+        const user = await User.findById(id)
+        console.log("listing is: ", listing)
+        const [userUpdated, contact] = addContactHelper(user,listing._id,false,listing.user.id,listing.user.name)
+
+        await User.findByIdAndUpdate(id, userUpdated);
+
+        const otherUser = await User.findById(listing.user.id);
+
+        const [ otherUserUpdated, otherContact ] = addContactHelper(otherUser,listing._id,true,id,name);
+
+        await User.findByIdAndUpdate(otherUser.id, otherUserUpdated);
+
+        return res.status(200).json(contact);
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+export const getCurrentListing = async (req,res) =>{
+    const {lID} = req.params
+    
+    try {
+        const data = await listingModel.findById(lID)
+        return res.status(200).json(data);
+    } catch(error) {
+        console.log(error)
+    }
+
+}

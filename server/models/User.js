@@ -6,18 +6,21 @@ const userSchema = mongoose.Schema({
 	password : {type: String, required: true},
 	uplandUsername : {type: String, required: true},
 	created: { type: Date, default: Date.now },
-	listings: [
-				{ 
-			  currency: String,
-	 		  rate: Number,
-	  		  amount: Number,
-	  		  burner: String,
-	 		  minP: Number,
-	 		  maxP: Number,
-			  active: Boolean,
-			  created: Date
-	 		}
-			]
+	contacts: [],
+	verified:{type:Boolean,required:true,default:false}
 })
 
 export default mongoose.model("User", userSchema);
+
+// listings: [
+// 	{ 
+//   currency: String,
+//    rate: Number,
+// 	amount: Number,
+// 	burner: String,
+//    minP: Number,
+//    maxP: Number,
+//   active: Boolean,
+//   created: Date
+//  }
+// ]

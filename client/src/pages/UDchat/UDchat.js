@@ -1,126 +1,126 @@
-import React from "react";
-import { Icon } from "@iconify/react";
+import React,{useState,useEffect} from "react";
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/avatars-bottts-sprites';
+import io from 'socket.io-client';
+import { useDispatch,useSelector } from 'react-redux';
+import { Redirect } from "react-router-dom";
+
 
 import UDfoot from '../../components/UDfoot/UDfoot'
 import UDnav from '../../components/UDnav/UDnav'
+import ChatFooter from "./components/ChatFooter/ChatFooter";
+import ChatHeader from "./components/ChatHeader/ChatHeader";
+import ChatMain from "./components/ChatMain/ChatMain";
+import ChatSideMenu from "./components/ChatSideMenu/ChatSideMenu";
+import Creation from "../../components/Creation/Creation"
+import { getCurrentListing } from "../../actions/listing";
+import { fetchChat,fetchContacts,addNewMessages,updateRecipient } from "../../actions/chat";
+
 import './style.css'
 
-const UDchat = () => {
-    let svgdice = createAvatar(style, {
-        seed: 'Baconguy',
-        dataUri: true
-      });
+let socket;
 
-    let svgdice2 = createAvatar(style, {
-        seed: 'Baconguy',
+
+
+const UDchat = () => {
+
+    const currentUserID = JSON.parse(localStorage.getItem('profile'))?._id;
+    const currentUserName = JSON.parse(localStorage.getItem('profile'))?.name;
+    
+    const [room, setRoom] = useState('');
+    const [message, setMessage] = useState('');
+    const [edit, setEdit] = useState(false);
+    
+    const dispatch = useDispatch()
+    const ENDPOINT = 'http://localhost:5000';
+
+    const recipient = useSelector((state) => { console.log(state); return state?.Recipient})
+    
+    useEffect(() => {
+        dispatch(fetchContacts(currentUserID));
+        dispatch(getCurrentListing(recipient.listingRef))
+    },[dispatch,recipient,currentUserID])
+
+    const contacts = useSelector((state) => state.contactsReducer);
+
+    useEffect(() => {
+        if(Object.keys(recipient).length===0 && contacts.length){
+            dispatch(updateRecipient(contacts[0]))
+        }
+    },[dispatch,contacts,recipient])
+
+
+    const listState = useSelector((state) => state.currentListing)
+
+    const otherUser = recipient.id
+    const otherUserName = recipient.name
+    const sideMenuState = useState(false);
+
+    let otherUserPic = createAvatar(style, {
+        seed: otherUser,
         dataUri: true,
         scale: 80
       });
 
-    let svgdicenociphe2 = createAvatar(style, {
-    seed: 'Nociphe',
+    let currentUserPic = createAvatar(style, {
+    seed: currentUserID,
     dataUri: true,
     scale: 80
     });
 
+
+
+    const uid = otherUser<currentUserID?otherUser+currentUserID:currentUserID+otherUser
+
+    useEffect(() => {
+        dispatch(fetchChat(uid))
+    },[dispatch,uid]) //maybe take this to root component
+
+    useEffect(() => {
+        
+        setRoom(uid);
+        socket = io(ENDPOINT);
+        socket.emit('join',room)
+
+        return () => {
+            socket.off();
+        }
+    },[room,uid]);
+
+    useEffect(() => {
+        socket.on('message',(chatObj) => {
+            dispatch(addNewMessages(chatObj))
+        })
+    },[dispatch])
+
+    const sendMessage = (event) => {
+        event.preventDefault();
+
+        if(message) {
+            const chatObj = {text: message,to: otherUser,toName: otherUserName,from: currentUserID,fromName: currentUserName,uid: uid}
+            socket.emit('sendMessage', chatObj, recipient, (chatObj) => {setMessage(''); dispatch(addNewMessages(chatObj)) });
+        }
+    }
+    
+    const username = JSON.parse(localStorage.getItem('profile')).uplandUsername
+
+    const loggedIn = useSelector((state)=>state.auth.loggedIn);
+
+    
+    if (loggedIn === false)
+    {return <Redirect to="/"/>}
+
     return (
         <>
-        <UDnav username={`Nochiphe`} />
+        <UDnav username={username} />
         <div id="UDchat">
-            <div id="chat-header">
-                <div id="chat-namelist"><Icon icon="ci:hamburger" color="black" height="28" /></div>
-                <div id="chat-otheruser"><div id="chat-img"><img src={svgdice} alt=""/></div></div>
-                <div id="chat-morebutton"><Icon icon="carbon:overflow-menu-horizontal" color="black" height="34" /></div>
-            </div>
-            <div id="chat-main">
-                <div className="other-text">
-                    <img src={svgdice2} alt=""/>
-                    <div className="main-content">
-                    <div className="text-info">
-                        <div className="text-username">Baconguy</div>
-                        <div className="text-time">11:34 AM</div>
-                    </div>
-                    <div className="main-text">I wasn’t sure about that purchase, but it ended up well.</div>
-                    </div>
-                </div>
-                <div className="home-text">
-                <img src={svgdicenociphe2} alt=""/>
-                <div className="main-content">
-                    <div className="text-info">
-                        <div className="text-username">You</div>
-                        <div className="text-time">11.35 AM</div>
-                    </div>
-                    <div className="main-text">You just got to trust your instincts brother.</div>
-                    </div>
-                </div>
-                <div className="other-text">
-                    <img src={svgdice2} alt=""/>
-                    <div className="main-content">
-                    <div className="text-info">
-                        <div className="text-username">Baconguy</div>
-                        <div className="text-time">11:34 AM</div>
-                    </div>
-                    <div className="main-text">I wasn’t sure about that purchase, but it ended up well.</div>
-                    </div>
-                </div>
-                <div className="home-text">
-                <img src={svgdicenociphe2} alt=""/>
-                <div className="main-content">
-                    <div className="text-info">
-                        <div className="text-username">You</div>
-                        <div className="text-time">11.35 AM</div>
-                    </div>
-                    <div className="main-text">You just got to trust your instincts brother.</div>
-                    </div>
-                </div>
-                <div className="other-text">
-                    <img src={svgdice2} alt=""/>
-                    <div className="main-content">
-                    <div className="text-info">
-                        <div className="text-username">Baconguy</div>
-                        <div className="text-time">11:34 AM</div>
-                    </div>
-                    <div className="main-text">I wasn’t sure about that purchase, but it ended up well.</div>
-                    </div>
-                </div>
-                <div className="home-text">
-                <img src={svgdicenociphe2} alt=""/>
-                <div className="main-content">
-                    <div className="text-info">
-                        <div className="text-username">You</div>
-                        <div className="text-time">11.35 AM</div>
-                    </div>
-                    <div className="main-text">You just got to trust your instincts brother.</div>
-                    </div>
-                </div>
-                <div className="other-text">
-                    <img src={svgdice2} alt=""/>
-                    <div className="main-content">
-                    <div className="text-info">
-                        <div className="text-username">Baconguy</div>
-                        <div className="text-time">11:34 AM</div>
-                    </div>
-                    <div className="main-text">I wasn’t sure about that purchase, but it ended up well.</div>
-                    </div>
-                </div>
-                <div className="home-text">
-                <img src={svgdicenociphe2} alt=""/>
-                <div className="main-content">
-                    <div className="text-info">
-                        <div className="text-username">You</div>
-                        <div className="text-time">11.35 AM</div>
-                    </div>
-                    <div className="main-text">You just got to trust your instincts brother.</div>
-                    </div>
-                </div>
-            </div>
-            <div id="chat-footer">
-                <div id="chat-emoji"><div id="chat-emoji-wrap"><Icon icon="entypo:emoji-happy" color="#959226" height="28" /></div></div>
-                <div id="chat-textbox"><input placeholder="Type something here..."></input></div>
-                <div id="chat-send"><div id="chat-send-wrap"><Icon icon="carbon:send-alt-filled" color="#959226" height="28" /></div></div>
-            </div>
+            <ChatHeader sideMenuState={sideMenuState} otherUserPic={otherUserPic}/>
+            <ChatMain sideMenuState={sideMenuState} otherUserPic={otherUserPic} currentUserPic={currentUserPic} currentUserID={currentUserID} setEdit={setEdit}/>
+            <ChatFooter sideMenuState={sideMenuState} message={message} setMessage={setMessage} sendMessage={sendMessage}/>
+            <ChatSideMenu  sideMenuState={sideMenuState}/>
+            {edit?<Creation autofill={true} id={'close-section'} edit={edit} buttonText={"Close Deal"} setEdit={setEdit} 
+                listState={listState}
+            />:null}
         </div>
         <UDfoot/>
         </>

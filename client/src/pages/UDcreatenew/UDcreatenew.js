@@ -1,67 +1,76 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect} from 'react'
+import { useDispatch,useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Icon } from '@iconify/react';
-import { TextField } from '@mui/material';
 
+import { getUserListings } from '../../actions/listing';
 import UDfoot from '../../components/UDfoot/UDfoot'
 import UDnav from '../../components/UDnav/UDnav'
-import GreenBtn from '../../components/GreenBtn/GreenBtn';
+import ActiveList from './components/ActiveList'
+import Creation from '../../components/Creation/Creation'
+import Popup from '../../components/Popup/Popup';
+
+
 import './style.css'
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { createListing } from '../../actions/listing';
 
-const listState = { currency: '', amount: '', rate: '', burner: '', minP: '', maxP: '' }
+
+
 const UDcreatenew = () => {
-    const [listing, setlisting] = useState(listState);
-    const dispatch = useDispatch();
-    const history = useHistory();
     
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch(createListing(listing,history));
-    }
+    const dispatch = useDispatch();
+    const [createPopup, setCreatePopup] = useState(false);
+    const [dispArray, setdispArray] = useState([])
+    const [currentListing, setCurrentListing] = useState();
+    
 
-    const handleChange = (e) => {
-        setlisting({...listing, [e.target.name]:e.target.value})
-    }
+    useEffect(() => {
+        dispatch(getUserListings(JSON.parse(localStorage.getItem('profile'))?._id))
+    },[dispatch])
 
+    useEffect(() => {
+
+        if(currentListing)
+        setdispArray([<div className="ping-username" key={0}>
+                    <div className="ping-icon"><Icon icon="bi:file-person-fill" color="black" width="32" /></div>
+                    <div className="ping-text">{currentListing.user.name}</div>
+                </div>,
+                <div className="ping-rate" key={1}>
+                    <div className="ping-icon"><Icon icon="bx:bx-transfer" color="black" width="40" /></div>
+                    <div className="ping-text">{currentListing.rate +' '+ currentListing.currency} per day per spark</div>
+                </div>,
+                <div className="ping-duration" key={2}>
+                    <div className="ping-icon"><Icon icon="bi:clock-history" color="black" width="32" /></div>
+                    <div className="ping-text">{currentListing.minP?currentListing.minP:0}-{currentListing.maxP?currentListing.maxP:`*`} days</div>
+                </div>,
+                <div className="ping-amount" key={3}>
+                    <div className="ping-icon"><Icon icon="clarity:coin-bag-solid" color="black" width="32" /></div>
+                    <div className="ping-text">{currentListing.amount} sparks</div>
+                </div>,
+                <div className="ping-burner" key={4}>
+                    <div className="ping-icon"><Icon icon="ps:facebook-places" color="black" width="28" /></div>
+                    <div className="ping-text">{currentListing.burner}</div>
+                </div>])
+},[currentListing])
+
+    const loggedIn = useSelector((state)=>state.auth.loggedIn);
+
+    if (loggedIn === false)
+    {return <Redirect to="/"/>}
+    
+    const username = JSON.parse(localStorage.getItem('profile')).uplandUsername
     return (
         <>
-            <UDnav username="Nociphe" />
+            <UDnav username={username} />
             <div id="UDcreatenew">
-                <div id="active-list">
-                    <header><h2>Active Listings</h2></header>
-                    <div id="listing-box">
-                        <div className="CN-listing">
-                            <div className="CN-sn">1.</div>
-                            <div className="CN-amount">4.26 upx</div>
-                            <div className="CN-days">2-4 days</div>
-                            <div className="CN-more"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                        </div>
-                        <div className="CN-listing">
-                            <div className="CN-sn">2.</div>
-                            <div className="CN-amount">5.2 upx</div>
-                            <div className="CN-days">0-5 days</div>
-                            <div className="CN-more"><button><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
-                        </div>
-                    </div>
-                </div>
+                <ActiveList setCurrentListing={setCurrentListing} setCreatePopup={setCreatePopup} />
                 <div id="create-new">
                     <header><h2>CREATE NEW</h2></header>
                     <div id="creation-section">
-                        <form autoComplete="off" noValidate action="" onSubmit={handleSubmit}>
-                            <TextField className="CN-input" id="Currency" label="Currency" type="text" style={{}} variant="outlined" name="currency" onChange={handleChange} />
-                            <TextField className="CN-input" id="Amount" label="Amount" type="text" variant="outlined" name="amount" onChange={handleChange} />
-                            <TextField className="CN-input" id="Rate" label="Rate ( Per day Per spark )" type="text" variant="outlined" name="rate" onChange={handleChange} />
-                            <TextField className="CN-input" id="Burner" label="Burner" type="text" variant="outlined" name="burner" onChange={handleChange} />
-                            <TextField className="CN-input" id="Min" label="Min Period" type="text" variant="outlined" name="minP" onChange={handleChange} />
-                            <TextField className="CN-input" id="Max" label="Max Period" type="text" variant="outlined" name="maxP" onChange={handleChange} />
-                            <GreenBtn id="CN-submit" content={"create"} type="submit" />
-                        </form>
+                        <Creation  buttonText={"create"}/>
                     </div>
-                  
                 </div>
             </div>
+            {createPopup?<Popup dispArray={dispArray} GreenBool={true} GreenBtnContent={'Delete'} doDispatch={false} CloseButtonFn={setCreatePopup} />:null}
             <UDfoot />
         </>
     )

@@ -12,7 +12,7 @@ const listingSchema = mongoose.Schema(
         created: Date,
         user: {
             name: String,
-            id: mongoose.ObjectId
+            id: mongoose.Schema.Types.ObjectId
         }
     }
 )

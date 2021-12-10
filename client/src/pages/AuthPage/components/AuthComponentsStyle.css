@@ -1,28 +1,67 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
-@font-face{
-    font-family: prom;
-    src:  url('../assets/prominder.regular.otf');
-}
-.signupbox{
-margin: 15px;
-display: flex;
-justify-content: center;
-flex-direction: column;
-flex-wrap: wrap;
-padding: 1%;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@font-face {
+  font-family: prom;
+  src: url("../assets/prominder.regular.otf");
 }
 
-.textfield{
-	/* margin: 100px; */
+.signupbox {
+  margin: 0 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 1%;
+  /* height: 72%; is this needed */
+  text-align: center;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.signup-button{
-   display: inline;
-   margin-top: 10px;
+.textfield {
+  /* margin: 100px; */
 }
 
-.toggle-login{
-   display: inline;
-   font-family: Montserrat;
+.signup-button {
+  display: inline;
+  margin-top: 10px;
 }
 
+.toggle-login {
+  display: inline;
+  font-family: Montserrat;
+}
+
+.email-prompt {
+  display: inline;
+  font-family: Montserrat;
+  margin-top: 2px;
+  margin-bottom:2px;
+}
+
+/* showcase */
+.toggle-login {
+  display: block;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.signupbox form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: space-around;
+}
+
+.signupbox button label {
+  font-size: large;
+}
+
+#otp-box > * {
+  display: flex;
+  justify-content: center;
+}
+
+.error-alert{
+  padding: 2px;
+}
