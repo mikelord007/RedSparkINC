@@ -59,7 +59,7 @@ const TradeHistory = () => {
                    ))}
                     </div>
         </div>
-        {tradePopup?<Popup dispArray={dispArray} CloseButtonFn={setTradePopup} GreenBtnFn={setTradePopup} GreenBtnFnArgs={[false]} GreenBool={true} GreenBtnContent={'Ok'} doDispatch={false}/>:null}
+        {tradePopup?<Popup dispArray={dispArray} CloseButtonFn={setTradePopup} GreenBtnFn={setTradePopup} GreenBtnFnArgs={[false]} GreenBool={true} GreenBtnContent={'Ok'} doDispatch={false} height={"60%"}/>:null}
         </>
     )
 }

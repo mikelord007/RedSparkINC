@@ -19,7 +19,7 @@ const ChatHeader = ({otherUserPic,sideMenuState}) =>{
         <div ref={chatHead} id="chat-header">
                 <div id="chat-namelist"><button onClick={() =>  sideMenuState[1](true)} ><Icon icon="ci:hamburger" color="black" height="28" /> </button></div>
                 <div id="chat-otheruser"><div id="chat-img"><img src={otherUserPic} alt=""/></div></div>
-                <div id="chat-morebutton"><Icon icon="carbon:overflow-menu-horizontal" color="black" height="34" /></div>
+                <div id="chat-morebutton"></div>
         </div>
     )
 }

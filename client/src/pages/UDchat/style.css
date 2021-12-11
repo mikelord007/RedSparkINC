@@ -75,7 +75,7 @@
 }
 
 #chat-send {
-    flex-basis: 20%;
+    flex-basis: 15%;
     margin: auto 0;
     text-align: center;
 }
@@ -87,6 +87,7 @@
     position: relative;
     background-color: #FFFDA9;
     border-radius: 50%;
+    margin-right: 21px;
 }
 
 #chat-send-wrap svg {
@@ -112,10 +113,10 @@
     border-radius: 50%;
 }
 
-#chat-textbox{
+#chat-textbox {
     max-height: 100%;
     height: 80%;
-    flex-basis: 57%;
+    flex-basis: 73%;
     margin: auto auto;
     position: relative;
     background: #E2E2E2;
@@ -132,7 +133,7 @@
     border: none;
     background: #E2E2E2;
     height: 100%;
-    /* width: 100%; */
+    width: 86%;
     padding: 0;
 }
 

@@ -3,11 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import CustomTextField from './CustomTextField';
 import './AuthComponentsStyle.css';
-import { Snackbar } from '@material-ui/core';
-import { Alert } from '@mui/material';
+import { Alert, Snackbar } from '@mui/material';
 
 import GreenBtn from '../../../components/GreenBtn/GreenBtn';
-import { Typography, Alert, Snackbar } from '@mui/material';
 import { signup, login } from '../../../actions/auth';
 import { Button } from '@material-ui/core';
 import OtpInput from 'react-otp-input';
