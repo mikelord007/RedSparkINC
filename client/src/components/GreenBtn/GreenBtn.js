@@ -1,15 +1,24 @@
 import React from "react";
-// import { useHistory } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 
+import { currentGreenButton } from "../../actions/chat";
 import "./style.css"
 
 const GreenBtn = ({className, content, id,to, onClick, disabled}) => {
 
-    className += ' greenbtn';
+    const currentBtn = useSelector(state => state.GButton)
+    className = currentBtn===to?className+' greenbtn active':className + ' greenbtn'
 
+    const dispatch = useDispatch()
+
+    const runFn = (e) => {
+        if(onClick)
+            onClick(e)
+        dispatch(currentGreenButton(to))
+    }
 
     return(
-        <button id={id} key={to} onClick={onClick} className={className} disabled={disabled} >{content}</button>
+        <button id={id} key={to} onClick={runFn} className={className} disabled={disabled} >{content}</button>
         )
 }
 

@@ -30,3 +30,12 @@ export const Recipient = (state = {}, action) => {
             return state;
     }
 }
+
+export const GButton = ( state = null, action) => {
+    switch(action.type){
+        case 'UPDATEGRNBTN':
+            return action.grnbtn;
+        default: 
+            return state
+    }
+}   

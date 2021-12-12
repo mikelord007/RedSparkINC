@@ -14,7 +14,7 @@
     transition: all 500ms ease;
 }
 
-.greenbtn:hover:active {
+.greenbtn:active {
     box-shadow: inset 0 3px 0 0 rgb(0 0 0 / 34%);
     cursor: pointer;
 }

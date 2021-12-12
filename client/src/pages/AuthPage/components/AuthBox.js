@@ -48,6 +48,7 @@ const AuthBox = ({ signupState }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const verification_key = useSelector((state) => { return state.otp.verification_key });
+	
 	const handleLogin = (e) => {
 		e.preventDefault();
 		try {

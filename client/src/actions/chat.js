@@ -48,3 +48,12 @@ export const addNewMessages = (chatObj) => async (dispatch) => {
         console.log(error);
     }
 }
+
+export const currentGreenButton = (grnbtn) => async (dispatch) => {
+    try{
+        dispatch({type: 'UPDATEGRNBTN', grnbtn})
+    }
+    catch (error) {
+        console.log(error);
+    }
+}

@@ -1,13 +1,13 @@
 import React from 'react'
 import CustomGreenBtn from './CustomGreenBtn';
 import './WelcomeComponentsStyle.css';
-const Item = () => {
+const Item = ({name, amount, rate, days}) => {
     return (   
                 <tr className='item'>
-                <td>manu</td>
-                <td>2.1 Spark</td>
-                <td> $10 </td>
-                <td> 6-12 <br/>days</td>
+                <td>{name}</td>
+                <td>{amount} Spark</td>
+                <td>${rate}</td>
+                <td> {days} <br/>days</td>
                 <td> <CustomGreenBtn content={"rent"} /> </td>
                 </tr>
     )
