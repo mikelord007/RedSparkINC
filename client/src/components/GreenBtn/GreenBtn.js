@@ -14,7 +14,8 @@ const GreenBtn = ({className, content, id,to, onClick, disabled}) => {
     const runFn = (e) => {
         if(onClick)
             onClick(e)
-        dispatch(currentGreenButton(to))
+        if(to)
+            dispatch(currentGreenButton(to))
     }
 
     return(

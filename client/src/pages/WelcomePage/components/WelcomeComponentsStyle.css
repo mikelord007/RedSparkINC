@@ -6,16 +6,17 @@
 
 }
 
-.item{
-    /* flex-direction: row; */
-    background-color:  #F4F4F4;;
+.item {
+    background-color: #F4F4F4;
     padding-top: 3px;
     padding-bottom: 5px;
     border: 3px solid rgba(198, 198, 198, 1);
     border-radius: 21px;
     margin: 5px;
-    display: inline;
-   }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 
 .item td{
@@ -31,12 +32,28 @@
     margin-top: 3px;
 }
 
-.listing{
+td.home-item-name {
+    flex: 1 1 30%;
+}
+td.home-item-amount {
+    flex: 1 1 20%;
+}
+td.home-item-rate {
+    flex: 1 1 10%;
+}
+td.home-item-days {
+    flex: 1 1 20%;
+}
+td.home-item-rent {
+    flex: 1 1 20%;
+}
+
+.listing {
     display: flex;
     justify-content: center;
     width: 80%;
     background: #EFEFEF;
-    border-radius: 15px;
+    border-radius: 13px;
     padding-bottom: 10px;
     flex-direction: row;
     margin-top: 20px;
@@ -44,7 +61,7 @@
     height: 200px;
     overflow: scroll;
     flex-wrap: wrap;
-    border: 2px black solid;
+    border: 2px #000000 solid;
 }
 
 .table-body{

@@ -1,7 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import { logout } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
+
+import { currentGreenButton } from '../../actions/chat';
+import { logout } from '../../actions/auth';
 import './style.css'
 
 
@@ -10,6 +12,7 @@ const UDnav = ({username}) => {
     const dispatch = useDispatch();
     const handleLogout = () => {
         dispatch(logout(history));
+        dispatch(currentGreenButton(null));
     }
     return(
         <div id="ud-navbar">

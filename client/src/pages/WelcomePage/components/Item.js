@@ -4,11 +4,11 @@ import './WelcomeComponentsStyle.css';
 const Item = ({name, amount, rate, days}) => {
     return (   
                 <tr className='item'>
-                <td>{name}</td>
-                <td>{amount} Spark</td>
-                <td>${rate}</td>
-                <td> {days} <br/>days</td>
-                <td> <CustomGreenBtn content={"rent"} /> </td>
+                <td className='home-item-name'>{name}</td>
+                <td className='home-item-amount'>{amount} Spark</td>
+                <td className='home-item-rate'>${rate}</td>
+                <td className='home-item-days'> {days} <br/>days</td>
+                <td className='home-item-rent'><CustomGreenBtn content={"rent"} /> </td>
                 </tr>
     )
 }
