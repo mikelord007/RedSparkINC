@@ -10,7 +10,8 @@ export const createListing = async (req, res) => {
     const { currency, rate, amount, burner, minP, maxP } = req.body;
     try {
         const createdDate = new Date().toString();
-        const user = await User.findById(req.user.id)
+        const user = req.user
+        console.log(user)
         const listing = new listingModel({
             currency: currency,
             rate: rate,
@@ -21,8 +22,8 @@ export const createListing = async (req, res) => {
             active: true,
             created: createdDate,
             user: {
-                name:user.name,
-                id:user._id
+                name:user.username,
+                id:user.id
             }
         });
         const savedListing  = await listing.save();

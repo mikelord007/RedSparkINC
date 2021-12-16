@@ -68,8 +68,6 @@ const UDchat = () => {
     scale: 80
     });
 
-
-
     const uid = otherUser<currentUserID?otherUser+currentUserID:currentUserID+otherUser
 
     useEffect(() => {

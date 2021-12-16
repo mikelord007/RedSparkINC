@@ -10,8 +10,7 @@ export const authenticateToken = (req, res, next) => {
             console.log(err);
             return res.sendStatus(403);
         }
-        req.user = user
-        console.log(req.user.name)
+        req.user = user 
         next()
     })
 }

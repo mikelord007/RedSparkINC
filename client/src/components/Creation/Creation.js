@@ -19,7 +19,7 @@ const Creation = ({id, edit, buttonText, setEdit, listState}) => {
         e.preventDefault();
 
         if(!listState)
-        dispatch(createListing(listing,history));
+        dispatch(createListing(listing));
         else
         dispatch(closeListing(listing,history))
 

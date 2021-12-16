@@ -10,6 +10,7 @@ const ChatSideMenu = ({sideMenuState}) =>{
     
     const sideMenu = useRef();
     const contacts = useSelector((state) => { return state.contactsReducer;});
+    const recipient = useSelector((state) => state.Recipient);
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -39,7 +40,7 @@ const ChatSideMenu = ({sideMenuState}) =>{
                                                             scale: 80
                                                             });
                         return( 
-                        <div onClick={() => handleUpdate(elem)} className="person-item" key={index}>
+                        <div onClick={() => handleUpdate(elem)} className={recipient.id===elem.id?"person-active-item":"person-item"} key={index}>
                             <div className="profile-icon"><img src={profilePic} alt=""/></div>
                             <div className="chat-info-wrapper">
                             <div className="chat-info">

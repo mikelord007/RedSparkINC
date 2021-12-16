@@ -1,6 +1,6 @@
 import * as api from '../api/index.js';
 
-export const createListing = (formData, router) => async (dispatch) => {
+export const createListing = (formData) => async (dispatch) => {
     try {
         //eslint-disable-next-line
         const { data } = await api.createListing(formData);
