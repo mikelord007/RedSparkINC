@@ -28,7 +28,6 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
     },[messages])
 
     if(messages)
-    
     return (
         <div ref={mainMenu} onClick={()=>sideMenuState[0]?sideMenuState[1](false):null} id="chat-main">
             
@@ -42,7 +41,7 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
                         <div className="text-time">{moment(message.msgtime).fromNow()}</div>
                     </div>
                     <div className="main-text">{message.text}</div>
-                    </div>  
+                    </div>
                 </div>
                 )
             }

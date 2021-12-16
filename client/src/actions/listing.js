@@ -63,7 +63,6 @@ export const addNewContact = (listing, history) => async (dispatch) => {
 export const getCurrentListing = (lID) => async (dispatch) => {
     try {
         const { data } = await api.getCurrentListing(lID)
-
         dispatch({ type: "CURRENT-LISTING", data })
     }
     catch (error) {

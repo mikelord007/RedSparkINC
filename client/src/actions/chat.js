@@ -27,7 +27,6 @@ export const updateRecipient = (elem) => async ( dispatch) => {
 
 export const fetchChat = (uid) => async (dispatch) => {
     try{
-        
         const {data} = await api.getChat(uid);
         // console.log("this is that", data)
         dispatch({type: 'CHATMSG', data})

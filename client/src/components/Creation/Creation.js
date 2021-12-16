@@ -26,8 +26,16 @@ const Creation = ({id, edit, buttonText, setEdit, listState}) => {
         e.target.reset();
     }
 
-    const handleChange = (e) => {
-        setlisting({...listing, [e.target.name]: e.target.value})
+    const handleChange = (e,inputType) => {
+        if(inputType==='num' && e.target.value!==''){
+            if (!Number(e.target.value)) {
+                return;
+                }
+            else
+            setlisting({...listing, [e.target.name]: e.target.value})
+        }
+        else
+            setlisting({...listing, [e.target.name]: e.target.value})
     }
     const handleChangeForDropdown = (e) => {
         setlisting({...listing,currency: e.target.value})
@@ -46,36 +54,34 @@ const Creation = ({id, edit, buttonText, setEdit, listState}) => {
                 null
             }
             <div className="form-element-width-setter">
-            <div className="form-element">
-            <InputLabel id="currency-selection-label" >Currency</InputLabel>
-                    <Select
-                        labelId="currency-selection-label"
-                        id="currency-selection"
-                        label="Currency"
-                        onChange={handleChangeForDropdown}
-                        value={listing.currency}
-                    >
+            <TextField
+                id="outlined-select-currency"
+                select
+                label="Currency"
+                value={listing.currency}
+                onChange={handleChangeForDropdown}
+                fullWidth={true}
+                >
                         <MenuItem value={"UPX"}>UPX</MenuItem>
                         <MenuItem value={"BTC"}>BTC</MenuItem>
                         <MenuItem value={"OTHER"}>OTHER</MenuItem>
-                    </Select>
+            </TextField>
+            <div className="form-element">
+            <TextField  value={listing.amount} id="Amount" label="Amount" type="number" variant="outlined" name="amount" onChange={(e) => {handleChange(e,'num')}} />
             </div>
             <div className="form-element">
-            <TextField  value={listing.amount} id="Amount" label="Amount" type="text" variant="outlined" name="amount" onChange={handleChange} />
-            </div>
-            <div className="form-element">
-            <TextField  value={listing.rate} id="Rate" label="Rate ( Per day Per spark )" type="text" variant="outlined" name="rate" onChange={handleChange} />
+            <TextField  value={listing.rate} id="Rate" label="Rate ( Per day Per spark )" type="number" variant="outlined" name="rate" onChange={(e) => {handleChange(e,'num')}}  />
             </div>
             <div className="form-element">
             <TextField  value={listing.burner} id="Burner" label="Burner" type="text" variant="outlined" name="burner" onChange={handleChange} />
             </div>
             <div className="form-element">
-            <TextField  value={listing.minP} id="Min" label="Min Period" type="text" variant="outlined" name="minP" onChange={handleChange} />
+            <TextField  value={listing.minP} id="Min" label="Min Period" type="number" variant="outlined" name="minP" onChange={(e) => {handleChange(e,'num')}}  />
             </div>
             <div className="form-element">
-            <TextField  value={listing.maxP} id="Max" label="Max Period" type="text" variant="outlined" name="maxP" onChange={handleChange} />
+            <TextField  value={listing.maxP} id="Max" label="Max Period" type="number" variant="outlined" name="maxP" onChange={(e) => {handleChange(e,'num')}}  />
             </div>
-            </div>
+        </div>
             <GreenBtn id="CN-submit" content={buttonText} type="submit" />
         </FormControl>
         </form>

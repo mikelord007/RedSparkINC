@@ -73,9 +73,8 @@ export const userListing = async (req,res) => {
 export const deleteUserListing = async( req,res) => {
     const {id} = req.user
     const {lID} = req.body
-    try{console.log("starting to delete: ",lID)
+    try{
         const deletedListing = await Listing.findByIdAndDelete(lID)
-        console.log("deleting", deletedListing)
         return res.status(200).json(deletedListing)
     } catch(error) {
         console.log(error)
