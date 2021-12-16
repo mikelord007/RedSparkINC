@@ -24,8 +24,8 @@ export const getTradeHist = () => API.get("/trade-history",{ headers: { Authoriz
 export const closeListing = (listing) => API.post("/close-deal", listing, { headers: { Authorization: localStorage.getItem('token') } })
 
 //creation
-export const getUserListings = (userID) => API.get(`/user-listing/${userID}`,{ headers: { Authorization: localStorage.getItem('token') } });
-export const deleteListing = (lID) => API.delete(`/user-lisitng/${lID}`,{ headers: { Authorization: localStorage.getItem('token') } })
+export const getUserListings = () => API.get(`/user-listing`,{ headers: { Authorization: localStorage.getItem('token') } });
+export const deleteListing = (lID) => API.post(`/del-user-lisitng`,{'lID':lID},{ headers: { Authorization: localStorage.getItem('token') } })
 
 //chat
 export const getChat = (uid) => API.get(`chat/getChat/${uid}`,{ headers: { Authorization: localStorage.getItem('token') } })

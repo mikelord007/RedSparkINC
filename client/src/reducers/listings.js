@@ -14,7 +14,8 @@ export const UserListingReducer = (userListings = [], action) => {
         case 'CREATED-LISTING':
             return [...userListings,action.data.savedListing]
         case 'DELETE-LISTING':
-            return 
+                userListings = userListings.filter((elem) => elem._id!==action.data._id)
+            return userListings
         default:
             return userListings;
     }

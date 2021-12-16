@@ -3,7 +3,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 
-import { getUserListings } from '../../actions/listing';
+import { getUserListings,deleteListing } from '../../actions/listing';
 import UDfoot from '../../components/UDfoot/UDfoot'
 import UDnav from '../../components/UDnav/UDnav'
 import ActiveList from './components/ActiveList'
@@ -70,7 +70,7 @@ const UDcreatenew = () => {
                     </div>
                 </div>
             </div>
-            {createPopup?<Popup dispArray={dispArray} GreenBool={true} GreenBtnContent={'Delete'} doDispatch={false} CloseButtonFn={setCreatePopup} />:null}
+            {createPopup?<Popup dispArray={dispArray} GreenBool={true} GreenBtnContent={'Delete'} doDispatch={true} CloseButtonFn={setCreatePopup} GreenBtnFn={deleteListing} GreenBtnFnArgs={[currentListing._id]}/>:null}
             <UDfoot />
         </>
     )

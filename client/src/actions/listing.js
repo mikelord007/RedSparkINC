@@ -93,8 +93,8 @@ export const closeListing = (listing, history) => async (dispatch) => {
 export const deleteListing = (lID) => async(dispatch) => {
 
     try {
-        await api.deleteListing(lID);
-        dispatch({type: 'DELETE-LISTING', lID});
+        const {data} = await api.deleteListing(lID);
+        dispatch({type: 'DELETE-LISTING', data});
         
     } catch (error) {
         console.log(error) //remove this in prod

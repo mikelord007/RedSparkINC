@@ -1,5 +1,5 @@
 import React,{useRef,useEffect} from 'react';
-import ScrollToBottom from 'react-scroll-to-bottom';
+// import ScrollToBottom from 'react-scroll-to-bottom';
 import { Icon } from "@iconify/react";
 import {useSelector} from 'react-redux';
 import moment from 'moment';
@@ -11,6 +11,7 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
     const activeListingBool = useSelector((state) => state.currentListing.active)
     
     const mainMenu = useRef()
+    const scrollRef = useRef()
     
     useEffect(() => {
         if(sideMenuState[0]){
@@ -21,14 +22,19 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
         }
     })
 
+    useEffect(() => {
+        if(scrollRef.current)
+        scrollRef.current.scrollIntoView({behavior: "smooth"})
+    },[messages])
+
     if(messages)
     
     return (
         <div ref={mainMenu} onClick={()=>sideMenuState[0]?sideMenuState[1](false):null} id="chat-main">
-             <ScrollToBottom>
-            {   
+            
+            {
                 messages.map((message,index) => 
-                <div key={index} className={(message.from===currentUserID?'home-text':'other-text')}>
+                <div ref={scrollRef} key={index} className={(message.from===currentUserID?'home-text':'other-text')}>
                     <img src={(message.from===currentUserID?currentUserPic:otherUserPic)} alt=""/>
                     <div className="main-content">
                     <div className="text-info">
@@ -40,7 +46,6 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
                 </div>
                 )
             }
-            </ScrollToBottom>
             {
             listingOwner && activeListingBool?
             <div id = "close-trade">

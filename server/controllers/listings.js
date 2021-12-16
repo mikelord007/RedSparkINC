@@ -70,6 +70,17 @@ export const userListing = async (req,res) => {
     }
 }
 
+export const deleteUserListing = async( req,res) => {
+    const {id} = req.user
+    const {lID} = req.body
+    try{console.log("starting to delete: ",lID)
+        const deletedListing = await Listing.findByIdAndDelete(lID)
+        console.log("deleting", deletedListing)
+        return res.status(200).json(deletedListing)
+    } catch(error) {
+        console.log(error)
+    }
+}
 
 const addContactHelper = (user,listingID,listingOwner,userToAddID,userToAddName) => {
     let contact;
@@ -82,7 +93,6 @@ const addContactHelper = (user,listingID,listingOwner,userToAddID,userToAddName)
         }
         
         else{
-            console.log("here",userToAddID,userToAddName)
             const newContact = {id: userToAddID, name: userToAddName, listingRef: listingID, listingOwner: listingOwner, lastMessage: "", lastMsgTime: null}
             contact = newContact;
             user.contacts.push(newContact)
