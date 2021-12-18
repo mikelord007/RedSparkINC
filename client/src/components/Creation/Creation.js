@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { TextField, Select, InputLabel,MenuItem, FormControl } from '@mui/material';
+import { TextField,MenuItem, FormControl } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Icon } from '@iconify/react';
@@ -14,6 +14,8 @@ const Creation = ({id, edit, buttonText, setEdit, listState}) => {
     const [listing, setlisting] = useState(listState?listState:defaultListing);
     const dispatch = useDispatch();
     const history = useHistory();
+
+    console.log("list state is: ", listState)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -55,6 +57,7 @@ const Creation = ({id, edit, buttonText, setEdit, listState}) => {
             }
             <div className="form-element-width-setter">
             <TextField
+                required
                 id="outlined-select-currency"
                 select
                 label="Currency"
@@ -64,22 +67,30 @@ const Creation = ({id, edit, buttonText, setEdit, listState}) => {
                 >
                         <MenuItem value={"UPX"}>UPX</MenuItem>
                         <MenuItem value={"BTC"}>BTC</MenuItem>
+                        <MenuItem value={"ETH"}>ETH</MenuItem>
+                        <MenuItem value={"WAX"}>WAX</MenuItem>
+                        <MenuItem value={"EOS"}>EOS</MenuItem>
+                        <MenuItem value={"SOL"}>SOL</MenuItem>
+                        <MenuItem value={"BNB"}>BNB</MenuItem>
+                        <MenuItem value={"USDT"}>USDT</MenuItem>
+                        <MenuItem value={"DASH"}>DASH</MenuItem>
+                        <MenuItem value={"ADA"}>ADA</MenuItem>
                         <MenuItem value={"OTHER"}>OTHER</MenuItem>
             </TextField>
             <div className="form-element">
-            <TextField  value={listing.amount} id="Amount" label="Amount" type="number" variant="outlined" name="amount" onChange={(e) => {handleChange(e,'num')}} />
+            <TextField required value={listing.amount} id="Amount" label="Amount" type="number" variant="outlined" name="amount" onChange={(e) => {handleChange(e,'num')}} />
             </div>
             <div className="form-element">
-            <TextField  value={listing.rate} id="Rate" label="Rate ( Per day Per spark )" type="number" variant="outlined" name="rate" onChange={(e) => {handleChange(e,'num')}}  />
+            <TextField required value={listing.rate} id="Rate" label="Rate ( Per day Per spark )" type="number" variant="outlined" name="rate" onChange={(e) => {handleChange(e,'num')}}  />
             </div>
             <div className="form-element">
-            <TextField  value={listing.burner} id="Burner" label="Burner" type="text" variant="outlined" name="burner" onChange={handleChange} />
+            <TextField value={listing.burner} id="Burner" label="Burner" type="text" variant="outlined" name="burner" onChange={handleChange} />
             </div>
             <div className="form-element">
-            <TextField  value={listing.minP} id="Min" label="Min Period" type="number" variant="outlined" name="minP" onChange={(e) => {handleChange(e,'num')}}  />
+            <TextField required value={listing.minP} id="Min" label="Min Period" type="number" variant="outlined" name="minP" onChange={(e) => {handleChange(e,'num')}}  />
             </div>
             <div className="form-element">
-            <TextField  value={listing.maxP} id="Max" label="Max Period" type="number" variant="outlined" name="maxP" onChange={(e) => {handleChange(e,'num')}}  />
+            <TextField required value={listing.maxP} id="Max" label="Max Period" type="number" variant="outlined" name="maxP" onChange={(e) => {handleChange(e,'num')}}  />
             </div>
         </div>
             <GreenBtn id="CN-submit" content={buttonText} type="submit" />

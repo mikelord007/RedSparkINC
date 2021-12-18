@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector} from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { addNewContact } from '../../../actions/listing';
 import { Icon } from '@iconify/react';
 
 
 import '../style.css';
 import Listing from './Listing';
+import { addNewContact } from '../../../actions/listing';
 import Popup from '../../../components/Popup/Popup';
 
 const Listings = () => {
@@ -59,7 +59,7 @@ const Listings = () => {
                 </div>,
                 <div className="ping-rate" key={1}>
                     <div className="ping-icon"><Icon icon="bx:bx-transfer" color="black" width="40" /></div>
-                    <div className="ping-text">{currentListing.rate} per day per spark</div>
+                    <div className="ping-text">{currentListing.rate} {currentListing.currency} per day per spark</div>
                 </div>,
                 <div className="ping-duration" key={2}>
                     <div className="ping-icon"><Icon icon="bi:clock-history" color="black" width="32" /></div>
@@ -71,7 +71,7 @@ const Listings = () => {
                 </div>,
                 <div className="ping-burner" key={4}>
                     <div className="ping-icon"><Icon icon="ps:facebook-places" color="black" width="28" /></div>
-                    <div className="ping-text">{currentListing.burner}</div>
+                    <div className="ping-text">{currentListing.burner?currentListing.burner:"NILL"}</div>
                 </div>])
 },[currentListing])
 

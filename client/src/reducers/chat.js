@@ -11,10 +11,15 @@ export const chatReducer = (state = [], action) => {
 };
 
 export const contactsReducer = ( state = [], action) => {
+    const sortingFn = (a,b) => {
+        return new Date(b.lastMsgTime) - new Date(a.lastMsgTime)
+    }
+    
     switch(action.type) {
         case 'CONTACTS':
+            console.log("contacts are updated now")
+            action.data.contacts.sort(sortingFn)
             return action.data.contacts;
-        
         default:
             return state;
     }

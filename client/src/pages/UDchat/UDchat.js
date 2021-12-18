@@ -35,20 +35,17 @@ const UDchat = () => {
     const ENDPOINT = 'http://localhost:5000';
 
     const recipient = useSelector((state) => { console.log(state); return state?.Recipient})
+
     
     useEffect(() => {
         dispatch(fetchContacts(currentUserID));
-        dispatch(getCurrentListing(recipient.listingRef))
-    },[dispatch,recipient,currentUserID])
-
+        dispatch(getCurrentListing(recipient.listingRef));
+    },[dispatch,recipient])
+    
     const contacts = useSelector((state) => state.contactsReducer);
-
-    useEffect(() => {
-        if(Object.keys(recipient).length===0 && contacts.length){
-            dispatch(updateRecipient(contacts[0]))
-        }
-    },[dispatch,contacts,recipient])
-
+    if(Object.keys(recipient).length===0 && contacts.length){
+        dispatch(updateRecipient(contacts[0]))
+    }
 
     const listState = useSelector((state) => state.currentListing)
 
@@ -101,6 +98,7 @@ const UDchat = () => {
     }
     
     const username = JSON.parse(localStorage.getItem('profile')).uplandUsername
+    const name = JSON.parse(localStorage.getItem('profile')).name
 
     const loggedIn = useSelector((state)=>state.auth.loggedIn);
 
@@ -108,19 +106,19 @@ const UDchat = () => {
     if (loggedIn === false)
     {return <Redirect to="/"/>}
 
-    return (
+    return(
         <>
-        <UDnav username={username} />
-        <div id="UDchat">
-            <ChatHeader sideMenuState={sideMenuState} otherUserPic={otherUserPic}/>
-            <ChatMain sideMenuState={sideMenuState} otherUserPic={otherUserPic} currentUserPic={currentUserPic} currentUserID={currentUserID} setEdit={setEdit}/>
-            <ChatFooter sideMenuState={sideMenuState} message={message} setMessage={setMessage} sendMessage={sendMessage}/>
-            <ChatSideMenu  sideMenuState={sideMenuState}/>
-            {edit?<Creation autofill={true} id={'close-section'} edit={edit} buttonText={"Close Deal"} setEdit={setEdit} 
-                listState={listState}
-            />:null}
-        </div>
-        <UDfoot/>
+            <UDnav username={username} name={name}/>
+            <div id="UDchat">
+                <ChatHeader sideMenuState={sideMenuState} otherUserPic={otherUserPic}/>
+                <ChatMain sideMenuState={sideMenuState} otherUserPic={otherUserPic} currentUserPic={currentUserPic} currentUserID={currentUserID} setEdit={setEdit}/>
+                <ChatFooter sideMenuState={sideMenuState} message={message} setMessage={setMessage} sendMessage={sendMessage}/>
+                <ChatSideMenu  sideMenuState={sideMenuState}/>
+                {edit?<><div id="modal-cover" onClick={() => setEdit(false)}></div><Creation autofill={true} id={'close-section'} edit={edit} buttonText={"Close Deal"} setEdit={setEdit} 
+                    listState={listState}
+                /></>:null}
+            </div>
+            <UDfoot/>
         </>
     )
 }

@@ -16,6 +16,14 @@
     background-color: #D8D8D8;
 }
 
+#ud-navbar button:active{
+    background-color: #a3a3a3;
+}
+
+#ud-navbar button:focus{
+    background-color: #a3a3a3;
+}
+
 #ud-initials{
     width: 2.4rem;
     height: 2.4rem;
@@ -41,5 +49,4 @@
     background-position: center;
     margin: auto auto;
     color: #D8D8D8;
-    background-color: #D8D8D8;
 }

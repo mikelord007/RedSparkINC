@@ -1,5 +1,4 @@
 import React,{useRef,useEffect} from 'react';
-// import ScrollToBottom from 'react-scroll-to-bottom';
 import { Icon } from "@iconify/react";
 import {useSelector} from 'react-redux';
 import moment from 'moment';
@@ -30,10 +29,9 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
     if(messages)
     return (
         <div ref={mainMenu} onClick={()=>sideMenuState[0]?sideMenuState[1](false):null} id="chat-main">
-            
             {
                 messages.map((message,index) => 
-                <div ref={scrollRef} key={index} className={(message.from===currentUserID?'home-text':'other-text')}>
+                <div ref={scrollRef} key={index} className={(message.from===currentUserID?'home-text chat-main-text':'other-text chat-main-text')}>
                     <img src={(message.from===currentUserID?currentUserPic:otherUserPic)} alt=""/>
                     <div className="main-content">
                     <div className="text-info">

@@ -1,17 +1,28 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch,Redirect } from 'react-router-dom';
+// import { useSelector,useDispatch } from "react-redux";
+
 import Head from "./components/Head/Head"
 import UDchat from "./pages/UDchat/UDchat";
 import UDtradehist from "./pages/UDtradehist/UDtradehist";
 import UDlistings from "./pages/UDlistings/UDlistings";
 import UDcreatenew from "./pages/UDcreatenew/UDcreatenew"
-
 import WelcomePage from './pages/WelcomePage/WelcomePage';
-import './style.css'
 import AuthPage from "./pages/AuthPage/AuthPage.js";
+// import { updateRecipient } from "./actions/chat";
+import './style.css'
 
 
 const App = () => {
+
+    // const contacts = useSelector((state) => state.contactsReducer);
+    // const recipient = useSelector((state) => { return state?.Recipient})
+    // const dispatch = useDispatch()
+    // useEffect(() => {
+    //     if(Object.keys(recipient).length===0 && contacts.length){
+    //         dispatch(updateRecipient(contacts[0]))
+    //     }
+    // },[dispatch,contacts,recipient])
 
     return (
         <Router>
@@ -19,7 +30,6 @@ const App = () => {
             <Switch>
                 <Route exact path='/' render={() => { if (localStorage.getItem('token')) return <Redirect to="/listings" />; else return <WelcomePage /> }} />
                 <Route exact path='/auth' render={() => { if (localStorage.getItem('token')) return <Redirect to="/listings" />; else return <AuthPage /> }} />
-                {/* <Route exact path='/login' component={LoginPage}  /> */}
                 <Route exact path="/listings" component={UDlistings} />
                 <Route exact path="/chat" component={UDchat} />
                 <Route exact path="/trade" component={UDtradehist} />

@@ -18,13 +18,6 @@ export const updateRecipient = (elem) => async ( dispatch) => {
     dispatch({type: 'UPDATE_RECIPIENT', elem})
 }
 
-// export const currentListing = (userID) => async ( dispatch, getState) => {
-//     const recipient = getState().Recipient;
-//     const contacts = getState().contactsReducer
-//     dispatch({type: 'CURRENT_LISTING_REF',userID,recipient,contacts})
-
-// }
-
 export const fetchChat = (uid) => async (dispatch) => {
     try{
         const {data} = await api.getChat(uid);

@@ -18,10 +18,11 @@ const UDtradehist = () => {
     {return <Redirect to="/"/>}
 
     const username = JSON.parse(localStorage.getItem('profile')).uplandUsername
+    const name = JSON.parse(localStorage.getItem('profile')).name
 
     return(
         <>
-            <UDnav username={username}/>
+            <UDnav username={username} name={name}/>
                 <TradeHistory/>
             <UDfoot/>
         </>

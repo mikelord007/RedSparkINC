@@ -44,7 +44,7 @@ const TradeHistory = () => {
                 </div>,
                 <div className="ping-burner" key={6}>
                     <div className="ping-icon"><Icon icon="ps:facebook-places" color="black" width="28" /></div>
-                    <div className="ping-text">{currentTrade.burner}</div>
+                    <div className="ping-text">{currentTrade.burner?currentTrade.burner:"NILL"}</div>
                 </div>])
         }
 },[currentTrade])
@@ -59,7 +59,7 @@ const TradeHistory = () => {
                    ))}
                     </div>
         </div>
-        {tradePopup?<Popup dispArray={dispArray} CloseButtonFn={setTradePopup} GreenBtnFn={setTradePopup} GreenBtnFnArgs={[false]} GreenBool={true} GreenBtnContent={'Ok'} doDispatch={false} height={"60%"}/>:null}
+        {tradePopup?<Popup dispArray={dispArray} CloseButtonFn={setTradePopup} GreenBtnFn={setTradePopup} GreenBtnFnArgs={[false]} GreenBool={true} GreenBtnContent={'Ok'} doDispatch={false} height={"64%"}/>:null}
         </>
     )
 }

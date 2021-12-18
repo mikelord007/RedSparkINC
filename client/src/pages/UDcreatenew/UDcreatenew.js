@@ -48,7 +48,7 @@ const UDcreatenew = () => {
                 </div>,
                 <div className="ping-burner" key={4}>
                     <div className="ping-icon"><Icon icon="ps:facebook-places" color="black" width="28" /></div>
-                    <div className="ping-text">{currentListing.burner}</div>
+                    <div className="ping-text">{currentListing.burner?currentListing.burner:"NILL"}</div>
                 </div>])
 },[currentListing])
 
@@ -58,9 +58,11 @@ const UDcreatenew = () => {
     {return <Redirect to="/"/>}
     
     const username = JSON.parse(localStorage.getItem('profile')).uplandUsername
-    return (
+    const name = JSON.parse(localStorage.getItem('profile')).name
+
+    return(
         <>
-            <UDnav username={username} />
+            <UDnav username={username} name={name}/>
             <div id="UDcreatenew">
                 <ActiveList setCurrentListing={setCurrentListing} setCreatePopup={setCreatePopup} />
                 <div id="create-new">

@@ -40,5 +40,17 @@
 .tradehis-sub-item button{
     padding: 0 0;
     background-color: transparent;
+    display: flex;
+    align-items: center;
     border: none;
+    border-radius: 50%;
+}
+
+.tradehis-sub-item button:focus{
+    border: 1px solid #cdcdcd;
+    background-color: #f3f3eb;
+}
+.tradehis-sub-item button:active{
+    border: 1px solid #cdcdcd;
+    background-color: #f3f3eb;
 }

@@ -26,8 +26,20 @@
 
 #chat-namelist button {
     padding: 0;
-    margin: 0;
+    margin: auto auto;
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f3efef;
+}
+
+#chat-namelist button:active{
+    background: #d1cece;
+}
+
+#chat-namelist button:focus{
+    background: #d1cece;
 }
 
 #chat-morebutton {
@@ -88,6 +100,15 @@
     background-color: #FFFDA9;
     border-radius: 50%;
     margin-right: 21px;
+}
+
+#chat-send-wrap:active{
+    background-color: #eceb8f;
+    border: 1px #c3c266 solid;
+}
+#chat-send-wrap:focus{
+    background-color: #eceb8f;
+    border: 1px #c3c266 solid;
 }
 
 #chat-send-wrap svg {
@@ -154,6 +175,10 @@
     border-radius: 50%;
     background-color: white;
     border: 2px #F7F123 solid;
+}
+
+.chat-main-text:last-child {
+    margin-bottom: 1rem;
 }
 
 .text-info {
@@ -312,6 +337,7 @@
     transform: translate(-50%, -50%);
     border-radius: 13px;
     border: 3px solid #efff47;
+    z-index: 2;
 }
 
 #close-section  h1{

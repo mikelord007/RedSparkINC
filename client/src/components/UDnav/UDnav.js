@@ -7,7 +7,7 @@ import { logout } from '../../actions/auth';
 import './style.css'
 
 
-const UDnav = ({username}) => {
+const UDnav = ({username, name}) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const handleLogout = () => {
@@ -16,7 +16,7 @@ const UDnav = ({username}) => {
     }
     return(
         <div id="ud-navbar">
-            <div id="ud-initials">ND</div>
+            <div id="ud-initials">{name.split(" ").map((n)=>n[0]).join("")}</div>
             <div id="ud-user">{username}</div>
             <button onClick={handleLogout}><div id="ud-signout"></div></button>
         </div>

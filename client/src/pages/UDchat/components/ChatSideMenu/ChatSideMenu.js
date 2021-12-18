@@ -9,7 +9,7 @@ import { updateRecipient } from '../../../../actions/chat';
 const ChatSideMenu = ({sideMenuState}) =>{
     
     const sideMenu = useRef();
-    const contacts = useSelector((state) => { return state.contactsReducer;});
+    const contacts = useSelector((state) => state.contactsReducer);
     const recipient = useSelector((state) => state.Recipient);
     const dispatch = useDispatch()
 
@@ -22,12 +22,6 @@ const ChatSideMenu = ({sideMenuState}) =>{
         dispatch(updateRecipient(elem));
         sideMenuState[1](false);
     }
-
-    const sortingFn = (a,b) => {
-        return new Date(b.lastMsgTime) - new Date(a.lastMsgTime)
-    }
-
-    contacts.sort(sortingFn)
 
     return (
         <div ref={sideMenu} id="side-menu">
@@ -50,7 +44,6 @@ const ChatSideMenu = ({sideMenuState}) =>{
                             <div className="user-text"><span>{elem.lastMessage?elem.lastMessage:' ...'}</span></div>
                             </div>
                         </div>)
-                    
                 })
                 }
         </div>

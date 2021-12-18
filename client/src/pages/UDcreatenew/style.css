@@ -56,9 +56,20 @@
 .CN-listing button{
     padding: 0 0;
     background-color: transparent;
+    display: flex;
+    align-items: center;
     border: none;
+    border-radius: 50%;
 }
 
+.CN-listing button:focus{
+    border: 1px solid #cdcdcd;
+    background-color: #f3f3eb;
+}
+.CN-listing button:active{
+    border: 1px solid #cdcdcd;
+    background-color: #f3f3eb;
+}
 
 #create-new{
     height: 75%;
@@ -99,4 +110,8 @@
 .form-wrapper {
     width: 80%;
     margin: auto auto;
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiMenu-paper.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
+    height: 35%;
 }

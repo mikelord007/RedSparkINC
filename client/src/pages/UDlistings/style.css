@@ -62,7 +62,19 @@
 .list-sub-item button{
     padding: 0 0;
     background-color: transparent;
+    display: flex;
+    align-items: center;
     border: none;
+    border-radius: 50%;
+}
+
+.list-sub-item button:focus{
+    border: 1px solid #cdcdcd;
+    background-color: #f3f3eb;
+}
+.list-sub-item button:active{
+    border: 1px solid #cdcdcd;
+    background-color: #f3f3eb;
 }
 
 .list-sub-item.name {
@@ -83,5 +95,7 @@
 
 .list-sub-item.ButtonIcon {
     flex: 1 1 2%;
+    display: flex;
+    justify-content: center;
 }
 
