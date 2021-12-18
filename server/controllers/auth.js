@@ -34,8 +34,7 @@ export const registerUser = async (req, res) => {
 		});
 
 		const savedUser = await user.save();
-		const token = jwt.sign({ email: savedUser.email, id: savedUser._id }, process.env.SECRET, { expiresIn: "1h" });
-		return res.status(201).json({ savedUser, token })
+		return res.status(201).json({email:savedUser.email})
 
 	}
 	catch (error) {
@@ -53,9 +52,9 @@ export const loginUser = async (req, res) => {
 
 		const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
-		if (!isPasswordCorrect) throw { message: "Invalid credentials" };
+		if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
 
-		const token = jwt.sign({ email: user.email, id: user._id ,username:user.uplandUsername}, process.env.SECRET, { expiresIn: rememberMe ? "15d" : "1h" });
+		const token = jwt.sign({ email: user.email, id: user._id, name: user.name }, process.env.SECRET, { expiresIn: rememberMe ? "15d" : "1h" });
 		res.status(200).json({ result: user, token });
 	}
 	catch (error) {
@@ -65,7 +64,7 @@ export const loginUser = async (req, res) => {
 }
 
 export const resetPassword = async (req, res) => {
-	const {password,passwordConfirm,email} = req.body;
+	const { password, passwordConfirm, email } = req.body;
 	console.log(email)
 	console.log(req.body)
 	if (password != passwordConfirm) return res.status(400).json({ message: "Passwords do not match" })
@@ -81,7 +80,7 @@ export const resetPassword = async (req, res) => {
 		const user = await userModel.findOne({ email: email });
 		console.log(user)
 		// update user password
-		const updatedUser = await userModel.findOneAndUpdate({email:email},{password:hashedPassword},{new:true});
+		const updatedUser = await userModel.findOneAndUpdate({ email: email }, { password: hashedPassword }, { new: true });
 		console.log(updatedUser)
 		return res.status(200).json({ updatedUser })
 

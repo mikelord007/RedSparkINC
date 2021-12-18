@@ -9,7 +9,8 @@ export const sendOTP = async (req, res) => {
         let subject;
         let email_message;
         if (!type) {
-            const response = { "Status": "Failure", "Details": "Type not provided" }
+            const response = { "Status": "Failure", "Details": "Type not provided", "erMsg":"Something went wrong, please try again" }
+            console.log(response)
             return res.status(400).send(response)
         }
         console.log(type)
@@ -53,16 +54,17 @@ export const sendOTP = async (req, res) => {
         });
 
         //Send Email
-        transporter.sendMail(mailOptions, (err, response) => {
-            if (err) {
-                return res.status(400).send({ "Status": "Failure", "Details": err });
-            } else {
-                return res.status(200).json({ "Status": "Success", verification_key: res.locals.encoded.toString() });
-            }
-        });
+        // transporter.sendMail(mailOptions, (err, response) => {
+        //     if (err) {
+        //         return res.status(400).send({ "Status": "Failure", "Details": err });
+        //     } else {
+        //         return res.status(200).json({ "Status": "Success", verification_key: res.locals.encoded.toString() });
+        //     }
+        // });
+        return res.status(200).json({ "Status": "Success", verification_key: res.locals.encoded.toString() });
     }
     catch (err) {
-        const response = { "Status": "Failure", "Details": err.message }
+        const response = { "Status": "Failure", "Details": err.message, "erMsg":"Something went wrong, please try again" }
         return res.status(400).send(response)
     }
 }
