@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 import OTP from "../models/OTP.js";
-
+import User from "../models/User.js";
 var dates = {
   convert:function(d) {
       // Converts the date in d to a date-object. The input can be:
@@ -57,16 +57,16 @@ export const verifyOTP = async (req, res) => {
     var currentdate = new Date();
     const { verification_key, otp , check, type} = req.body;
     if (!verification_key) {
-      const response = { "Status": "Failure", "Details": "Verification Key not provided" }
-      return res.status(400).send(response)
+      const response = { "Status": "Failure", "Details": "Verification Key not provided", "erMsg":"Something went wrong, please try again" }
+      throw response;
     }
     if (!otp) {
-      const response = { "Status": "Failure", "Details": "OTP not Provided" }
-      return res.status(400).send(response)
+      const response = { "Status": "Failure", "Details": "OTP not Provided" , "erMsg":"OTP missing" }
+      throw response;
     }
     if (!check) {
-      const response = { "Status": "Failure", "Details": "Check not Provided" }
-      return res.status(400).send(response)
+      const response = { "Status": "Failure", "Details": "Check not Provided", "erMsg":"Something went wrong, please try again" }
+      throw response;
     }
 
     let decoded;
@@ -75,8 +75,8 @@ export const verifyOTP = async (req, res) => {
       decoded = CryptoJS.AES.decrypt(verification_key,process.env.SECRET);
     }
     catch (err) {
-      const response = { "Status": "Failure", "Details": "Request Error" }
-      return res.status(400).send(response);
+      const response = { "Status": "Failure", "Details": "Request Error" , "erMsg":"Something went wrong, please try again"}
+      throw response;
     }
     var obj = JSON.parse(decoded.toString(CryptoJS.enc.Utf8))
     const check_obj = obj.check
@@ -84,8 +84,8 @@ export const verifyOTP = async (req, res) => {
     console.log(check)
     // Check if the OTP was meant for the same email or phone number for which it is being verified 
     if (check_obj != check) {
-      const response = { "Status": "Failure", "Details": "OTP was not sent to this particular email or phone number" }
-      return res.status(400).send(response)
+      const response = { "Status": "Failure", "Details": "OTP was not sent to this particular email or phone number", "erMsg":"Something went wrong, please try again" }
+      throw response;
     }
 
     const otp_instance = await OTP.findOne({ _id: obj.otp_id })
@@ -106,37 +106,40 @@ export const verifyOTP = async (req, res) => {
             otp_instance.save();
             switch (type) {
               case "VERIFICATION":
-                const User = await User.findOne({email:check})
+                const updateUser = await User.findOne({email:check})
+                updateUser.verified = true;
+                updateUser.save();
+                console.log(updateUser)
                 break;
               case "RESET":
                 break;
               default:
                 break;
             }
-            const response = { "Status": "Success", "Details": "OTP Matched", "Check": check }
+            const response = { "Status": "Success", "Details": "OTP Matched", "check": check, "type":type }
+            console.log(response)
             return res.status(200).send(response)
           }
           else {
-            const response = { "Status": "Failure", "Details": "OTP NOT Matched" }
-            return res.status(400).send(response)
+            const response = { "Status": "Failure", "Details": "OTP did not Match", "erMsg":"OTP did not match" }
+            throw response
           }
         }
         else {
-          const response = { "Status": "Failure", "Details": "OTP Expired" }
-          return res.status(400).send(response)
+          const response = { "Status": "Failure", "Details": "OTP Expired" , "erMsg":"Request timed out, please try again"}
+          throw response;
         }
       }
       else {
-        const response = { "Status": "Failure", "Details": "OTP Already Used" }
-        return res.status(400).send(response)
+        const response = { "Status": "Failure", "Details": "OTP Already Used", "erMsg":"Something went wrong, please try again" }
+        throw response;
       }
     }
     else {
-      const response = { "Status": "Failure", "Details": "Fucking hell" }
-      return res.status(400).send(response)
+      const response = { "Status": "Failure", "Details": "OTP not in DB", "erMsg":"Something went wrong, please try again" }
+      throw response;
     }
   } catch (err) {
-    const response = { "Status": "Failure", "Details": err.message }
-    return res.status(400).send(response)
+    return res.status(400).send(err)
   }
 }

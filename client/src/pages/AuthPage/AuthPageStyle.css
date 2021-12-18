@@ -68,7 +68,7 @@ align-items: center;
     flex-direction: column;
 }
 
-button#toggle-button-auth {
+button.toggle-button-auth {
     margin-top: 0.6rem;
 }
 

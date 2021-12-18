@@ -4,7 +4,7 @@ import {chatReducer,contactsReducer,Recipient} from './chat';
 import { combineReducers } from 'redux';
 import { OtpReducer } from "./otp";
 import { tradesReducer } from "./trade";
-import { errorReducer } from "./errors";
+import { alertsReducer } from "./alerts";
 
-export const reducers = combineReducers({ auth: authReducer, listings: listingReducer, trades:tradesReducer, chatReducer, UserListings: UserListingReducer,contactsReducer,Recipient, otp:OtpReducer, currentListing,errors:errorReducer});
+export const reducers = combineReducers({ auth: authReducer, listings: listingReducer, trades:tradesReducer, chatReducer, UserListings: UserListingReducer,contactsReducer,Recipient, otp:OtpReducer, currentListing,alerts:alertsReducer});
 

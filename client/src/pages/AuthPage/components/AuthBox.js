@@ -1,42 +1,63 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import CustomTextField from './CustomTextField';
-import './AuthComponentsStyle.css';
-import GreenBtn from '../../../components/GreenBtn/GreenBtn';
-import { Typography, Alert, Snackbar } from '@mui/material';
-import { signup, login } from '../../../actions/auth';
 import { Button } from '@material-ui/core';
-import OtpInput from 'react-otp-input';
-import { resetPass, resetPassOTP, verifyOTP as vOTP } from '../../../api';
-import { getOTP } from '../../../actions/otp';
+import { Alert, Snackbar } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import React, { useEffect, useRef, useState } from 'react';
+import OtpInput from 'react-otp-input';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { login, signup } from '../../../actions/auth';
+import { verifyOtpEr } from '../../../actions/errors';
+import * as otp_1 from '../../../actions/otp';
+import { resetPass, verifyOTP as vOTP } from '../../../api';
+import GreenBtn from '../../../components/GreenBtn/GreenBtn';
+import './AuthComponentsStyle.css';
+import CustomTextField from './CustomTextField';
 
 const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '', rememberMe: false }
 const AuthBox = ({ signupState }) => {
 	const [boxState, setBoxState] = useState(signupState ? signupState : "signup");
-	const [otpToggle, setOtpToggle] = useState(false); //remove this
+	const otp_email = useSelector((state)=>{return state.auth.email;})
 	const [otp, setOtp] = useState({ otp_code: "", type: "" });
 	const EnterOtp = (type) => {
-		dispatch(getOTP({ email: form.email, type: type }));
+		if(type === "VERIFICATION")
+		dispatch(otp_1.getOTP({ email: otp_email, type: type }));
+		else 
+	{
+		dispatch(otp_1.getOTP({email:form.email,type:type}))}
 		// setOtpToggle(true);
 		setOtp({ ...otp, type: type })
 		setBoxState("otp");
 	}
 
-	const errors = useSelector((state) => state.errors);
+	const alerts = useSelector((state) => state.alerts);
 	const [open, setOpen] = useState(false)
-	useEffect(()=>{
-		if(errors.loginEr || errors.signupEr || errors.otp)setOpen(true)
-	},[errors])
+	useEffect(() => {
+		if (alerts.message) {
+			setOpen(true)
+		};
+	}, [alerts])
+
+	const firstRender = useRef(true)
+	useEffect(() => {
+		if(firstRender.current) //to check for first render
+		{
+			firstRender.current = false;
+			// console.log("first render") // delete
+		}
+		else
+		{
+			// console.log("not first render") //delete
+			if (alerts.message  === "Signup successful") {
+				setBoxState("otp");
+				setOtp(o => ({...o,type:"VERIFICATION"}))
+				// console.log("not first render change to otp"); //delete
+			}
+		}
+	}, [alerts])
 	const getEmail = () => {
 		setBoxState("getEmail");
 	}
-
-	// const handleCheck = () => {
-	// 	setForm({...form,rememberMe:!form.rememberMe});
-	// }
 
 	const switchMode = () => {
 		setForm(initialState);
@@ -49,37 +70,38 @@ const AuthBox = ({ signupState }) => {
 	const verification_key = useSelector((state) => { return state.otp.verification_key });
 	const handleLogin = (e) => {
 		e.preventDefault();
-		try {
-			dispatch(login(form, history));
-		} catch (error) {
-			console.log('Error:' + error);
-		}
+		// try {
+		// 	dispatch(login(form, history));
+		// } catch (error) {
+		// 	console.log('Error:' + error);
+		// }
+		dispatch(login(form,history))
 	};
 
 	const handleSignup = (e) => {
 		e.preventDefault()
-		const send = { form: form, otp: otp, verification_key: verification_key }
+		// const send = { form: form, otp: otp, verification_key: verification_key }
+		const send = { form: form }
 		dispatch(signup(send, history));
-		setBoxState("login")
 	}
 	const handleChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	}
 	const handleOtp = (code) => {
 		setOtp({ ...otp, otp_code: code });
-		console.log(otp)
 	}
 	const verifyOTP = async () => {
-		console.log(verification_key)
-		const verified = await vOTP({ otp: otp.otp_code, verification_key: verification_key, check: form.email });
-		console.log(verified);
-		if (verified.data.Status === "Success" && verified.status === 200 && otp.type === "RESET") {
+		try {
+			const verified = await vOTP({ otp: otp.otp_code, verification_key: verification_key, check: otp.type === "VERIFICATION"?otp_email:form.email,type:otp.type });
+		if (verified.data.Status === "Success" && verified.status === 200 && verified.data.type === "RESET") {
 			setBoxState("collectPass");
 		}
-		else if (verified.data.Status === "Success" && verified.status === 200 && otp.type === "VERIFICATION")
-			handleSignup();
-		else {
-			// add error handling here
+		else if (verified.data.Status === "Success" && verified.status === 200 && verified.data.type === "VERIFICATION")
+			setBoxState("login");
+			dispatch(verifyOtpEr("Success"));
+		}
+		catch(error) {
+			dispatch(verifyOtpEr(error.response.data.erMsg))
 		}
 	}
 	const handleResetPass = () => {
@@ -112,7 +134,7 @@ const AuthBox = ({ signupState }) => {
 									<CustomTextField label="Password" name="password" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
 								</div>
 
-								<Snackbar
+								{/* <Snackbar
 									open={open}
 									autoHideDuration={3000}
 									onClose={()=>setOpen(false)}
@@ -129,15 +151,15 @@ const AuthBox = ({ signupState }) => {
 										onClose={()=>setOpen(false)}
 										variant="outlined"
 										severity="error">{errors.loginEr}</Alert>
-								</Snackbar>
+								</Snackbar> */}
 								<FormControlLabel control={<Checkbox defaultChecked size="small" />} label="Remember Me" />
 								<GreenBtn className="signup-button" content='Login' onClick={handleLogin} />
 							</>
 						}
-						{boxState === "login" && (<Button id="toggle-button-auth" onClick={getEmail}>
+						{boxState === "login" && (<Button className="toggle-button-auth" onClick={getEmail}>
 							Forgot Password?
 						</Button>)}
-						<Button id="toggle-button-auth" onClick={switchMode}>
+						<Button className="toggle-button-auth" onClick={switchMode}>
 							{boxState === "signup" ? 'Log In?' : 'Sign Up?'}
 						</Button>
 					</form>
@@ -154,7 +176,7 @@ const AuthBox = ({ signupState }) => {
 							separator={<span> - </span>}
 						/>
 					</div>
-					<GreenBtn className="signup-button" content='Submit' onClick={() => verifyOTP()} />
+					<GreenBtn className="signup-button" content='Submit' onClick={() => {verifyOTP()}} />
 				</>
 			)}
 			{boxState === "getEmail" && (<>
@@ -171,6 +193,27 @@ const AuthBox = ({ signupState }) => {
 				<CustomTextField label="Confirm Password" name="passwordConfirm" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
 				<GreenBtn className="signup-button" content='Submit' onClick={handleResetPass} />
 			</>)}
+			<Snackbar
+				open={open}
+				autoHideDuration={3000}
+				onClose={() => setOpen(false)}
+			// action={action}
+			>
+				<Alert sx={{
+					width: "100%",
+					backgroundColor: "white",
+					"& MuiPaper-root & MuiAlert-root": {
+						padding: "0"
+					}
+				}
+				}
+					onClose={() => setOpen(false)}
+					variant="outlined"
+					// severity={(errors.loginEr === "Success" || errors.signupEr === "Success")?"success":"error" }>{boxState === "login" ? (errors.otpEr) : errors.otpEr}</Alert>
+					severity={alerts.type} >
+						{alerts.message}
+						</Alert>
+			</Snackbar>
 		</div>
 	)
 }
