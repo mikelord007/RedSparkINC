@@ -40,7 +40,7 @@ const UDchat = () => {
     useEffect(() => {
         dispatch(fetchContacts(currentUserID));
         dispatch(getCurrentListing(recipient.listingRef));
-    },[dispatch,recipient])
+    },[dispatch,recipient,currentUserID])
     
     const contacts = useSelector((state) => state.contactsReducer);
     if(Object.keys(recipient).length===0 && contacts.length){
