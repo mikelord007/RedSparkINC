@@ -38,8 +38,16 @@ export const createListing = async (req, res) => {
 
 export const getListings = async (req,res) => {
     try {
-        const listings = await Listing.find({}).limit(10);
-        return res.status(200).json({listings});
+        const PAGE_SIZE = 10;
+        const page = parseInt(req.query.page || "0");
+        const total = await Listing.countDocuments({});
+        const listings = await Listing.find({})
+        .limit(PAGE_SIZE)
+        .skip(PAGE_SIZE * page);
+        return res.status(200).json({
+            totalPages: Math.ceil(total/ PAGE_SIZE),
+            listings
+        });
     } catch (error) {
         console.log(error)
     }
