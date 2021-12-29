@@ -8,10 +8,18 @@ import '../style.css';
 import Listing from './Listing';
 import { addNewContact } from '../../../actions/listing';
 import Popup from '../../../components/Popup/Popup';
+import useFetchListings from './useFetchListings';
 
 const Listings = () => {
 
-    const allListings = useSelector((state) => state.listings.listings);
+    // const allListings = useSelector((state) => state.listings.listings);
+    const [pageNumber, setPageNumber] = useState(1)
+    const {
+        hasMore,
+        allListings,
+        loading,
+        error
+      } = useFetchListings(pageNumber)
     const [Listings, setListings] = useState(allListings);
     const [currentListing, setCurrentListing] = useState();
     const [ping , setPing] = useState(false)

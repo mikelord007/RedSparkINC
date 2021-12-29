@@ -11,25 +11,25 @@ export const createListing = (formData) => async (dispatch) => {
     }
 }
 
-export const getListings = () => async (dispatch) => {
-    try {
-        const { data } = await api.getListings();
-        dispatch({ type: 'FETCH_ALL', payload: data });
-        return data;
+// export const getListings = () => async (dispatch) => {
+//     try {
+//         const { data } = await api.getListings();
+//         dispatch({ type: 'FETCH_ALL', payload: data });
+//         return data;
 
-    } catch (error) {
-        for (var key in error) {
-            if (Object.prototype.hasOwnProperty.call(error, key)) {
-                var val = error[key];
-                console.log(`${key}: ${val}`) //remove this in prod
-            }
-        }
+//     } catch (error) {
+//         for (var key in error) {
+//             if (Object.prototype.hasOwnProperty.call(error, key)) {
+//                 var val = error[key];
+//                 console.log(`${key}: ${val}`) //remove this in prod
+//             }
+//         }
         
-        if (error.response.status === 403){
-            dispatch({type:'LOGOUT'});
-        }        
-    }
-}
+//         if (error.response.status === 403){
+//             dispatch({type:'LOGOUT'});
+//         }        
+//     }
+// }
 
 export const getUserListings = (UserID) => async (dispatch) => {
     try {

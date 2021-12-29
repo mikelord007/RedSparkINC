@@ -1,11 +1,11 @@
-export const listingReducer = (listings = [], action) => {
-    switch (action.type){
-        case 'FETCH_ALL':
-            return action.payload;
-        default: 
-            return listings;
-    }
-}
+// export const listingReducer = (listings = [], action) => {
+//     switch (action.type){
+//         case 'FETCH_ALL':
+//             return action.payload;
+//         default: 
+//             return listings;
+//     }
+// }
 
 export const UserListingReducer = (userListings = [], action) => {
     switch (action.type){

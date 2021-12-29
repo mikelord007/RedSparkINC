@@ -13,10 +13,7 @@ const UDlistings = () => {
     const loggedIn = useSelector((state)=>state.auth.loggedIn);
     
     const dispatch = useDispatch();
-    useEffect(() => {
-        // console.log('calling listings');
-        dispatch(getListings());
-    }, [dispatch]);
+    
     if (loggedIn === false)
     {return <Redirect to="/"/>}
 
