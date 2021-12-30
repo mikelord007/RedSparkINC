@@ -5,12 +5,12 @@ import '../style.css'
 
 
 
-const Listing = ({username,amount,currency,minP,maxP,rate, setPing, listing, setCurrentListing}) => {
+const Listing = ({username,amount,currency,minP,maxP,rate, setPing, listing, setCurrentListing, giveref}) => {
 
 
     return(
         <>
-                <div className="list-item">
+                <div className="list-item" ref={giveref}>
                     <div className="list-sub-item name"> {username} </div>
                     <div className="list-sub-item currency">{rate} {currency}</div>
                     <div className="list-sub-item amount">{amount} Spark</div>

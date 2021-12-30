@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useSelector} from 'react-redux';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useHistory } from "react-router-dom";
 import { Icon } from '@iconify/react';
+import { CircularProgress } from '@mui/material';
 
 
 import '../style.css';
@@ -13,13 +13,26 @@ import useFetchListings from './useFetchListings';
 const Listings = () => {
 
     // const allListings = useSelector((state) => state.listings.listings);
-    const [pageNumber, setPageNumber] = useState(1)
+    const [pageNumber, setPageNumber] = useState(0)
     const {
-        hasMore,
+        totalPages,
         allListings,
         loading,
         error
       } = useFetchListings(pageNumber)
+    
+    const observer = useRef()
+    const lastListElementRef = useCallback(node => {
+    if (loading) return
+    if (observer.current) observer.current.disconnect()
+    observer.current = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting && pageNumber<=totalPages - 1) {
+        setPageNumber(prevPageNumber => prevPageNumber + 1)
+        }
+    })
+    if (node) observer.current.observe(node)
+    }, [loading, totalPages])
+
     const [Listings, setListings] = useState(allListings);
     const [currentListing, setCurrentListing] = useState();
     const [ping , setPing] = useState(false)
@@ -103,9 +116,19 @@ const Listings = () => {
                 </div>
             </div>
             <div id="listings-main">
-                {Listings?.map((listing) => (
-                    <Listing key={listing._id} username={listing.user.name} rate={listing.rate} amount={listing.amount} minP={listing.minP} maxP={listing.maxP} currency={listing.currency} setPing={setPing} listing={listing} setCurrentListing={setCurrentListing}/>
-                ))}
+                {Listings?.map((listing,index) => {
+                    if( Listings.length == index + 1){
+                        return (<Listing key={listing._id} username={listing.user.name} rate={listing.rate} amount={listing.amount} minP={listing.minP} maxP={listing.maxP} currency={listing.currency} setPing={setPing} listing={listing} setCurrentListing={setCurrentListing} giveref={lastListElementRef}/>)
+                    }
+                    
+                    else
+                        return (<Listing key={listing._id} username={listing.user.name} rate={listing.rate} amount={listing.amount} minP={listing.minP} maxP={listing.maxP} currency={listing.currency} setPing={setPing} listing={listing} setCurrentListing={setCurrentListing} />)
+                })}
+                {loading?<div className="list-item loading-screen" >
+                            <CircularProgress />
+                         </div>
+                        :null
+                }
             </div>
             </div>
             {ping?
