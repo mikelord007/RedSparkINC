@@ -35,14 +35,27 @@ const Listings = () => {
 
     const [Listings, setListings] = useState(allListings);
     const [currentListing, setCurrentListing] = useState();
-    const [ping , setPing] = useState(false)
-    const [dispArray, setdispArray] = useState([])
+    const [ping , setPing] = useState(false);
+    const [dispArray, setdispArray] = useState([]);
+    const [activeLineState, setActiveLineState] = useState("left");
     const UDlist = useRef();
     const history = useHistory();
     const activeLine = useRef();
 
     useEffect(() => {
-        setListings(allListings);
+        switch(activeLineState){
+            case "left":
+                setListings(allListings);
+                break;
+            case "middle":
+                setListings(allListings.filter((listing => listing.currency === "UPX")));
+                break;
+            case "right":
+                setListings(allListings.filter((listing => listing.currency !== "UPX")));
+                break;
+            default:
+                setListings(allListings);
+        }
     },[allListings])
     
     const changeCurr = (e) => {
@@ -50,17 +63,21 @@ const Listings = () => {
         case "all": 
             activeLine.current.style.left = "0";
             setListings(allListings);
+            setActiveLineState("left");
             return;
         case "upx": 
             activeLine.current.style.left = "33.3%";
             setListings(allListings.filter((listing => listing.currency === "UPX")));
+            setActiveLineState("middle");
             return;
         case "fiat-crypto": 
             activeLine.current.style.left = "66.6%";
             setListings(allListings.filter((listing => listing.currency !== "UPX")));
+            setActiveLineState("right");
             return;  
         default:
             activeLine.current.style.left = "0";
+            setActiveLineState("left");
        }
        
     }
