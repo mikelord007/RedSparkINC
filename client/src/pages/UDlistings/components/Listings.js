@@ -11,33 +11,52 @@ import Popup from '../../../components/Popup/Popup';
 import useFetchListings from './useFetchListings';
 
 const Listings = () => {
-
-    // const allListings = useSelector((state) => state.listings.listings);
-    const [pageNumber, setPageNumber] = useState(0)
-    const {
-        totalPages,
-        allListings,
-        loading,
-        error
-      } = useFetchListings(pageNumber)
     
+    const [activeLineState, setActiveLineState] = useState("left");
+    const [allPageNumber, setAllPageNumber] = useState(0)
+    const [upxPageNumber, setUpxPageNumber] = useState(0)
+    const [fiatPageNumber, setFiatPageNumber] = useState(0)
+    const all = useFetchListings(allPageNumber,'ALL')
+    const upx = useFetchListings(upxPageNumber,'UPX')
+    const fiat = useFetchListings(fiatPageNumber,'FIAT')
+
     const observer = useRef()
     const lastListElementRef = useCallback(node => {
-    if (loading) return
+    if (all.loading || upx.loading || fiat.loading) return
     if (observer.current) observer.current.disconnect()
     observer.current = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting && pageNumber<=totalPages - 1) {
-        setPageNumber(prevPageNumber => prevPageNumber + 1)
+        switch(activeLineState){
+            case 'left':
+                if (entries[0].isIntersecting && allPageNumber<=all.totalPages - 1) {
+                    setAllPageNumber(prevPageNumber => prevPageNumber + 1)
+                    console.log("active line: ",activeLineState, "pagenumber:", allPageNumber)
+                    }
+                break;
+            case 'middle':
+                if (entries[0].isIntersecting && upxPageNumber<=upx.totalPages - 1) {
+                    setUpxPageNumber(prevPageNumber => prevPageNumber + 1)
+                    console.log("active line: ",activeLineState, "pagenumber:", upxPageNumber)
+                    }
+                break;
+            case 'right':
+                if (entries[0].isIntersecting && fiatPageNumber<=fiat.totalPages - 1) {
+                    setFiatPageNumber(prevPageNumber => prevPageNumber + 1)
+                    console.log("active line: ",activeLineState, "pagenumber:", fiatPageNumber)
+                    }
+                break;
+            default:
+                if (entries[0].isIntersecting && allPageNumber<=all.totalPages - 1) {
+                    setAllPageNumber(prevPageNumber => prevPageNumber + 1)
+                    }
         }
     })
     if (node) observer.current.observe(node)
-    }, [loading, totalPages])
+    }, [activeLineStatef, all.loading, all.totalPages, upx.loading, upx.totalPages, fiat.loading, fiat.totalPages])
 
-    const [Listings, setListings] = useState(allListings);
+    const [Listings, setListings] = useState(all.listings);
     const [currentListing, setCurrentListing] = useState();
     const [ping , setPing] = useState(false);
     const [dispArray, setdispArray] = useState([]);
-    const [activeLineState, setActiveLineState] = useState("left");
     const UDlist = useRef();
     const history = useHistory();
     const activeLine = useRef();
@@ -45,35 +64,35 @@ const Listings = () => {
     useEffect(() => {
         switch(activeLineState){
             case "left":
-                setListings(allListings);
+                setListings(all.listings);
                 break;
             case "middle":
-                setListings(allListings.filter((listing => listing.currency === "UPX")));
+                setListings(upx.listings);
                 break;
             case "right":
-                setListings(allListings.filter((listing => listing.currency !== "UPX")));
+                setListings(fiat.listings);
                 break;
             default:
-                setListings(allListings);
+                setListings(all.listings);
         }
-    },[allListings])
+    },[all.listings,upx.listings,fiat.listings])
     
     const changeCurr = (e) => {
        switch(e.target.getAttribute('name')){
         case "all": 
             activeLine.current.style.left = "0";
-            setListings(allListings);
             setActiveLineState("left");
+            setListings(all.listings);
             return;
-        case "upx": 
+        case "upx":
             activeLine.current.style.left = "33.3%";
-            setListings(allListings.filter((listing => listing.currency === "UPX")));
             setActiveLineState("middle");
+            setListings(upx.listings);
             return;
         case "fiat-crypto": 
             activeLine.current.style.left = "66.6%";
-            setListings(allListings.filter((listing => listing.currency !== "UPX")));
             setActiveLineState("right");
+            setListings(fiat.listings);
             return;  
         default:
             activeLine.current.style.left = "0";
@@ -134,14 +153,14 @@ const Listings = () => {
             </div>
             <div id="listings-main">
                 {Listings?.map((listing,index) => {
-                    if( Listings.length == index + 1){
+                    if( Listings.length === index + 1){
                         return (<Listing key={listing._id} username={listing.user.name} rate={listing.rate} amount={listing.amount} minP={listing.minP} maxP={listing.maxP} currency={listing.currency} setPing={setPing} listing={listing} setCurrentListing={setCurrentListing} giveref={lastListElementRef}/>)
                     }
                     
                     else
                         return (<Listing key={listing._id} username={listing.user.name} rate={listing.rate} amount={listing.amount} minP={listing.minP} maxP={listing.maxP} currency={listing.currency} setPing={setPing} listing={listing} setCurrentListing={setCurrentListing} />)
                 })}
-                {loading?<div className="list-item loading-screen" >
+                {(all.loading || upx.loading || fiat.loading)?<div className="list-item loading-screen" >
                             <CircularProgress />
                          </div>
                         :null

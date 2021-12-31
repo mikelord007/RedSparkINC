@@ -40,10 +40,39 @@ export const getListings = async (req,res) => {
     try {
         const PAGE_SIZE = 10;
         const page = parseInt(req.query.page || "0");
-        const total = await Listing.countDocuments({});
-        const listings = await Listing.find({})
-        .limit(PAGE_SIZE)
-        .skip(PAGE_SIZE * page);
+        const type = req.query.type
+        console.log(type)
+        let total;
+        if (type=="UPX"){
+            total = await Listing.countDocuments({'currency': type})
+        }
+        else if(type=="FIAT"){
+            total = await Listing.countDocuments({'currency': {$not: {$eq: 'UPX'}}})
+        }
+        else
+        {
+            total = await Listing.countDocuments({});
+        }
+        
+        let listings
+        if(type=="UPX"){
+            listings = await Listing.find({'currency': "UPX"})
+            .limit(PAGE_SIZE)
+            .skip(PAGE_SIZE * page);
+        }
+        else if(type=="FIAT")
+        {
+            listings = await Listing.find({'currency': {$not: {$eq: 'UPX'}}})
+            .limit(PAGE_SIZE)
+            .skip(PAGE_SIZE * page);
+        }
+        else
+        {
+            listings = await Listing.find({})
+            .limit(PAGE_SIZE)
+            .skip(PAGE_SIZE * page);
+        }
+
         return res.status(200).json({
             totalPages: Math.ceil(total/ PAGE_SIZE),
             listings

@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getListings } from '../../actions/listing';
 import UDfoot from '../../components/UDfoot/UDfoot';
 import UDnav from '../../components/UDnav/UDnav';
 import Listings from './components/Listings';

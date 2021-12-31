@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export default function useFetchListings(pageNumber) {
+export default function useFetchListings(pageNumber,type) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const [allListings, setAllListings] = useState([])
+  const [listings, setAllListings] = useState([])
   const [totalPages, setTotalPages] = useState()
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function useFetchListings(pageNumber) {
     axios({
       method: 'GET',
       url: 'http://localhost:5000/api/get-listings',
-      params: { page: pageNumber },
+      params: { page: pageNumber, type},
       cancelToken: new axios.CancelToken(c => cancel = c),
       headers: { Authorization: localStorage.getItem('token') }
     }).then(res => {
@@ -27,8 +27,8 @@ export default function useFetchListings(pageNumber) {
       if (axios.isCancel(e)) return
       setError(true)
     })
+    console.log(type,listings)
     return () => cancel()
   }, [ pageNumber ])
-
-  return { loading, error, allListings, totalPages }
+  return { loading, error, listings, totalPages }
 }
