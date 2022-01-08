@@ -14,7 +14,7 @@ export default function useFetchListings(pageNumber,type) {
     let cancel
     axios({
       method: 'GET',
-      url: 'http://localhost:5000/api/get-listingsd',
+      url: 'http://localhost:5000/api/get-listings',
       params: { page: pageNumber, type},
       cancelToken: new axios.CancelToken(c => cancel = c),
       headers: { Authorization: localStorage.getItem('token') }
@@ -30,6 +30,6 @@ export default function useFetchListings(pageNumber,type) {
       console.log("setting to true", error.current)
     })
     return () => cancel()
-  }, [ pageNumber,listings,type ])
+  }, [ pageNumber,type ])
   return { loading, error, listings, totalPages }
 }
