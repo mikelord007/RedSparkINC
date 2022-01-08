@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
 
 export default function useFetchListings(pageNumber,type) {
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
   const [listings, setAllListings] = useState([])
   const [totalPages, setTotalPages] = useState()
+  const error = useRef()
 
   useEffect(() => {
     setLoading(true)
-    setError(false)
+    error.current=false;
     let cancel
     axios({
       method: 'GET',
-      url: 'http://localhost:5000/api/get-listings',
+      url: 'http://localhost:5000/api/get-listingsd',
       params: { page: pageNumber, type},
       cancelToken: new axios.CancelToken(c => cancel = c),
       headers: { Authorization: localStorage.getItem('token') }
@@ -25,9 +26,9 @@ export default function useFetchListings(pageNumber,type) {
       setLoading(false)
     }).catch(e => {
       if (axios.isCancel(e)) return
-      setError(true)
+      error.current= true;
+      console.log("setting to true", error.current)
     })
-    console.log(type,listings)
     return () => cancel()
   }, [ pageNumber,listings,type ])
   return { loading, error, listings, totalPages }

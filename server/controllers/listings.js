@@ -41,7 +41,6 @@ export const getListings = async (req,res) => {
         const PAGE_SIZE = 10;
         const page = parseInt(req.query.page || "0");
         const type = req.query.type
-        console.log(type)
         let total;
         if (type=="UPX"){
             total = await Listing.countDocuments({'currency': type})
