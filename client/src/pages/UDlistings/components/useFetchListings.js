@@ -29,6 +29,6 @@ export default function useFetchListings(pageNumber,type) {
     })
     console.log(type,listings)
     return () => cancel()
-  }, [ pageNumber ])
+  }, [ pageNumber,listings,type ])
   return { loading, error, listings, totalPages }
 }

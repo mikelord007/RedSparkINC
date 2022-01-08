@@ -51,7 +51,7 @@ const Listings = () => {
         }
     })
     if (node) observer.current.observe(node)
-    }, [activeLineStatef, all.loading, all.totalPages, upx.loading, upx.totalPages, fiat.loading, fiat.totalPages])
+    }, [activeLineState, all.loading, all.totalPages, upx.loading, upx.totalPages, fiat.loading, fiat.totalPages,allPageNumber,fiatPageNumber,upxPageNumber])
 
     const [Listings, setListings] = useState(all.listings);
     const [currentListing, setCurrentListing] = useState();
@@ -75,7 +75,7 @@ const Listings = () => {
             default:
                 setListings(all.listings);
         }
-    },[all.listings,upx.listings,fiat.listings])
+    },[all.listings,upx.listings,fiat.listings,activeLineState])
     
     const changeCurr = (e) => {
        switch(e.target.getAttribute('name')){

@@ -40,7 +40,7 @@ export const registerValidation = (req,res,next) => {
 		name:name,
 		email:email,
 		uplandUsername:uplandUsername,
-		// password:password,		
+		password:password,		
 	});
 
 	if(error)
