@@ -6,7 +6,8 @@ export const createListing = (formData) => async (dispatch) => {
         const { data } = await api.createListing(formData);
         dispatch({ type: 'CREATED-LISTING', data });
     } catch (error) {
-        console.log(error)
+        console.log(error) // remove in production
+        dispatch({type: 'error',data:"Something went wrong"})
         return error;
     }
 }

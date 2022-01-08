@@ -2,7 +2,6 @@ import Joi from 'joi';
 
 export const registerValidation = (req,res,next) => {
 	const { name, email, uplandUsername, password, passwordConfirm } = req.body.form;
-	// try{
 		console.log(req.body.form)
 	const schema = Joi.object({
 		name: Joi.string().required().messages({
@@ -55,11 +54,5 @@ export const registerValidation = (req,res,next) => {
 	else
 	console.log('works')
 		next();
-// }
-// catch(error){
-// 	console.log(error);
-// 	const response = { "Status": "Failure", "Details": error.details[0].message }
-//     return res.status(400).send(response);
-// }
 }
 

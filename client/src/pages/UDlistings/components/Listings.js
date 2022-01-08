@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useHistory } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import { Icon } from '@iconify/react';
 import { CircularProgress } from '@mui/material';
-
+import { Alert, Snackbar } from '@mui/material';
 
 import '../style.css';
 import Listing from './Listing';
@@ -19,6 +20,10 @@ const Listings = () => {
     const all = useFetchListings(allPageNumber,'ALL')
     const upx = useFetchListings(upxPageNumber,'UPX')
     const fiat = useFetchListings(fiatPageNumber,'FIAT')
+
+    const [open, setOpen] = useState(false)
+    const alerts = useSelector(state => state.alerts)
+
 
     const observer = useRef()
     const lastListElementRef = useCallback(node => {
@@ -171,6 +176,27 @@ const Listings = () => {
                 <Popup dispArray={dispArray} CloseButtonFn={setPing} GreenBool={true} GreenBtnFn={addNewContact} GreenBtnFnArgs={GreenBtnFnArgs} GreenBtnContent={'Ping'} doDispatch={true} disableButton={currentUserID===currentListing.user.id?true:false}/>
             :null
             }
+            <Snackbar
+				open={open}
+				autoHideDuration={3000}
+				onClose={() => setOpen(false)}
+			// action={action}
+			>
+				<Alert sx={{
+					width: "100%",
+					backgroundColor: "white",
+					"& MuiPaper-root & MuiAlert-root": {
+						padding: "0"
+					}
+				}
+				}
+					onClose={() => setOpen(false)}
+					variant="outlined"
+					// severity={(errors.loginEr === "Success" || errors.signupEr === "Success")?"success":"error" }>{boxState === "login" ? (errors.otpEr) : errors.otpEr}</Alert>
+					severity={alerts.type} >
+						{alerts.message}
+						</Alert>
+			</Snackbar>
             </>
         
     )
