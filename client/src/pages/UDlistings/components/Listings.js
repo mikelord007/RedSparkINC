@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useHistory } from "react-router-dom";
 import { Icon } from '@iconify/react';
 import { CircularProgress } from '@mui/material';
-
+import { Alert, Snackbar } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 import '../style.css';
 import Listing from './Listing';
@@ -52,6 +53,14 @@ const Listings = () => {
     })
     if (node) observer.current.observe(node)
     }, [activeLineState, all.loading, all.totalPages, upx.loading, upx.totalPages, fiat.loading, fiat.totalPages,allPageNumber,fiatPageNumber,upxPageNumber])
+
+    const alerts = useSelector((state) => state.alerts);
+	const [open, setOpen] = useState(false)
+	useEffect(() => {
+		if (alerts.message) {
+			setOpen(true)
+		}
+	}, [alerts])
 
     const [Listings, setListings] = useState(all.listings);
     const [currentListing, setCurrentListing] = useState();
@@ -160,7 +169,8 @@ const Listings = () => {
                     else
                         return (<Listing key={listing._id} username={listing.user.name} rate={listing.rate} amount={listing.amount} minP={listing.minP} maxP={listing.maxP} currency={listing.currency} setPing={setPing} listing={listing} setCurrentListing={setCurrentListing} />)
                 })}
-                {(all.loading || upx.loading || fiat.loading)?<div className="list-item loading-screen" >
+                {(all.loading || upx.loading || fiat.loading)?
+                        <div className="list-item loading-screen" >
                             <CircularProgress />
                          </div>
                         :null
@@ -171,6 +181,26 @@ const Listings = () => {
                 <Popup dispArray={dispArray} CloseButtonFn={setPing} GreenBool={true} GreenBtnFn={addNewContact} GreenBtnFnArgs={GreenBtnFnArgs} GreenBtnContent={'Ping'} doDispatch={true} disableButton={currentUserID===currentListing.user.id?true:false}/>
             :null
             }
+            <Snackbar
+				open={open}
+				autoHideDuration={3000}
+				onClose={() => setOpen(false)}
+			// action={action}
+			>
+				<Alert sx={{
+					width: "100%",
+					backgroundColor: "white",
+					"& MuiPaper-root & MuiAlert-root": {
+						padding: "0"
+					}
+				}
+				}
+					onClose={() => setOpen(false)}
+					variant="outlined"
+					severity={alerts.type} >
+						{alerts.message}
+						</Alert>
+			</Snackbar>
             </>
         
     )
