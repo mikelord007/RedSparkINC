@@ -53,7 +53,7 @@ const Listings = () => {
         }
     })
     if (node) observer.current.observe(node)
-    }, [activeLineState, all.loading, all.totalPages, upx.loading, upx.totalPages, fiat.loading, fiat.totalPages,allPageNumber,fiatPageNumber,upxPageNumber])
+    }, [activeLineState, all.loading, all.totalPages, upx.loading, upx.totalPages, fiat.loading, fiat.totalPages, allPageNumber, fiatPageNumber, upxPageNumber])
 
     const alerts = useSelector((state) => state.alerts);
 	const [open, setOpen] = useState(false)
