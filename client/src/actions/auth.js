@@ -19,7 +19,7 @@ export const signup = (formData, router) => async (dispatch) => {
         }
     } catch (error) {
         console.log(error.response);
-        dispatch({ type: 'error', data: error.response.data.message })
+        dispatch({ type: 'error', data: error.response?.data.message })
     }
 };
 
@@ -36,7 +36,7 @@ export const login = (formData, router) => async (dispatch) => {
         router.push('/listings');
     } catch (error) {
         console.log(error)
-        dispatch({ type: 'error', data: error.response.data.message })
+        dispatch({ type: 'error', data: error.response?.data.message })
         // console.log()
     }
 };
