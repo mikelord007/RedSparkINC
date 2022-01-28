@@ -7,14 +7,14 @@ export default function useFetchListings(pageNumber,type) {
   const [listings, setAllListings] = useState([])
   const [totalPages, setTotalPages] = useState()
   const error = useRef()
-
+  const dispatch = useDispatch();
   useEffect(() => {
     setLoading(true)
     error.current=false;
     let cancel
     axios({
       method: 'GET',
-      url: 'http://localhost:5000/api/get-listings',
+      url: 'http://192.168.1.24:5000/api/get-listings',
       params: { page: pageNumber, type},
       cancelToken: new axios.CancelToken(c => cancel = c),
       headers: { Authorization: localStorage.getItem('token') }
@@ -24,12 +24,17 @@ export default function useFetchListings(pageNumber,type) {
         return [...new Set([...prevListings, ...res.data.listings])]
       })
       setLoading(false)
-    }).catch(e => {
-      if (axios.isCancel(e)) return
+    }).catch(err => {
+        if(err.response?.status === 403)
+          dispatch({type:"LOGOUT"});
+        else{
+          dispatch({type: 'error',data:"Something went wrong"})
+        }
+      if (axios.isCancel(err)) return
       error.current= true;
-      console.log("setting to true", error.current)
+      console.log("setting to true", error.current);
     })
     return () => cancel()
-  }, [ pageNumber,type ])
+  }, [ pageNumber,type ,dispatch])
   return { loading, error, listings, totalPages }
 }

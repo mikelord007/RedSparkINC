@@ -38,10 +38,15 @@ export const getUserListings = (UserID) => async (dispatch) => {
         dispatch({ type: 'USER-LISTINGS', data })
     }
     catch (error) {
-        console.log(error) //remove this in prod
+        console.log("server bhaii") //remove this in prod
         if (error.response.status === 403){
             dispatch({type:'LOGOUT'});
-        }   
+        } 
+        else{
+            console.log("server is down") // remove in production
+        dispatch({type: 'error',data:"Something went wrong"})
+        return error;
+        }  
     }
 }
 

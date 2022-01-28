@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react'
 import { useDispatch,useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import { Snackbar,Alert } from '@mui/material';
 
 import { getUserListings,deleteListing } from '../../actions/listing';
 import UDfoot from '../../components/UDfoot/UDfoot'
@@ -51,12 +52,18 @@ const UDcreatenew = () => {
                     <div className="ping-text">{currentListing.burner?currentListing.burner:"NILL"}</div>
                 </div>])
 },[currentListing])
-
+const [open, setOpen] = useState(false)
+const alerts = useSelector(state => state.alerts)
+useEffect(() => {
+    if (alerts.message) {
+        setOpen(true)
+    };
+}, [alerts])
     const loggedIn = useSelector((state)=>state.auth.loggedIn);
 
     if (loggedIn === false)
     {return <Redirect to="/"/>}
-    
+
     const username = JSON.parse(localStorage.getItem('profile')).uplandUsername
     const name = JSON.parse(localStorage.getItem('profile')).name
 
@@ -74,6 +81,26 @@ const UDcreatenew = () => {
             </div>
             {createPopup?<Popup dispArray={dispArray} GreenBool={true} GreenBtnContent={'Delete'} doDispatch={true} CloseButtonFn={setCreatePopup} GreenBtnFn={deleteListing} GreenBtnFnArgs={[currentListing._id]}/>:null}
             <UDfoot />
+            <Snackbar
+				open={open}
+				autoHideDuration={3000}
+				onClose={() => setOpen(false)}
+			// action={action}
+			>
+				<Alert sx={{
+					width: "100%",
+					backgroundColor: "white",
+					"& MuiPaper-root & MuiAlert-root": {
+						padding: "0"
+					}
+				}
+				}
+					onClose={() => setOpen(false)}
+					variant="outlined"
+					severity={alerts.type} >
+						{alerts.message}
+						</Alert>
+			</Snackbar>
         </>
     )
 }
