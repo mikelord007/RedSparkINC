@@ -7,7 +7,7 @@ export const fetchContacts = (UserID) => async (dispatch) => {
 
     } catch (error) {
         console.log(error) //remove this in prod
-        if (error.response.status === 403){
+        if (error?.response?.status === 403){
             dispatch({type:'LOGOUT'});
         }   
     }
@@ -26,7 +26,7 @@ export const fetchChat = (uid) => async (dispatch) => {
 
     } catch (error) {
         console.log(error) //remove this in prod
-        if (error.response.status === 403){
+        if (error?.response?.status === 403){
             dispatch({type:'LOGOUT'});
         }   
     }
