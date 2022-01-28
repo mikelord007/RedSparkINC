@@ -25,7 +25,7 @@ export const getListings = () => async (dispatch) => {
             }
         }
         
-        if (error.response.status === 403){
+        if (error?.response?.status === 403){
             dispatch({type:'LOGOUT'});
         }        
     }
@@ -38,7 +38,7 @@ export const getUserListings = (UserID) => async (dispatch) => {
     }
     catch (error) {
         console.log(error) //remove this in prod
-        if (error.response.status === 403){
+        if (error?.response?.status === 403){
             dispatch({type:'LOGOUT'});
         }   
     }
@@ -54,7 +54,7 @@ export const addNewContact = (listing, history) => async (dispatch) => {
     }
     catch (error) {
         console.log(error) //remove this in prod
-        if (error.response.status === 403){
+        if (error?.response?.status === 403){
             dispatch({type:'LOGOUT'});
         }   
     }
@@ -67,7 +67,7 @@ export const getCurrentListing = (lID) => async (dispatch) => {
     }
     catch (error) {
         console.log(error) //remove this in prod
-        if (error.response.status === 403){
+        if (error?.response?.status === 403){
             dispatch({type:'LOGOUT'});
         }   
     }
@@ -83,7 +83,7 @@ export const closeListing = (listing, history) => async (dispatch) => {
         history.push("/trade")
     } catch (error) {
         console.log(error) //remove this in prod
-        if (error.response.status === 403){
+        if (error?.response?.status === 403){
             dispatch({type:'LOGOUT'});
         }
     }
@@ -97,7 +97,7 @@ export const deleteListing = (lID) => async(dispatch) => {
         
     } catch (error) {
         console.log(error) //remove this in prod
-        if (error.response.status === 403){
+        if (error?.response?.status === 403){
             dispatch({type:'LOGOUT'});
         }
     }
