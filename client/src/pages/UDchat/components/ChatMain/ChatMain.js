@@ -26,7 +26,7 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
         scrollRef.current.scrollIntoView({behavior: "smooth"})
     },[messages])
 
-    if(messages)
+    if(messages.length !== 0)
     return (
         <div ref={mainMenu} onClick={()=>sideMenuState[0]?sideMenuState[1](false):null} id="chat-main">
             {
@@ -51,6 +51,13 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
             :
             null
             }
+        </div>
+    )
+
+    else
+    return(
+        <div ref={mainMenu} id="chat-main-no-chat">
+            { 'You have no chats!'}
         </div>
     )
    

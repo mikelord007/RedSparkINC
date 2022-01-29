@@ -23,6 +23,8 @@ const ChatSideMenu = ({sideMenuState}) =>{
         sideMenuState[1](false);
     }
 
+    console.log("here now man: ", contacts.length)
+    if(contacts.length !==0 )
     return (
         <div ref={sideMenu} id="side-menu">
                 {
@@ -46,6 +48,15 @@ const ChatSideMenu = ({sideMenuState}) =>{
                         </div>)
                 })
                 }
+        </div>
+    )
+
+    else
+    return(
+        <div ref={sideMenu} id="side-menu">
+            <div className={"person-active-item no-contact"}>
+                            {'Start pinging trade offers in the listings section to chat'}
+            </div>
         </div>
     )
 }

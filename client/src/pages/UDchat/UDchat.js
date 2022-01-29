@@ -41,9 +41,9 @@ const UDchat = () => {
     const [edit, setEdit] = useState(false);
     
     const dispatch = useDispatch()
-    const ENDPOINT = 'http://192.168.1.24:5000';
+    const ENDPOINT = 'http://localhost:5000';
 
-    const recipient = useSelector((state) => { console.log(state); return state?.Recipient})
+    const recipient = useSelector((state) => (state?.Recipient))
 
     
     useEffect(() => {
@@ -63,7 +63,7 @@ const UDchat = () => {
     const sideMenuState = useState(false);
 
     let otherUserPic = createAvatar(style, {
-        seed: otherUser,
+        seed: otherUser || 0,
         dataUri: true,
         scale: 80
       });
@@ -121,7 +121,7 @@ const UDchat = () => {
             <div id="UDchat">
                 <ChatHeader sideMenuState={sideMenuState} otherUserPic={otherUserPic}/>
                 <ChatMain sideMenuState={sideMenuState} otherUserPic={otherUserPic} currentUserPic={currentUserPic} currentUserID={currentUserID} setEdit={setEdit}/>
-                <ChatFooter sideMenuState={sideMenuState} message={message} setMessage={setMessage} sendMessage={sendMessage}/>
+                <ChatFooter recipient={recipient} sideMenuState={sideMenuState} message={message} setMessage={setMessage} sendMessage={sendMessage}/>
                 <ChatSideMenu  sideMenuState={sideMenuState}/>
                 {edit?<><div id="modal-cover" onClick={() => setEdit(false)}></div><Creation autofill={true} id={'close-section'} edit={edit} buttonText={"Close Deal"} setEdit={setEdit} 
                     listState={listState}
