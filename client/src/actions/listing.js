@@ -26,11 +26,11 @@ export const createListing = (formData) => async (dispatch) => {
 //             }
 //         }
         
-//         if (error?.response?.status === 403){
-//             dispatch({type:'LOGOUT'});
-//         }        
-//     }
-// }
+        if (error?.response?.status === 403){
+            dispatch({type:'LOGOUT'});
+        }        
+    }
+}
 
 export const getUserListings = (UserID) => async (dispatch) => {
     try {
@@ -38,7 +38,7 @@ export const getUserListings = (UserID) => async (dispatch) => {
         dispatch({ type: 'USER-LISTINGS', data })
     }
     catch (error) {
-        console.log("server bhaii") //remove this in prod
+        console.log(error) //remove this in prod
         if (error?.response?.status === 403){
             dispatch({type:'LOGOUT'});
         } 

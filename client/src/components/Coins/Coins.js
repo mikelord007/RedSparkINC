@@ -5,18 +5,21 @@ import coin2 from '../../assets/SVG/Asset2.svg'
 import coin3 from '../../assets/SVG/Asset3.svg'
 import coin4 from '../../assets/SVG/Asset4.svg'
 
+
+let commonStyle = {
+    WebkitTransition: 'all',
+    msTransition: 'all',
+    all: "initial",
+    zIndex: 1,
+    position: "fixed",
+    height: "100px",
+    width: "auto",
+    padding: 0,
+    margin: 0,
+}
+
 export const Coin1 = ({top,bottom,right,left,width}) => {
-    let coinStyle = {
-        WebkitTransition: 'all',
-        msTransition: 'all',
-        all: "initial",
-        zIndex: 1,
-        position: "absolute",
-        height: "100px",
-        width: "auto",
-        padding: 0,
-        margin: 0,
-    }
+    let coinStyle = commonStyle
     coinStyle = {...coinStyle,top,bottom,right,left,width}
     return (   
         <>
@@ -26,17 +29,7 @@ export const Coin1 = ({top,bottom,right,left,width}) => {
 }
 
 export const Coin2 = ({ top, bottom, right, left, width}) => {
-    let coinStyle = {
-        WebkitTransition: 'all',
-        msTransition: 'all',
-        all: "initial",
-        zIndex: 1,
-        position: "absolute",
-        height: "100px",
-        width: "auto",
-        padding: 0,
-        margin: 0,
-    }
+    let coinStyle = commonStyle
     coinStyle = {...coinStyle,top,bottom,right,left,width}
     return (   
         <>
@@ -46,17 +39,7 @@ export const Coin2 = ({ top, bottom, right, left, width}) => {
 }
 
 export const Coin3 = ({ top, bottom, right, left, width}) => {
-    let coinStyle = {
-        WebkitTransition: 'all',
-        msTransition: 'all',
-        all: "initial",
-        zIndex: 1,
-        position: "absolute",
-        height: "100px",
-        width: "auto",
-        padding: 0,
-        margin: 0,
-    }
+    let coinStyle = commonStyle
     coinStyle = {...coinStyle,top,bottom,right,left,width}
 
     return (   
@@ -67,17 +50,7 @@ export const Coin3 = ({ top, bottom, right, left, width}) => {
 }
 
 export const Coin4 = ({ top, bottom, right, left, width}) => {
-    let coinStyle = {
-        WebkitTransition: 'all',
-        msTransition: 'all',
-        all: "initial",
-        zIndex: 1,
-        position: "absolute",
-        height: "100px",
-        width: "auto",
-        padding: 0,
-        margin: 0,
-    }
+    let coinStyle = commonStyle
     coinStyle = {...coinStyle,top,bottom,right,left,width}
 
     return (   
@@ -88,17 +61,7 @@ export const Coin4 = ({ top, bottom, right, left, width}) => {
 }
 
 export const Coin5 = ({ top, bottom, right, left, width}) => {
-    let coinStyle = {
-        WebkitTransition: 'all',
-        msTransition: 'all',
-        all: "initial",
-        zIndex: "-1",
-        position: "absolute",
-        height: "100px",
-        width: "auto",
-        padding: 0,
-        margin: 0,
-    }
+    let coinStyle = commonStyle
     coinStyle = {...coinStyle,top,bottom,right,left,width}
 
     return (   
