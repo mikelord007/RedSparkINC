@@ -102,7 +102,7 @@ const AuthBox = ({ signupState }) => {
 			dispatch(verifyOtpEr("Success"));
 		}
 		catch(error) {
-			dispatch(verifyOtpEr(error.response.data.erMsg))
+			dispatch(verifyOtpEr(error.response?.data.erMsg))
 		}
 	}
 	const handleResetPass = () => {
