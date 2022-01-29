@@ -9,6 +9,9 @@ export const fetchContacts = (UserID) => async (dispatch) => {
         console.log(error) //remove this in prod
         if (error.response?.status === 403){
             dispatch({type:'LOGOUT'});
+        }
+        else{
+            dispatch({type:"error",data:"Something went wrong"})
         }   
     }
 };
@@ -29,6 +32,10 @@ export const fetchChat = (uid) => async (dispatch) => {
         if (error.response?.status === 403){
             dispatch({type:'LOGOUT'});
         }   
+        else {
+            console.log("someting went wrong")
+            dispatch({type:"error",data:"Something went wrong"})
+        }
     }
 }
 

@@ -6,6 +6,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
 
+import { Snackbar,Alert } from "@mui/material";
 import UDfoot from '../../components/UDfoot/UDfoot'
 import UDnav from '../../components/UDnav/UDnav'
 import ChatFooter from "./components/ChatFooter/ChatFooter";
@@ -27,12 +28,20 @@ const UDchat = () => {
     const currentUserID = JSON.parse(localStorage.getItem('profile'))?._id;
     const currentUserName = JSON.parse(localStorage.getItem('profile'))?.name;
     
+    const alerts = useSelector((state)=>state.alerts);
+    const [open, setOpen] = useState(false);
+    useEffect(()=>{
+        if(alerts.message){
+            setOpen(true);
+        }
+    },[alerts])
+
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
     const [edit, setEdit] = useState(false);
     
     const dispatch = useDispatch()
-    const ENDPOINT = 'http://localhost:5000';
+    const ENDPOINT = 'http://192.168.1.24:5000';
 
     const recipient = useSelector((state) => { console.log(state); return state?.Recipient})
 
@@ -118,6 +127,26 @@ const UDchat = () => {
                     listState={listState}
                 /></>:null}
             </div>
+            <Snackbar
+				open={open}
+				autoHideDuration={3000}
+				onClose={() => setOpen(false)}
+			// action={action}
+			>
+				<Alert sx={{
+					width: "100%",
+					backgroundColor: "white",
+					"& MuiPaper-root & MuiAlert-root": {
+						padding: "0"
+					}
+				}
+				}
+					onClose={() => setOpen(false)}
+					variant="outlined"
+					severity={alerts.type} >
+						{alerts.message}
+						</Alert>
+			</Snackbar>
             <UDfoot/>
         </>
     )
