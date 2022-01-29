@@ -12,26 +12,6 @@ export const createListing = (formData) => async (dispatch) => {
     }
 }
 
-// export const getListings = () => async (dispatch) => {
-//     try {
-//         const { data } = await api.getListings();
-//         dispatch({ type: 'FETCH_ALL', payload: data });
-//         return data;
-
-//     } catch (error) {
-//         for (var key in error) {
-//             if (Object.prototype.hasOwnProperty.call(error, key)) {
-//                 var val = error[key];
-//                 console.log(`${key}: ${val}`) //remove this in prod
-//             }
-//         }
-        
-        if (error?.response?.status === 403){
-            dispatch({type:'LOGOUT'});
-        }        
-    }
-}
-
 export const getUserListings = (UserID) => async (dispatch) => {
     try {
         const { data } = await api.getUserListings(UserID) // list of objects of type listings
