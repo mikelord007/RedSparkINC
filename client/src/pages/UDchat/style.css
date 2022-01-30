@@ -18,6 +18,15 @@
     margin: auto auto;
 }
 
+div#chat-otheruser-name {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
 #chat-namelist {
     flex-basis: 20%;
     margin: auto 0;
@@ -48,16 +57,17 @@
     text-align: center;
 }
 
-#chat-otheruser{
+#chat-otheruser {
     max-height: 100%;
-    flex-basis: 50%;
+    flex-basis: 31%;
     margin: 0 auto;
+    display: flex;
 }
 
-#chat-img{
+#chat-img {
     width: 2rem;
     text-align: center;
-    margin: 4px auto;
+    margin: 4px 4px 4px auto;
     border: 1px solid #F7F123;
     border-radius: 50%;
     background-color: white;

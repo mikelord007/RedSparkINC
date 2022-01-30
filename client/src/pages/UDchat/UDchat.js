@@ -131,7 +131,7 @@ const UDchat = () => {
         <>
             <UDnav username={username} name={name} />
             <div id="UDchat">
-                <ChatHeader sideMenuState={sideMenuState} otherUserPic={otherUserPic}/>
+                <ChatHeader otherUserName={otherUserName} sideMenuState={sideMenuState} otherUserPic={otherUserPic}/>
                 <ChatMain sideMenuState={sideMenuState} otherUserPic={otherUserPic} currentUserPic={currentUserPic} currentUserID={currentUserID} setEdit={setEdit}/>
                 <ChatFooter recipient={recipient} sideMenuState={sideMenuState} message={message} setMessage={setMessage} sendMessage={sendMessage}/>
                 <ChatSideMenu  sideMenuState={sideMenuState}/>
