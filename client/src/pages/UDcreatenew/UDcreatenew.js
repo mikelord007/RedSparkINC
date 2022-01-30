@@ -71,6 +71,7 @@ const UDcreatenew = () => {
 
     const handleClose = (event) => {
         dispatch({ type: "noAlert" });
+        setOpen(false);
     }
 
     const action = (

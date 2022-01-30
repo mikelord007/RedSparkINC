@@ -18,7 +18,7 @@ export const registerValidation = (req,res,next) => {
  			"string.email":"Not a valid email address",
 			"string.empty":"Email is required"
 		}),
-		uplandUsername: Joi.string().min(5).max(20).required().messages({
+		uplandUsername: Joi.string().min(3).max(20).required().messages({
 			"string.empty":"Upland username is required",
 			"string.min":"Upland username must be at least 5 characters long"
 		}),

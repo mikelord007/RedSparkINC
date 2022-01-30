@@ -21,11 +21,11 @@ export default function useFetchListings(pageNumber,type) {
     }).then(res => {
       setTotalPages(res.data.totalPages)
       setAllListings(prevListings => {
-        return [...new Set([...prevListings, ...res.data.listings])]
+        return [...new Set([...prevListings, ...res.data?.listings])]
       })
       setLoading(false)
     }).catch(err => {
-      if (axios.isCancel(err)) return
+      if (axios.isCancel(err)) return;
       if(err.response?.status === 403)
         dispatch({type:"LOGOUT"});
       else{
