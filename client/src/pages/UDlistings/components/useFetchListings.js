@@ -25,13 +25,12 @@ export default function useFetchListings(pageNumber,type) {
       })
       setLoading(false)
     }).catch(err => {
-        if(err.response?.status === 403)
-          dispatch({type:"LOGOUT"});
-        else{
-          console.log(err)
-          dispatch({type: 'error',data:`${err}`})
-        }
-      if (axios.isCancel(err)) return
+      if (axios.isCancel(err)) return;
+      if(err.response?.status === 403)
+        dispatch({type:"LOGOUT"});
+      else{
+        dispatch({type: 'error',data:"Something went wrong"})
+      }
       error.current= true;
     })
     return () => cancel()
