@@ -181,6 +181,10 @@
     margin-bottom: 1rem;
 }
 
+#chat-main-no-chat{
+    text-align: center;
+}
+
 .text-info {
     display: flex;
     font-family: monospace;
@@ -260,6 +264,13 @@
 
 .person-active-item{
     background-color: #EEEDCE;
+}
+
+.person-active-item.no-contact{
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+    text-align: center;
 }
 
 .chat-info-wrapper {

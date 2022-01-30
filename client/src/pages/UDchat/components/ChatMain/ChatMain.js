@@ -26,11 +26,11 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
         scrollRef.current.scrollIntoView({behavior: "smooth"})
     },[messages])
 
-    if(messages)
+    if(messages.length !== 0)
     return (
         <div ref={mainMenu} onClick={()=>sideMenuState[0]?sideMenuState[1](false):null} id="chat-main">
             {
-                messages.map((message,index) => 
+                messages?.map((message,index) => 
                 <div ref={scrollRef} key={index} className={(message.from===currentUserID?'home-text chat-main-text':'other-text chat-main-text')}>
                     <img src={(message.from===currentUserID?currentUserPic:otherUserPic)} alt=""/>
                     <div className="main-content">
@@ -51,6 +51,13 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
             :
             null
             }
+        </div>
+    )
+
+    else
+    return(
+        <div ref={mainMenu} id="chat-main-no-chat">
+            { 'You have no chats!'}
         </div>
     )
    

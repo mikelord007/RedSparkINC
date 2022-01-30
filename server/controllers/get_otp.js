@@ -53,14 +53,14 @@ export const sendOTP = async (req, res) => {
             }
         });
 
-        //Send Email
-        // transporter.sendMail(mailOptions, (err, response) => {
-        //     if (err) {
-        //         return res.status(400).send({ "Status": "Failure", "Details": err });
-        //     } else {
-        //         return res.status(200).json({ "Status": "Success", verification_key: res.locals.encoded.toString() });
-        //     }
-        // });
+        // Send Email
+        transporter.sendMail(mailOptions, (err, response) => {
+            if (err) {
+                return res.status(400).send({ "Status": "Failure", "Details": err });
+            } else {
+                return res.status(200).json({ "Status": "Success", verification_key: res.locals.encoded.toString() });
+            }
+        });
         return res.status(200).json({ "Status": "Success", verification_key: res.locals.encoded.toString() });
     }
     catch (err) {
