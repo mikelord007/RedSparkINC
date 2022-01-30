@@ -1,6 +1,7 @@
 import { Button } from '@material-ui/core';
 import { Alert, Snackbar } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
+import CloseIcon from '@mui/icons-material/Close';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import React, { useEffect, useRef, useState } from 'react';
 import OtpInput from 'react-otp-input';
@@ -16,6 +17,7 @@ import CustomTextField from './CustomTextField';
 
 const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '', rememberMe: false }
 const AuthBox = ({ signupState }) => {
+	const dispatch = useDispatch();
 	const [boxState, setBoxState] = useState(signupState ? signupState : "signup");
 	const otp_email = useSelector((state)=>{return state.auth.email;})
 	const [otp, setOtp] = useState({ otp_code: "", type: "" });
@@ -30,13 +32,25 @@ const AuthBox = ({ signupState }) => {
 		setBoxState("otp");
 	}
 
-	const alerts = useSelector((state) => state.alerts);
+	
+	//alerts
+	const alerts = useSelector((state) => {return state.alerts;});
 	const [open, setOpen] = useState(false)
 	useEffect(() => {
-		if (alerts.message) {
+		if (alerts.displayed !== true) {
 			setOpen(true)
-		};
-	}, [alerts])
+		}
+	},[alerts.displayed])
+	const handleClose = (event) => {
+		dispatch({type:"noAlert"});
+		setOpen(false);
+	}
+
+	const action = (
+		<Button color="inherit" size="small" onClick={handleClose}>
+      <CloseIcon fontSize='small'/>
+		</Button>
+    )
 
 	const firstRender = useRef(true)
 	useEffect(() => {
@@ -65,7 +79,7 @@ const AuthBox = ({ signupState }) => {
 	};
 
 	const [form, setForm] = useState(initialState);
-	const dispatch = useDispatch();
+	
 	const history = useHistory();
 	const verification_key = useSelector((state) => { return state.otp.verification_key });
 	
@@ -110,6 +124,8 @@ const AuthBox = ({ signupState }) => {
 		resetPass(form);
 		setBoxState("login");
 	}
+
+	
 	return (
 
 		<div className="signupbox">
@@ -134,25 +150,6 @@ const AuthBox = ({ signupState }) => {
 									<CustomTextField label="Email" name="email" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
 									<CustomTextField label="Password" name="password" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
 								</div>
-
-								{/* <Snackbar
-									open={open}
-									autoHideDuration={3000}
-									onClose={()=>setOpen(false)}
-								// action={action}
-								>
-									<Alert sx={{
-										width: "100%",
-										backgroundColor: "white",
-										"& MuiPaper-root & MuiAlert-root": {
-											padding: "0"
-										}
-									}
-									}
-										onClose={()=>setOpen(false)}
-										variant="outlined"
-										severity="error">{errors.loginEr}</Alert>
-								</Snackbar> */}
 								<FormControlLabel control={<Checkbox defaultChecked size="small" />} label="Remember Me" />
 								<GreenBtn className="signup-button" content='Login' onClick={handleLogin} />
 							</>
@@ -197,8 +194,8 @@ const AuthBox = ({ signupState }) => {
 			<Snackbar
 				open={open}
 				autoHideDuration={3000}
-				onClose={() => setOpen(false)}
-			// action={action}
+				onClose={handleClose}
+			action={action}
 			>
 				<Alert sx={{
 					width: "100%",
@@ -208,10 +205,11 @@ const AuthBox = ({ signupState }) => {
 					}
 				}
 				}
-					onClose={() => setOpen(false)}
+					onClose={handleClose}
 					variant="outlined"
-					// severity={(errors.loginEr === "Success" || errors.signupEr === "Success")?"success":"error" }>{boxState === "login" ? (errors.otpEr) : errors.otpEr}</Alert>
-					severity={alerts.type} >
+					severity={alerts.type} 
+					action={action}
+					>
 						{alerts.message}
 						</Alert>
 			</Snackbar>

@@ -12,5 +12,8 @@ export const getTradeHist = () => async (dispatch) => {
         if (error?.response?.status === 403){
             dispatch({type:'LOGOUT'});
         }   
+        else{
+            dispatch({type:'error',data:"Something went wrong"})
+        }
     }
 }
