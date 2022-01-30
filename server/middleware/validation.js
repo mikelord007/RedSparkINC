@@ -8,8 +8,8 @@ export const registerValidation = (req,res,next) => {
 			"string.empty":"Name is required"
 		}),
 		password: Joi.string().pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/).required().messages({
-			"string.pattern.base":`Password must be: \n\u2022 at least 8 characters\n\u2022 contain at least 1 lowercase \n\u2022 1 uppercase \n\u2022 1 number \n\u2022 1 special character.`,
-			"string.pattern.name":"Password must be at least 8 characters and contain at least 1 lowercase, 1 uppercase, 1 number and 1 special character.",
+			"string.pattern.base":`IncorrectPassFormat`,
+			"string.pattern.name":"IncorrectPassFormat",
 			"string.empty":"Password is required",
 
 		}),

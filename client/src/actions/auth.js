@@ -33,7 +33,9 @@ export const login = (formData, router) => async (dispatch) => {
         else {
             dispatch({ type: 'LOGIN_ER', data: response })
         }
+        dispatch({type:"success",data:"Logged in"})
         router.push('/listings');
+        // dispatch({type:"noAlert"})
     } catch (error) {
         console.log(error)
         dispatch({ type: 'error', data: error.response?.data?.message })
