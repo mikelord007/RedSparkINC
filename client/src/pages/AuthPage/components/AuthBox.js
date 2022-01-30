@@ -35,7 +35,6 @@ const AuthBox = ({ signupState }) => {
 	
 	//alerts
 	const alerts = useSelector((state) => {return state.alerts;});
-	console.log("got alerts: ", alerts)
 	const [open, setOpen] = useState(false)
 	useEffect(() => {
 		if (alerts.displayed !== true) {

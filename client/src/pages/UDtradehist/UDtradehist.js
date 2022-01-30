@@ -21,7 +21,7 @@ const UDtradehist = () => {
     const alerts = useSelector((state) => { return state.alerts; });
     const [open, setOpen] = useState(false)
     useEffect(() => {
-        if (alerts.displayed !== true) {
+        if (!alerts.displayed) {
             setOpen(true)
         }
     }, [alerts.displayed])
