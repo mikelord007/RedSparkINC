@@ -14,7 +14,7 @@ export default function useFetchListings(pageNumber,type) {
     let cancel
     axios({
       method: 'GET',
-      url: 'http://localhost:5000/api/get-listings',
+      url: `http://${process.env.REACT_APP_myMachine?process.env.REACT_APP_myMachine:'localhost'}:5000/api/get-listings`,
       params: { page: pageNumber, type},
       cancelToken: new axios.CancelToken(c => cancel = c),
       headers: { Authorization: localStorage.getItem('token') }

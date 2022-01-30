@@ -11,7 +11,7 @@ let commonStyle = {
     msTransition: 'all',
     all: "initial",
     zIndex: 1,
-    position: "fixed",
+    position: "absolute",
     height: "100px",
     width: "auto",
     padding: 0,

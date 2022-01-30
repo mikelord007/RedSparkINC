@@ -32,7 +32,7 @@ const ActiveList = ({setCreatePopup, setCurrentListing}) => {
         return (
             <div id="active-list">
                     <header><h2>Active Listings</h2></header>
-                    <div id="empty-message">You don't have any active listings right now.</div>
+                    <div id="empty-message">You don't have any active listings.</div>
         </div>
         )
 }

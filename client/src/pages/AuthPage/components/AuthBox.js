@@ -210,7 +210,6 @@ const AuthBox = ({ signupState }) => {
 				}
 					onClose={() => setOpen(false)}
 					variant="outlined"
-					// severity={(errors.loginEr === "Success" || errors.signupEr === "Success")?"success":"error" }>{boxState === "login" ? (errors.otpEr) : errors.otpEr}</Alert>
 					severity={alerts.type} >
 						{alerts.message}
 						</Alert>

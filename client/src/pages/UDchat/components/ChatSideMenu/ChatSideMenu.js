@@ -55,7 +55,7 @@ const ChatSideMenu = ({sideMenuState}) =>{
     return(
         <div ref={sideMenu} id="side-menu">
             <div className={"person-active-item no-contact"}>
-                            {'Start pinging trade offers in the listings section to chat'}
+                            {'Start pinging listings to chat'}
             </div>
         </div>
     )

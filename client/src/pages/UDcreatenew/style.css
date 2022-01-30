@@ -105,6 +105,8 @@
     align-items: center;
     height: 70%;
     font-size: 1.1rem;
+    font-family: monospace;
+    text-align: center;
 }
 
 .form-wrapper {

@@ -41,7 +41,7 @@ const UDchat = () => {
     const [edit, setEdit] = useState(false);
     
     const dispatch = useDispatch()
-    const ENDPOINT = 'http://localhost:5000';
+    const ENDPOINT = `http://${process.env.REACT_APP_myMachine?process.env.REACT_APP_myMachine:'localhost'}:5000`;
 
     const recipient = useSelector((state) => (state?.Recipient))
 
@@ -89,6 +89,7 @@ const UDchat = () => {
         return () => {
             socket.off();
         }
+        // eslint-disable-next-line
     },[room,uid]);
 
     useEffect(() => {

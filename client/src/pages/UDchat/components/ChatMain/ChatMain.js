@@ -56,7 +56,7 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
 
     else
     return(
-        <div ref={mainMenu} id="chat-main-no-chat">
+        <div ref={mainMenu} onClick={()=>sideMenuState[0]?sideMenuState[1](false):null} id="chat-main-no-chat">
             { 'You have no chats!'}
         </div>
     )
