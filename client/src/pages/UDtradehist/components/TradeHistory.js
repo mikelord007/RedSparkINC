@@ -32,7 +32,7 @@ const TradeHistory = () => {
             </div>,
             <div className="ping-rate" key={3}>
                 <div className="ping-icon"><Icon icon="bx:bx-transfer" color="black" width="40" /></div>
-                <div className="ping-text">{currentTrade.rate} per day per spark</div>
+                <div className="ping-text"> {currentTrade.rate + ' ' + currentTrade.currency} per day per spark</div>
             </div>,
             <div className="ping-duration" key={4}>
                 <div className="ping-icon"><Icon icon="bi:clock-history" color="black" width="32" /></div>

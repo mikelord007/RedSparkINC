@@ -60,11 +60,11 @@ export const getCurrentListing = (lID) => async (dispatch) => {
 }
 
 
-export const closeListing = (listing, history) => async (dispatch) => {
+export const closeListing = (listing, history, recipient) => async (dispatch) => {
 
     try {
         //eslint-disable-next-line
-        const { data } = await api.closeListing(listing);
+        const { data } = await api.closeListing(listing,recipient);
         dispatch({ type: 'CLOSE-LISTING', data });
         history.push("/trade")
     } catch (error) {

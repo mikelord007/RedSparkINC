@@ -24,10 +24,12 @@ dotenv.config();
 const app = express();
 
 dotenv.config();
+app.use(cors({
+  origin: '*'
+}))
 app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({extended:true})); //instead of bodyParser use this
-app.use(cors())
 // route middlewares
 app.use('/api/user',userRoute);
 app.use('/api/otp',otpRoute)

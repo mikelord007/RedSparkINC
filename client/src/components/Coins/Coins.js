@@ -12,6 +12,7 @@ let commonStyle = {
     all: "initial",
     zIndex: 1,
     position: "absolute",
+    overflow: "hidden",
     height: "100px",
     width: "auto",
     padding: 0,
