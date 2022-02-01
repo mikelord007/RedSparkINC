@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: `http://${process.env.REACT_APP_myMachine?process.env.REACT_APP_myMachine:'localhost'}:5000/api`});
+// const API = axios.create({ baseURL: `http://${process.env.REACT_APP_myMachine?process.env.REACT_APP_myMachine:'localhost'}:5000/api`});
+const API = axios.create({ baseURL: `https://peaceful-waters-54837.herokuapp.com/api`});
 
 //auth
 export const login = (formData) => API.post('/user/login',formData);

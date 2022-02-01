@@ -35,7 +35,8 @@ const UDchat = () => {
     const [edit, setEdit] = useState(false);
 
     const dispatch = useDispatch()
-    const ENDPOINT = `http://${process.env.REACT_APP_myMachine?process.env.REACT_APP_myMachine:'localhost'}:5000`;
+    // const ENDPOINT = `http://${process.env.REACT_APP_myMachine?process.env.REACT_APP_myMachine:'localhost'}:5000`;
+    const ENDPOINT = `https://peaceful-waters-54837.herokuapp.com`;
 
     const recipient = useSelector((state) => (state?.Recipient))
 
