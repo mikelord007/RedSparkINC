@@ -44,31 +44,31 @@ export const getListings = async (req,res) => {
         console.log(type)
         let total;
         if (type=="UPX"){
-            total = await Listing.countDocuments({'currency': type})
+            total = await Listing.countDocuments({'currency': type, 'active': true})
         }
         else if(type=="FIAT"){
-            total = await Listing.countDocuments({'currency': {$not: {$eq: 'UPX'}}})
+            total = await Listing.countDocuments({'currency': {$not: {$eq: 'UPX'}}, 'active': true})
         }
         else
         {
-            total = await Listing.countDocuments({});
+            total = await Listing.countDocuments({'active': true});
         }
         
         let listings
         if(type=="UPX"){
-            listings = await Listing.find({'currency': "UPX"})
+            listings = await Listing.find({'currency': "UPX", 'active': true})
             .limit(PAGE_SIZE)
             .skip(PAGE_SIZE * page);
         }
         else if(type=="FIAT")
         {
-            listings = await Listing.find({'currency': {$not: {$eq: 'UPX'}}})
+            listings = await Listing.find({'currency': {$not: {$eq: 'UPX'}}, 'active': true})
             .limit(PAGE_SIZE)
             .skip(PAGE_SIZE * page);
         }
         else
         {
-            listings = await Listing.find({})
+            listings = await Listing.find({'active': true})
             .limit(PAGE_SIZE)
             .skip(PAGE_SIZE * page);
         }
@@ -101,7 +101,7 @@ export const userListing = async (req,res) => {
     const { id } = req.user
     try {
         var Objid = mongoose.Types.ObjectId(id);
-        const listings = await Listing.find({'user.id': Objid})
+        const listings = await Listing.find({'user.id': Objid, 'active': true})
         return res.status(200).json(listings);
     } catch (error) {
         console.log(error)

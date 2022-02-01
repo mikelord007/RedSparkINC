@@ -6,15 +6,15 @@ const secret = "test";
 
 
 export const closeListing = async(req, res) => {
-    const listing = req.body
+    console.log("here: ", req.body)
+    const listing = req.body.listing
+    const recipient = req.body.recipient
     const {id} = req.user
-
-    const buyerName = await userModel.findById(id)
 
     try
     {   const newTrade = {
             seller: mongoose.Types.ObjectId(listing.user.id),
-            buyer: mongoose.Types.ObjectId(id),
+            buyer: mongoose.Types.ObjectId(recipient.id),
             listing: listing._id,
             currency: listing.currency,
             rate: listing.rate,
@@ -24,7 +24,7 @@ export const closeListing = async(req, res) => {
             maxP: listing.maxP,
             created: Date(),
             sellerName: listing.user.name,
-            buyerName: buyerName.uplandUsername
+            buyerName: recipient.name
         }
 
         const trade = new Trade(newTrade)
