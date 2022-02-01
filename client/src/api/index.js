@@ -21,7 +21,7 @@ export const getCurrentListing = (lID) => API.get(`/current-listing/${lID}`, { h
 //trade
 export const createTrade = (formData) => API.post("/create-trade",formData,{ headers: { Authorization: localStorage.getItem('token') } });
 export const getTradeHist = () => API.get("/trade-history",{ headers: { Authorization: localStorage.getItem('token') } });
-export const closeListing = (listing) => API.post("/close-deal", listing, { headers: { Authorization: localStorage.getItem('token') } })
+export const closeListing = (listing, recipient) => API.post("/close-deal", {listing, recipient}, { headers: { Authorization: localStorage.getItem('token') } })
 
 //creation
 export const getUserListings = () => API.get(`/user-listing`,{ headers: { Authorization: localStorage.getItem('token') } });
