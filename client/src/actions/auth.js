@@ -13,7 +13,7 @@ export const signup = (formData, router) => async (dispatch) => {
         }
         else {
             const { error } = response;
-            console.log(error)
+            console.log(response)
             dispatch({ type: 'error', data:error })
             // router.push('/auth');
         }
