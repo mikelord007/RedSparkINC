@@ -1,15 +1,10 @@
-*{
-    box-sizing: border-box;
-}
-body{
-    background-image: url('assets/bg_img.png');
-    background-repeat: repeat;
+#deskpage {
+    height: 100%;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+    background: url('assets/bg_img.png');
 }
+
+
 #sec1{
     margin: 0;
     height: 100%;
@@ -19,6 +14,11 @@ body{
     align-items: center;
     background: #b2e8b35e;
 }
+
+#sec1 img{
+    width: 19rem;
+}
+
 #sec2{
     flex-basis: 50%;
     padding: 0 2.1rem;
@@ -30,8 +30,4 @@ body{
     height: 100%;
     justify-content: center;
     background-color: #0000002b;
-}
-
-img{
-    width: 19rem;
 }
