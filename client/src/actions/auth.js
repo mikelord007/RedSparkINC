@@ -30,9 +30,6 @@ export const login = (formData, router) => async (dispatch) => {
         if (response.status === 200) {
             dispatch({ type: 'AUTH', data: response.data });
         }
-        else {
-            dispatch({ type: 'LOGIN_ER', data: response })
-        }
         dispatch({type:"success",data:"Logged in"})
         router.push('/listings');
         // dispatch({type:"noAlert"})
