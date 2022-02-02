@@ -15,6 +15,7 @@ export default function useFetchListings(pageNumber,type) {
     axios({
       method: 'GET',
       url: `http://${process.env.REACT_APP_myMachine?process.env.REACT_APP_myMachine:'localhost'}:5000/api/get-listings`,
+      // url: `https://peaceful-waters-54837.herokuapp.com/api/get-listings`,
       params: { page: pageNumber, type},
       cancelToken: new axios.CancelToken(c => cancel = c),
       headers: { Authorization: localStorage.getItem('token') }

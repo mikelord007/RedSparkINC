@@ -36,6 +36,7 @@ const UDchat = () => {
 
     const dispatch = useDispatch()
     const ENDPOINT = `http://${process.env.REACT_APP_myMachine?process.env.REACT_APP_myMachine:'localhost'}:5000`;
+    // const ENDPOINT = `https://peaceful-waters-54837.herokuapp.com`;
 
     const recipient = useSelector((state) => (state?.Recipient))
 
@@ -136,7 +137,7 @@ const UDchat = () => {
                 <ChatFooter recipient={recipient} sideMenuState={sideMenuState} message={message} setMessage={setMessage} sendMessage={sendMessage}/>
                 <ChatSideMenu  sideMenuState={sideMenuState}/>
                 {edit?<><div id="modal-cover" onClick={() => setEdit(false)}></div><Creation autofill={true} id={'close-section'} edit={edit} buttonText={"Close Deal"} setEdit={setEdit} 
-                    listState={listState}
+                    listState={listState} recipient={recipient}
                 /></> : null}
             </div>
             <Snackbar

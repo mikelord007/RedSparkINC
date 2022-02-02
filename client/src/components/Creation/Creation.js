@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useRef} from 'react';
 import { TextField,MenuItem, FormControl } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -8,14 +8,13 @@ import { createListing, closeListing } from '../../actions/listing';
 import GreenBtn from '../../components/GreenBtn/GreenBtn';
 
 
-const Creation = ({id, edit, buttonText, setEdit, listState}) => {
+const Creation = ({id, edit, buttonText, setEdit, listState, recipient}) => {
     
     const defaultListing = { currency: '', amount: '', rate: '', burner: '', minP:'', maxP: '' }
     const [listing, setlisting] = useState(listState?listState:defaultListing);
     const dispatch = useDispatch();
     const history = useHistory();
-
-    console.log("list state is: ", listState)
+    const frm = useRef()
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,9 +22,10 @@ const Creation = ({id, edit, buttonText, setEdit, listState}) => {
         if(!listState)
         dispatch(createListing(listing));
         else
-        dispatch(closeListing(listing,history))
+        dispatch(closeListing(listing,history, recipient))
 
         e.target.reset();
+        setlisting({ currency: '', amount: '', rate: '', burner: '', minP:'', maxP: '' })
     }
 
     const handleChange = (e,inputType) => {
@@ -46,7 +46,7 @@ const Creation = ({id, edit, buttonText, setEdit, listState}) => {
 
     return(
         <form className="form-wrapper"  onSubmit={handleSubmit} >
-        <FormControl fullWidth id={id} autoComplete="off" noValidate action="" >
+        <FormControl ref={frm} fullWidth id={id} autoComplete="off" noValidate action="" >
             { edit?
                 <>
                 <Icon onClick={() => {setEdit(false)}} icon="carbon:close-filled" color="#444444" height="32" />
