@@ -27,15 +27,20 @@ export const signup = (formData, router) => async (dispatch) => {
 export const login = (formData, router) => async (dispatch) => {
     try {
         const response = await api.login(formData);
-        if (response.status === 200) {
+        if (response.status === 200 && response.loggedIn) {
             dispatch({ type: 'AUTH', data: response.data });
+            dispatch({type:"success",data:"Logged in"})
+            router.push('/listings');
         }
-        dispatch({type:"success",data:"Logged in"})
-        router.push('/listings');
+      
         // dispatch({type:"noAlert"})
     } catch (error) {
         console.log(error)
-        dispatch({ type: 'error', data: error.response?.data?.message })
+        dispatch({ type: 'error', data: error.response?.data?.message });
+        if(error.response.status === 401){
+            const otp = await api.getOTP({ email: error.response?.data.email, type: "VERIFICATION" });
+            dispatch({ type: 'GET_OTP', data: otp.data });
+        }
         // console.log()
     }
 };

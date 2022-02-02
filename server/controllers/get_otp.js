@@ -4,7 +4,8 @@ export const sendOTP = async (req, res) => {
 
     // add email stuff here 
     // send otp to email
-    const { email, type } = req.body;
+    const { email } = req.body;
+    const type = req.body.type?req.body.type:res.locals.type;
     try {
         let subject;
         let email_message;
@@ -22,6 +23,10 @@ export const sendOTP = async (req, res) => {
             if(type === 'RESET'){
                 subject = "OTP for reseting your password";
                 email_message = `Forgot your password? No worries, we got you.` + `\nYour OTP:${res.locals.otp}`;
+            }
+            if(type === 'VERIFICATION_PENDING'){
+                subject = "OTP for verification";
+                email_message = `Your verification is pending. Here's the OTP: ${res.locals.otp}`;
             }
         }
             // Create nodemailer transporter
