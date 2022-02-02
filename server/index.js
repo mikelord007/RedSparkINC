@@ -24,9 +24,11 @@ dotenv.config();
 const app = express();
 
 dotenv.config();
+
 app.use(cors({
-  origin: '*'
+  origin: 'https://red-spark-90fd2.web.app'
 }))
+
 app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({extended:true})); //instead of bodyParser use this
