@@ -17,7 +17,7 @@ import otpRoute from "./routes/otp.js";
 const CONNECTION_URL = "mongodb+srv://root:gqLWw1AzUDMjv2RU@cluster0.kh5y6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.port || 5000
 
 dotenv.config();
 
