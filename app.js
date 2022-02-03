@@ -27,6 +27,11 @@ dotenv.config();
 app.use(cors({
   origin: '*'
 }))
+
+app.get('/', (req, res) => {
+  res.send("This is working!")
+})
+
 app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({extended:true})); //instead of bodyParser use this
