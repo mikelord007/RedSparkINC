@@ -27,12 +27,11 @@ export const signup = (formData, router) => async (dispatch) => {
 export const login = (formData, router) => async (dispatch) => {
     try {
         const response = await api.login(formData);
-        if (response.status === 200 && response.loggedIn) {
+        if (response.status === 200) {
             dispatch({ type: 'AUTH', data: response.data });
             dispatch({type:"success",data:"Logged in"})
             router.push('/listings');
         }
-      
         // dispatch({type:"noAlert"})
     } catch (error) {
         console.log(error)
