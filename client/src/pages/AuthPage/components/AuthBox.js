@@ -37,7 +37,7 @@ const AuthBox = ({ signupState }) => {
 	const alerts = useSelector((state) => {return state.alerts;});
 	const [open, setOpen] = useState(false)
 	useEffect(() => {
-		if (alerts.displayed !== true) {
+		if (!alerts.displayed) {
 			setOpen(true)
 		}
 	},[alerts.displayed])
@@ -62,13 +62,15 @@ const AuthBox = ({ signupState }) => {
 		else
 		{
 			// console.log("not first render") //delete
-			if (alerts.message  === "Signup successful") {
+			if (alerts.message  === "Signup successful"||alerts.message === "Not verified") {
+				console.log("not verified")
 				setBoxState("otp");
 				setOtp(o => ({...o,type:"VERIFICATION"}))
 				// console.log("not first render change to otp"); //delete
 			}
 		}
 	}, [alerts])
+
 	const getEmail = () => {
 		setBoxState("getEmail");
 	}
@@ -90,7 +92,7 @@ const AuthBox = ({ signupState }) => {
 		// } catch (error) {
 		// 	console.log('Error:' + error);
 		// }
-		dispatch(login(form,history))
+		dispatch(login(form,history));
 	};
 
 	const handleSignup = (e) => {

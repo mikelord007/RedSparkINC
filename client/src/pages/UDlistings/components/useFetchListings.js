@@ -20,6 +20,8 @@ export default function useFetchListings(pageNumber,type) {
       cancelToken: new axios.CancelToken(c => cancel = c),
       headers: { Authorization: localStorage.getItem('token') }
     }).then(res => {
+      if(res.data.listings === undefined)
+      throw (new Error("undefined listings"));
       setTotalPages(res.data.totalPages)
       setAllListings(prevListings => {
         return [...new Set([...prevListings, ...res.data?.listings])]
