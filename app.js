@@ -24,8 +24,9 @@ dotenv.config();
 const app = express();
 
 dotenv.config();
+
 app.use(cors({
-  origin: '*'
+  origin: 'https://red-spark-90fd2.web.app'
 }))
 
 app.get('/', (req, res) => {
