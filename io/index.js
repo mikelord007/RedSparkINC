@@ -6,10 +6,7 @@ import {checkUserInContact} from '../controllers/io.js'
 const updateLastMessage = async (userID,otherUserID,message,msgTime) => {
 
     const user = await User.findById(userID)
-
-    console.log("first",user)
     user.contacts = user.contacts.map((contact) => { if (contact.id===otherUserID) { contact.lastMessage=message; contact.lastMsgTime = msgTime; return contact } else return contact } )
-    console.log(user)
 
     await User.findByIdAndUpdate(userID, user)
 
