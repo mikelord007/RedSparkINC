@@ -33,19 +33,16 @@ const Listings = () => {
                 case 'left':
                     if (entries[0].isIntersecting && allPageNumber <= all.totalPages - 1) {
                         setAllPageNumber(prevPageNumber => prevPageNumber + 1)
-                        console.log("active line: ", activeLineState, "pagenumber:", allPageNumber)
                     }
                     break;
                 case 'middle':
                     if (entries[0].isIntersecting && upxPageNumber <= upx.totalPages - 1) {
                         setUpxPageNumber(prevPageNumber => prevPageNumber + 1)
-                        console.log("active line: ", activeLineState, "pagenumber:", upxPageNumber)
                     }
                     break;
                 case 'right':
                     if (entries[0].isIntersecting && fiatPageNumber <= fiat.totalPages - 1) {
                         setFiatPageNumber(prevPageNumber => prevPageNumber + 1)
-                        console.log("active line: ", activeLineState, "pagenumber:", fiatPageNumber)
                     }
                     break;
                 default:

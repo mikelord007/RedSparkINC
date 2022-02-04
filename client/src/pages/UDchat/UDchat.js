@@ -28,15 +28,14 @@ let socket;
 const UDchat = () => {
 
     const currentUserID = JSON.parse(localStorage.getItem('profile'))?._id;
-    const currentUserName = JSON.parse(localStorage.getItem('profile'))?.name;
+    const currentUserName = JSON.parse(localStorage.getItem('profile'))?.uplandUsername;
 
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
     const [edit, setEdit] = useState(false);
 
     const dispatch = useDispatch()
-    const ENDPOINT = `http://${process.env.REACT_APP_myMachine?process.env.REACT_APP_myMachine:'localhost'}:5000`;
-    // const ENDPOINT = `https://peaceful-waters-54837.herokuapp.com`;
+    const ENDPOINT = `http://redspark-env.eba-z2vwd2bz.us-east-1.elasticbeanstalk.com`;
 
     const recipient = useSelector((state) => (state?.Recipient))
 
@@ -79,6 +78,7 @@ const UDchat = () => {
         setRoom(uid);
         socket = io(ENDPOINT);
         socket.emit('join', room)
+        console.log("socket is: ", socket)
 
         return () => {
             socket.off();
@@ -88,6 +88,7 @@ const UDchat = () => {
 
     useEffect(() => {
         socket.on('message', (chatObj) => {
+            console.log("here inside socket-client, received new message")
             dispatch(addNewMessages(chatObj))
         })
     }, [dispatch])

@@ -26,6 +26,8 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
         scrollRef.current.scrollIntoView({behavior: "smooth"})
     },[messages])
 
+    console.log(messages[0])
+
     if(messages.length !== 0)
     return (
         <div ref={mainMenu} onClick={()=>sideMenuState[0]?sideMenuState[1](false):null} id="chat-main">
@@ -35,7 +37,7 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
                     <img src={(message.from===currentUserID?currentUserPic:otherUserPic)} alt=""/>
                     <div className="main-content">
                     <div className="text-info">
-                        <div className="text-username">{message.from===currentUserID?'':message.toName}</div>
+                        <div className="text-username">{message.from===currentUserID?'':message.fromName}</div>
                         <div className="text-time">{moment(message.msgtime).fromNow()}</div>
                     </div>
                     <div className="main-text">{message.text}</div>

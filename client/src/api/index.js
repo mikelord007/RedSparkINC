@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: `http://${process.env.REACT_APP_myMachine?process.env.REACT_APP_myMachine:'localhost'}/api`});
+const API = axios.create({ baseURL: `http://redspark-env.eba-z2vwd2bz.us-east-1.elasticbeanstalk.com/api`});
 // const API = axios.create({ baseURL: `https://peaceful-waters-54837.herokuapp.com/api`});
 
 //auth
