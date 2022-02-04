@@ -35,6 +35,7 @@ export const registerValidation = (req,res,next) => {
 		// 	})
 			// )
 	});
+
 	const {error,value} = schema.validate({
 		name:name,
 		email:email,
@@ -56,3 +57,33 @@ export const registerValidation = (req,res,next) => {
 		next();
 }
 
+export const passwordValidation = (req,res,next) => {
+	console.log(req.body)
+	const { password, passwordConfirm } = req.body;
+		console.log(req.body.form)
+	const schema = Joi.object({
+		password: Joi.string().pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/).required().messages({
+			"string.pattern.base":`IncorrectPassFormat`,
+			"string.pattern.name":"IncorrectPassFormat",
+			"string.empty":"Password is required",
+
+		}),	
+	});
+	
+	const {error,value} = schema.validate({
+		password:password,		
+	});
+
+	if(error)
+		{
+			// console.log(error.details[0].message)
+			console.log(error)
+			console.log(error.context)
+			// const response = {"Status":"Failure","Details": error.details[0].message}
+			const response = {"message": error.details[0].message}
+			return res.status(400).send(response);
+		}
+	else
+	console.log('works')
+		next();
+}
