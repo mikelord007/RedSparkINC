@@ -39,7 +39,9 @@ const AuthPage = () => {
 		<div className="auth-wrapper">
 			<div className='container'>
 				<img className='uplandlogo' src={uplandlogo} alt="nologo" />
+				<form>
 				<AuthBox signupState={signupState}/>
+				</form>
 			</div>
 		</div>
 		</div>

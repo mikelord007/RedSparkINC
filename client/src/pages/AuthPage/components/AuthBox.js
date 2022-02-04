@@ -7,10 +7,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import OtpInput from 'react-otp-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { login, signup } from '../../../actions/auth';
+import { login, signup,resetPass } from '../../../actions/auth';
 import { verifyOtpEr } from '../../../actions/errors';
 import * as otp_1 from '../../../actions/otp';
-import { resetPass, verifyOTP as vOTP } from '../../../api';
+import {  verifyOTP as vOTP } from '../../../api';
 import GreenBtn from '../../../components/GreenBtn/GreenBtn';
 import './AuthComponentsStyle.css';
 import CustomTextField from './CustomTextField';
@@ -21,7 +21,8 @@ const AuthBox = ({ signupState }) => {
 	const [boxState, setBoxState] = useState(signupState ? signupState : "signup");
 	const otp_email = useSelector((state)=>{return state.auth.email;})
 	const [otp, setOtp] = useState({ otp_code: "", type: "" });
-	const EnterOtp = (type) => {
+	const EnterOtp = (e,type) => {
+		e.preventDefault();
 		if(type === "VERIFICATION")
 		dispatch(otp_1.getOTP({ email: otp_email, type: type }));
 		else 
@@ -63,11 +64,13 @@ const AuthBox = ({ signupState }) => {
 		{
 			// console.log("not first render") //delete
 			if (alerts.message  === "Signup successful"||alerts.message === "Not verified") {
-				console.log("not verified")
 				setBoxState("otp");
 				setOtp(o => ({...o,type:"VERIFICATION"}))
 				// console.log("not first render change to otp"); //delete
 			}
+
+			if(alerts.message === "Password updated")
+			setBoxState("login");
 		}
 	}, [alerts])
 
@@ -107,7 +110,8 @@ const AuthBox = ({ signupState }) => {
 	const handleOtp = (code) => {
 		setOtp({ ...otp, otp_code: code });
 	}
-	const verifyOTP = async () => {
+	const verifyOTP = async (e) => {
+		e.preventDefault();
 		try {
 			const verified = await vOTP({ otp: otp.otp_code, verification_key: verification_key, check: otp.type === "VERIFICATION"?otp_email:form.email,type:otp.type });
 		if (verified.data.Status === "Success" && verified.status === 200 && verified.data.type === "RESET") {
@@ -121,10 +125,10 @@ const AuthBox = ({ signupState }) => {
 			dispatch(verifyOtpEr(error.response?.data.erMsg))
 		}
 	}
-	const handleResetPass = () => {
-		// dispatch(resetPass(form,history));
-		resetPass(form);
-		setBoxState("login");
+	const handleResetPass = (e) => {
+		e.preventDefault();
+		dispatch(resetPass(form,history));
+		
 	}
 
 	
@@ -134,7 +138,7 @@ const AuthBox = ({ signupState }) => {
 			{(boxState === "login" || boxState === "signup") && (
 				<>
 
-					<form autoComplete='off' noValidate action="">
+					{/* <form autoComplete='off' noValidate action=""> */}
 						{boxState === "signup" && (
 							<>
 								<CustomTextField label="Name" name="name" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
@@ -142,7 +146,7 @@ const AuthBox = ({ signupState }) => {
 								<CustomTextField label="Email" name="email" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
 								<CustomTextField label="Password" name="password" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
 								<CustomTextField label="Confirm Password" name="passwordConfirm" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
-								<GreenBtn className="signup-button" content='Signup' onClick={(e) => handleSignup(e)} />
+								<GreenBtn className="signup-button" content='Signup' onClick={handleSignup} />
 							</>
 						)}
 
@@ -162,7 +166,7 @@ const AuthBox = ({ signupState }) => {
 						<Button className="toggle-button-auth" onClick={switchMode}>
 							{boxState === "signup" ? 'Log In?' : 'Sign Up?'}
 						</Button>
-					</form>
+					
 				</>
 			)}
 			{boxState === "otp" && (
@@ -176,22 +180,26 @@ const AuthBox = ({ signupState }) => {
 							separator={<span> - </span>}
 						/>
 					</div>
-					<GreenBtn className="signup-button" content='Submit' onClick={() => {verifyOTP()}} />
+					<GreenBtn className="signup-button" content='Submit' onClick={verifyOTP} />
 				</>
 			)}
 			{boxState === "getEmail" && (<>
+			{/* <form> */}
 				<h3 className="email-prompt">Enter your email</h3>
 				<CustomTextField label="Email" name="email" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
-				<GreenBtn className="signup-button" content='Submit' onClick={() => EnterOtp("RESET")} />
+				<GreenBtn className="signup-button" content='Submit' onClick={(e) => EnterOtp(e,"RESET")} />
 				<Button onClick={switchMode}>
 					Log in?
 				</Button>
+			{/* </form> */}
 			</>)}
 			{boxState === "collectPass" && (<>
+			
 				<h3 className="email-prompt">Create a new password</h3>
 				<CustomTextField label="Password" name="password" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
 				<CustomTextField label="Confirm Password" name="passwordConfirm" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
-				<GreenBtn className="signup-button" content='Submit' onClick={handleResetPass} />
+				<GreenBtn className="signup-button" content='Submit' onClick={(e)=>handleResetPass(e)} />
+			
 			</>)}
 			<Snackbar
 				open={open}

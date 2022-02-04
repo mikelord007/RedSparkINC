@@ -96,8 +96,9 @@ export const resetPassword = async (req, res) => {
 		console.log(user)
 		// update user password
 		const updatedUser = await userModel.findOneAndUpdate({ email: email }, { password: hashedPassword }, { new: true });
+
 		console.log(updatedUser)
-		return res.status(200).json({ updatedUser });
+		return res.status(200).json({message:"Password updated"});
 	}
 	catch (error) {
 		res.status(500).json({ message: "Something went wrong, please try again" });
