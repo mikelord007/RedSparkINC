@@ -26,7 +26,7 @@ const app = express();
 dotenv.config();
 
 app.use(cors({
-  origin: 'https://red-spark-90fd2.web.app'
+  origin: '*'
 }))
 
 app.get('/', (req, res) => {
@@ -45,9 +45,7 @@ app.use('/api/chat',authenticateToken,chatRoute)
 
 const server = http.createServer(app);
 const io = new Server(server,{cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-    credentials: true
+    origin: "*"
   }})
 
 socketHandler(io);
