@@ -11,7 +11,7 @@ export const sendOTP = async (req, res) => {
     // add email stuff here 
     // send otp to email
     const { email } = req.body;
-    const type = res.locals.type;
+    const type = req.body.type;
     try {
 
         const __filename = fileURLToPath(import.meta.url);
