@@ -11,7 +11,7 @@ export const sendOTP = async (req, res) => {
     // add email stuff here 
     // send otp to email
     const { email } = req.body;
-    const type = req.body.type ? req.body.type : res.locals.type;
+    const type = res.locals.type;
     try {
 
         const __filename = fileURLToPath(import.meta.url);
@@ -86,13 +86,13 @@ export const sendOTP = async (req, res) => {
         });
 
         // Send Email
-        // transporter.sendMail(mailOptions, (err, response) => {
-        //     if (err) {
-        //         return res.status(400).send({ "Status": "Failure", "Details": err });
-        //     } else {
-        //         return res.status(200).json({ "Status": "Success", verification_key: res.locals.encoded.toString() });
-        //     }
-        // });
+        transporter.sendMail(mailOptions, (err, response) => {
+            if (err) {
+                return res.status(400).send({ "Status": "Failure", "Details": err });
+            } else {
+                return res.status(200).json({ "Status": "Success", verification_key: res.locals.encoded.toString() });
+            }
+        });
         return res.status(200).json({ "Status": "Success", verification_key: res.locals.encoded.toString() });
     }
     catch (err) {
