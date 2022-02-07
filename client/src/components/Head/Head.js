@@ -10,6 +10,7 @@ const Head = () => {
         <MetaTags>
             <title>RED SPARK INC</title>
             <meta name="viewport" content={`width=device-width, height=${height}, initial-scale=1, minimum-scale=1, maximum-scale=1`}/>
+            <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
         </MetaTags>
     )
 }

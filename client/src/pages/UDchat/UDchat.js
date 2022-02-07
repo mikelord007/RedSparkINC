@@ -35,7 +35,7 @@ const UDchat = () => {
     const [edit, setEdit] = useState(false);
 
     const dispatch = useDispatch()
-    const ENDPOINT = `http://redspark-env.eba-z2vwd2bz.us-east-1.elasticbeanstalk.com`;
+    const ENDPOINT = `https://www.redsparkapi.me`;
 
     const recipient = useSelector((state) => (state?.Recipient))
 
