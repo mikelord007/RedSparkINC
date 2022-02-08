@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch,Redirect } from 'react-router-dom';
-// import { useSelector,useDispatch } from "react-redux";
 
 import Head from "./components/Head/Head"
 import UDchat from "./pages/UDchat/UDchat";
@@ -9,21 +8,15 @@ import UDlistings from "./pages/UDlistings/UDlistings";
 import UDcreatenew from "./pages/UDcreatenew/UDcreatenew"
 import WelcomePage from './pages/WelcomePage/WelcomePage';
 import AuthPage from "./pages/AuthPage/AuthPage.js";
-// import { updateRecipient } from "./actions/chat";
+import UndrConstruction from './pages/UndrConstruction/UndrConstruction'
 import './style.css'
 
 
 const App = () => {
 
-    // const contacts = useSelector((state) => state.contactsReducer);
-    // const recipient = useSelector((state) => { return state?.Recipient})
-    // const dispatch = useDispatch()
-    // useEffect(() => {
-    //     if(Object.keys(recipient).length===0 && contacts.length){
-    //         dispatch(updateRecipient(contacts[0]))
-    //     }
-    // },[dispatch,contacts,recipient])
+    const mobile = window.innerWidth < 425
 
+    if (mobile)
     return (
         <Router>
             <Head />
@@ -37,6 +30,11 @@ const App = () => {
             </Switch>
         </Router>
     )
+
+    else
+        return (
+            <UndrConstruction/>
+        )
 }
 
 export default App;
