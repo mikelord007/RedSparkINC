@@ -10,7 +10,8 @@ export const registerUser = async (req, res) => {
 
 	try {
 		console.log(req.body.form)
-		const oldUser = await userModel.findOne({ email: email });
+		const q_email = email.toLowerCase();
+		const oldUser = await userModel.findOne({ email: q_email });
 		if (oldUser) return res.status(400).json({ message: "Email already in use" })
 
 		if (password != passwordConfirm) return res.status(400).json({ message: "Passwords do not match" })
@@ -26,7 +27,7 @@ export const registerUser = async (req, res) => {
 		const createdDate = new Date().toString()
 
 		const user = new userModel({
-			email: email,
+			email: q_email,
 			password: hashedPassword,
 			name: name,
 			uplandUsername: uplandUsername,
