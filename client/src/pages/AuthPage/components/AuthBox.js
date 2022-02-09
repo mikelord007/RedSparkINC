@@ -8,7 +8,6 @@ import OtpInput from 'react-otp-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { login, signup,resetPass } from '../../../actions/auth';
-import { verifyOtpEr } from '../../../actions/errors';
 import * as otp_1 from '../../../actions/otp';
 import {  verifyOTP as vOTP } from '../../../api';
 import GreenBtn from '../../../components/GreenBtn/GreenBtn';
@@ -122,7 +121,7 @@ const AuthBox = ({ signupState }) => {
 			dispatch(verifyOtpEr("Success"));
 		}
 		catch(error) {
-			dispatch(verifyOtpEr(error.response?.data.erMsg))
+			dispatch(verifyOtp(error.response?.data.erMsg))
 		}
 	}
 	const handleResetPass = (e) => {
@@ -138,7 +137,7 @@ const AuthBox = ({ signupState }) => {
 			{(boxState === "login" || boxState === "signup") && (
 				<>
 
-					{/* <form autoComplete='off' noValidate action=""> */}
+					
 						{boxState === "signup" && (
 							<>
 								<CustomTextField label="Name" name="name" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
