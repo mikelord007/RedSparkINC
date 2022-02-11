@@ -7,7 +7,7 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
 
     const messages = useSelector((state) => state.chatReducer)
     const listingOwner = useSelector((state) =>  state.Recipient.listingOwner)
-    const activeListingBool = useSelector((state) => { console.log("in chat now", state); return state.currentListing.active})
+    const activeListingBool = useSelector((state) => {if (state?.currentListing?.active) return state.currentListing.active; else return false})
     
     const mainMenu = useRef()
     const scrollRef = useRef()
