@@ -112,8 +112,10 @@ export const deleteUserListing = async( req,res) => {
     const {id} = req.user
     const {lID} = req.body
     try{
-        const deletedListing = await Listing.findByIdAndDelete(lID)
-        return res.status(200).json(deletedListing)
+        const todelete= await Listing.findById(lID)
+        todelete.active = false;
+        await Listing.findByIdAndUpdate(lID, todelete)
+        return res.status(200).json(todelete)
     } catch(error) {
         console.log(error)
     }
