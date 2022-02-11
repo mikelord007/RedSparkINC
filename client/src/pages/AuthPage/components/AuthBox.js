@@ -118,10 +118,10 @@ const AuthBox = ({ signupState }) => {
 		}
 		else if (verified.data.Status === "Success" && verified.status === 200 && verified.data.type === "VERIFICATION")
 			setBoxState("login");
-			dispatch(verifyOtpEr("Success"));
+			// dispatch(verifyOtpEr("Success"));
 		}
 		catch(error) {
-			dispatch(verifyOtp(error.response?.data.erMsg))
+			// dispatch(verifyOtp(error.response?.data.erMsg))
 		}
 	}
 	const handleResetPass = (e) => {
