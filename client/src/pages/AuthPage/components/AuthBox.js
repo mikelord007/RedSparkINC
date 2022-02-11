@@ -14,9 +14,9 @@ import GreenBtn from '../../../components/GreenBtn/GreenBtn';
 import './AuthComponentsStyle.css';
 import CustomTextField from './CustomTextField';
 
-const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '', rememberMe: false }
 const AuthBox = ({ signupState }) => {
 	const dispatch = useDispatch();
+	const initialState = { name: '', email: '', uplandUsername: '', password: '', passwordConfirm: '', rememberMe:  true}
 	const [boxState, setBoxState] = useState(signupState ? signupState : "signup");
 	const otp_email = useSelector((state)=>{return state.auth.email;})
 	const [otp, setOtp] = useState({ otp_code: "", type: "" });
@@ -32,7 +32,10 @@ const AuthBox = ({ signupState }) => {
 		setBoxState("otp");
 	}
 
-	
+	const handleCheckbox = (e) => {
+		setForm({...form,rememberMe:e.target.checked});
+	}
+
 	//alerts
 	const alerts = useSelector((state) => {return state.alerts;});
 	const [open, setOpen] = useState(false)
@@ -77,29 +80,22 @@ const AuthBox = ({ signupState }) => {
 		setBoxState("getEmail");
 	}
 
+	const [form, setForm] = useState(initialState);
+
 	const switchMode = () => {
 		setForm(initialState);
 		setBoxState((prevState) => { if (["signup", "getEmail"].indexOf(prevState) === -1) return "signup"; else return "login" });
 	};
-
-	const [form, setForm] = useState(initialState);
-	
 	const history = useHistory();
 	const verification_key = useSelector((state) => { return state.otp.verification_key });
 	
 	const handleLogin = (e) => {
 		e.preventDefault();
-		// try {
-		// 	dispatch(login(form, history));
-		// } catch (error) {
-		// 	console.log('Error:' + error);
-		// }
 		dispatch(login(form,history));
 	};
 
 	const handleSignup = (e) => {
 		e.preventDefault()
-		// const send = { form: form, otp: otp, verification_key: verification_key }
 		const send = { form: form }
 		dispatch(signup(send, history));
 	}
@@ -109,6 +105,7 @@ const AuthBox = ({ signupState }) => {
 	const handleOtp = (code) => {
 		setOtp({ ...otp, otp_code: code });
 	}
+
 	const verifyOTP = async (e) => {
 		e.preventDefault();
 		try {
@@ -118,10 +115,10 @@ const AuthBox = ({ signupState }) => {
 		}
 		else if (verified.data.Status === "Success" && verified.status === 200 && verified.data.type === "VERIFICATION")
 			setBoxState("login");
-			dispatch(verifyOtpEr("Success"));
+			dispatch({type:"success",data:"Verified"});
 		}
 		catch(error) {
-			dispatch(verifyOtp(error.response?.data.erMsg))
+			dispatch({type:'error',data:error.response?.data.erMsg});
 		}
 	}
 	const handleResetPass = (e) => {
@@ -155,7 +152,7 @@ const AuthBox = ({ signupState }) => {
 									<CustomTextField label="Email" name="email" className={"textfield"} variant="outlined" margin="dense" color="primary" fullWidth onChange={handleChange} />
 									<CustomTextField label="Password" name="password" className="textfield" variant="outlined" type="password" margin="dense" fullWidth onChange={handleChange} />
 								</div>
-								<FormControlLabel control={<Checkbox defaultChecked size="small" />} label="Remember Me" />
+								<FormControlLabel control={<Checkbox checked={form.rememberMe} size="small" onChange={handleCheckbox} />} label="Remember Me" />
 								<GreenBtn className="signup-button" content='Login' onClick={handleLogin} />
 							</>
 						}

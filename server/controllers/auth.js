@@ -16,11 +16,6 @@ export const registerUser = async (req, res) => {
 
 		if (password != passwordConfirm) return res.status(400).json({ message: "Passwords do not match" })
 
-		// TODO: add validation
-		//add validation after this [joi]
-		// const error = registerValidation(req.body);
-		// TODO: add email confirmation 
-
 		const hashedPassword = await bcrypt.hash(password, 12);
 
 		// create a new user 
@@ -51,6 +46,7 @@ export const loginUser = async (req, res,next) => {
 	const { email, password, rememberMe } = req.body;
 	try {
 		const q_email = email.toLowerCase();
+		console.log(req.body)
 		const user = await userModel.findOne({ email: q_email });
 		// console.log(user)
 		if (!user) return res.status(404).json({ message: "Invalid credentials" });
@@ -62,7 +58,7 @@ export const loginUser = async (req, res,next) => {
 			return res.status(401).json({message:"Not verified",email:email});
 			// console.log(req.path)
 			// res.redirect('../otp/get');
-	}
+		}
 		const {_id, uplandUsername, name} = user;
 		const profile = {_id:_id,uplandUsername:uplandUsername,name:name};
 
