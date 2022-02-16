@@ -31,8 +31,6 @@ export const generateOTP = async (req,res,next) => {
       "otp_id": otpSaved._id
     }
     const details_string = JSON.stringify(details);
-    // Encrypt the details object
-    // const encoded= await encode(JSON.stringify(details));
     const encoded = AES.encrypt(details_string, process.env.SECRET);
     res.locals.otp = otp;
     res.locals.encoded = encoded;
