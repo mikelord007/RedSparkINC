@@ -6,7 +6,6 @@ export const fetchContacts = (UserID) => async (dispatch) => {
         dispatch({ type: 'CONTACTS', data });
 
     } catch (error) {
-        console.log(error) //remove this in prod
         if (error?.response?.status === 403){
             dispatch({type:'LOGOUT'});
         }
@@ -24,16 +23,13 @@ export const updateRecipient = (elem) => async ( dispatch) => {
 export const fetchChat = (uid) => async (dispatch) => {
     try{
         const {data} = await api.getChat(uid);
-        // console.log("this is that", data)
         dispatch({type: 'CHATMSG', data})
 
     } catch (error) {
-        console.log(error) //remove this in prod
         if (error?.response?.status === 403){
             dispatch({type:'LOGOUT'});
         }   
         else {
-            console.log("someting went wrong")
             dispatch({type:"error",data:"Something went wrong"})
         }
     }

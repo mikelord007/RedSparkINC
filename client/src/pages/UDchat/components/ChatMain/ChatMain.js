@@ -26,7 +26,6 @@ const ChatMain = ({otherUserPic, currentUserPic, currentUserID, sideMenuState, s
         scrollRef.current.scrollIntoView({behavior: "smooth"})
     },[messages])
 
-    console.log(messages[0])
 
     if(messages.length !== 0)
     return (

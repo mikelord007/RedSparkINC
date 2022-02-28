@@ -5,7 +5,6 @@ import { Icon } from '@iconify/react';
 const ActiveList = ({setCreatePopup, setCurrentListing}) => {
 
     const data = useSelector((state) => {return state.UserListings});
-    console.log(data, typeof(data), data.length)
     
 
     if(data.length !== 0)
@@ -14,7 +13,6 @@ const ActiveList = ({setCreatePopup, setCurrentListing}) => {
                     <header><h2>Active Listings</h2></header>
                     <div id="listing-box">
                     {data?.map((elem,index) => {
-                            console.log("here",data.length)
                             return(
                             <div className="CN-listing" key={index}>
                             <div className="CN-sn">{index+1}</div>

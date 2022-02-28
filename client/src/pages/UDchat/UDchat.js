@@ -78,8 +78,6 @@ const UDchat = () => {
         setRoom(uid);
         socket = io(ENDPOINT);
         socket.emit('join', room)
-        console.log("socket is: ", socket)
-
         return () => {
             socket.off();
         }
@@ -88,7 +86,6 @@ const UDchat = () => {
 
     useEffect(() => {
         socket.on('message', (chatObj) => {
-            console.log("here inside socket-client, received new message")
             dispatch(addNewMessages(chatObj))
         })
     }, [dispatch])
