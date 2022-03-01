@@ -22,13 +22,11 @@ export const sendOTP = async (req, res) => {
         let heading;
 
         if (!type) {
-            const response = { "Status": "Failure", "Details": "Type not provided", "erMsg": "Something went wrong, please try again" }
-            console.log(response)
-            return res.status(400).send(response)
+            const response = { "Status": "Failure", "Details": "Type not provided", "erMsg": "Something went wrong, please try again" };
+            return res.status(400).send(response);
         }
         const emailTemplateSource = fs.readFileSync(path.join(__dirname, "../templates/index.hbs"), "utf8");
 
-        console.log(type)
         if (type) {
             if (type === 'VERIFICATION') {
                 subject = "Here's your otp";

@@ -17,7 +17,6 @@ const socketHandler = (io) => {
     
     const handleEvents = (socket) => {
         socket.on('join', (room) => {
-            console.log("user has joined :)")
             socket.join(room)
         })
     
@@ -30,8 +29,6 @@ const socketHandler = (io) => {
                 confirmInContacts = true
             }
 
-            // console.log("user is: ",chatObj.fromName," message is: ", chatObj.text)
-            // console.log("chatobj: ", chatObj)
             chatObj.msgtime = new Date()
             const newUpload = new chatModel(chatObj)
             newUpload.save();

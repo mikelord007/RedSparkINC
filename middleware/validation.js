@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 export const registerValidation = (req,res,next) => {
 	const { name, email, uplandUsername, password, passwordConfirm } = req.body.form;
-		console.log(req.body.form)
+		
 	const schema = Joi.object({
 		name: Joi.string().required().messages({
 			"string.empty":"Name is required"
@@ -45,7 +45,7 @@ export const registerValidation = (req,res,next) => {
 
 	if(error)
 		{
-			// console.log(error.details[0].message)
+			// 
 			console.log(error)
 			console.log(error.context)
 			// const response = {"Status":"Failure","Details": error.details[0].message}
@@ -53,14 +53,14 @@ export const registerValidation = (req,res,next) => {
 			return res.status(400).send(response);
 		}
 	else
-	console.log('works')
+	
 		next();
 }
 
 export const passwordValidation = (req,res,next) => {
-	console.log(req.body)
+	
 	const { password, passwordConfirm } = req.body;
-		console.log(req.body.form)
+		
 	const schema = Joi.object({
 		password: Joi.string().pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/).required().messages({
 			"string.pattern.base":`IncorrectPassFormat`,
@@ -76,7 +76,7 @@ export const passwordValidation = (req,res,next) => {
 
 	if(error)
 		{
-			// console.log(error.details[0].message)
+			// 
 			console.log(error)
 			console.log(error.context)
 			// const response = {"Status":"Failure","Details": error.details[0].message}
@@ -84,6 +84,5 @@ export const passwordValidation = (req,res,next) => {
 			return res.status(400).send(response);
 		}
 	else
-	console.log('works')
 		next();
 }
