@@ -36,6 +36,7 @@ const UDchat = () => {
 
     const dispatch = useDispatch()
     const ENDPOINT = `https://www.redsparkapi.me`;
+    socket = io(ENDPOINT);
 
     const recipient = useSelector((state) => (state?.Recipient))
 
@@ -76,7 +77,6 @@ const UDchat = () => {
     useEffect(() => {
 
         setRoom(uid);
-        socket = io(ENDPOINT);
         socket.emit('join', room)
         console.log("socket is: ", socket)
 
@@ -88,10 +88,9 @@ const UDchat = () => {
 
     useEffect(() => {
         socket.on('message', (chatObj) => {
-            console.log("here inside socket-client, received new message")
             dispatch(addNewMessages(chatObj))
         })
-    }, [dispatch])
+    }, [] ) 
 
     const sendMessage = (event) => {
         event.preventDefault();
