@@ -53,7 +53,6 @@ var dates = {
 
 export const verifyOTP = async (req, res) => {
   try {
-    console.log(req.body)
     var currentdate = new Date();
     const { verification_key, otp , check, type} = req.body;
     if (!verification_key) {
@@ -80,8 +79,7 @@ export const verifyOTP = async (req, res) => {
     }
     var obj = JSON.parse(decoded.toString(CryptoJS.enc.Utf8))
     const check_obj = obj.check
-    console.log(check_obj)
-    console.log(check)
+
     // Check if the OTP was meant for the same email or phone number for which it is being verified 
     if (check_obj != check) {
       const response = { "Status": "Failure", "Details": "OTP was not sent to this particular email or phone number", "erMsg":"Something went wrong, please try again" }
@@ -109,7 +107,6 @@ export const verifyOTP = async (req, res) => {
                 const updateUser = await User.findOne({email:check})
                 updateUser.verified = true;
                 updateUser.save();
-                console.log(updateUser)
                 break;
               case "RESET":
                 break;
@@ -117,7 +114,6 @@ export const verifyOTP = async (req, res) => {
                 break;
             }
             const response = { "Status": "Success", "Details": "OTP Matched", "check": check, "type":type }
-            console.log(response)
             return res.status(200).send(response)
           }
           else {

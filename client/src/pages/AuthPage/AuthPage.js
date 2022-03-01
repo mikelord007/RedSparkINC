@@ -12,7 +12,6 @@ import { Coin1, Coin2, Coin3, Coin4 } from '../../components/Coins/Coins';
 const AuthPage = () => {
 	const signupState = useLocation().state;
 	const initialHeight = "100%";
-	console.log(initialHeight)
 	useEffect(() => {
 		const root = document.getElementById("root")
 		root.style.background = `url(${BackImg})`

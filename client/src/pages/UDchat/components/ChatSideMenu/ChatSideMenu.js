@@ -23,7 +23,6 @@ const ChatSideMenu = ({sideMenuState}) =>{
         sideMenuState[1](false);
     }
 
-    console.log("here now man: ", contacts.length)
     if(contacts.length !==0 )
     return (
         <div ref={sideMenu} id="side-menu">

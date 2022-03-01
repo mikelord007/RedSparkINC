@@ -78,8 +78,6 @@ const UDchat = () => {
 
         setRoom(uid);
         socket.emit('join', room)
-        console.log("socket is: ", socket)
-
         return () => {
             socket.off();
         }
