@@ -89,7 +89,7 @@ export const resetPassword = async (req, res) => {
 
 		const hashedPassword = await bcrypt.hash(password, 12);
 		console.log(req.body.form)
-		const user = await userModel.findOne({ email: email });
+		const user = await userModel.findOne({ email: email }); // delete this??
 		console.log(user)
 		// update user password
 		const updatedUser = await userModel.findOneAndUpdate({ email: email }, { password: hashedPassword }, { new: true });

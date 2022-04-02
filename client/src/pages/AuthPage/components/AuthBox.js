@@ -60,15 +60,12 @@ const AuthBox = ({ signupState }) => {
 		if(firstRender.current) //to check for first render
 		{
 			firstRender.current = false;
-			// console.log("first render") // delete
 		}
 		else
 		{
-			// console.log("not first render") //delete
 			if (alerts.message  === "Signup successful"||alerts.message === "Not verified") {
 				setBoxState("otp");
 				setOtp(o => ({...o,type:"VERIFICATION"}))
-				// console.log("not first render change to otp"); //delete
 			}
 
 			if(alerts.message === "Password updated")

@@ -87,3 +87,6 @@ export const passwordValidation = (req,res,next) => {
 	console.log('works')
 		next();
 }
+
+
+//create listing validation

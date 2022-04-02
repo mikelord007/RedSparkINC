@@ -3,12 +3,12 @@
   "name": "RedSparks Inc.",
   "icons": [
     {
-      "src": "red1.png",
+      "src": "logo1.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "red2.png",
+      "src": "logo2.png",
       "type": "image/png",
       "sizes": "512x512"
     }

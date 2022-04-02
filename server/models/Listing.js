@@ -13,7 +13,8 @@ const listingSchema = mongoose.Schema(
         user: {
             name: String,
             id: mongoose.Schema.Types.ObjectId
-        }
+        },
+        lastRefresh: Date
     }
 )
 

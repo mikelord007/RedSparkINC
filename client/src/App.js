@@ -23,10 +23,10 @@ const App = () => {
             <Switch>
                 <Route exact path='/' render={() => { if (localStorage.getItem('token')) return <Redirect to="/listings" />; else return <WelcomePage /> }} />
                 <Route exact path='/auth' render={() => { if (localStorage.getItem('token')) return <Redirect to="/listings" />; else return <AuthPage /> }} />
-                <Route exact path="/listings" component={UDlistings} />
-                <Route exact path="/chat" component={UDchat} />
-                <Route exact path="/trade" component={UDtradehist} />
-                <Route exact path="/create" component={UDcreatenew} />
+                <Route exact path="/listings" render={() => { if (localStorage.getItem('token')) return <UDlistings/>; else return <AuthPage /> }} />
+                <Route exact path="/chat" render={() => { if (localStorage.getItem('token')) return <UDchat/>; else return <AuthPage /> }} />
+                <Route exact path="/trade" render={() => { if (localStorage.getItem('token')) return <UDtradehist/>; else return <AuthPage /> }} />
+                <Route exact path="/create" render={() => { if (localStorage.getItem('token')) return <UDcreatenew/>; else return <AuthPage /> }} />
             </Switch>
         </Router>
     )

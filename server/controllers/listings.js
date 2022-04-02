@@ -18,15 +18,15 @@ export const createListing = async (req, res) => {
             amount: amount,
             burner: burner,
             minP: minP,
-            maxP:maxP,
+            maxP: maxP,
             active: true,
             created: createdDate,
             user: {
-                name:user.username,
-                id:user.id
+                name: user.username,
+                id: user.id
             }
         });
-        const savedListing  = await listing.save();
+        const savedListing = await listing.save();
         return res.status(201).json({ savedListing })
 
     }
@@ -36,45 +36,42 @@ export const createListing = async (req, res) => {
     }
 }
 
-export const getListings = async (req,res) => {
+export const getListings = async (req, res) => {
     try {
         const PAGE_SIZE = 10;
         const page = parseInt(req.query.page || "0");
         const type = req.query.type
         console.log(type)
         let total;
-        if (type=="UPX"){
-            total = await Listing.countDocuments({'currency': type, 'active': true})
+        if (type == "UPX") {
+            total = await Listing.countDocuments({ 'currency': type, 'active': true })
         }
-        else if(type=="FIAT"){
-            total = await Listing.countDocuments({'currency': {$not: {$eq: 'UPX'}}, 'active': true})
+        else if (type == "FIAT") {
+            total = await Listing.countDocuments({ 'currency': { $not: { $eq: 'UPX' } }, 'active': true })
         }
-        else
-        {
-            total = await Listing.countDocuments({'active': true});
+        else {
+            total = await Listing.countDocuments({ 'active': true });
         }
-        
+
         let listings
-        if(type=="UPX"){
-            listings = await Listing.find({'currency': "UPX", 'active': true})
-            .limit(PAGE_SIZE)
-            .skip(PAGE_SIZE * page);
+        if (type == "UPX") {
+            listings = await Listing.find({ 'currency': "UPX", 'active': true })
+                .limit(PAGE_SIZE)
+                .skip(PAGE_SIZE * page);
         }
-        else if(type=="FIAT")
-        {
-            listings = await Listing.find({'currency': {$not: {$eq: 'UPX'}}, 'active': true})
-            .limit(PAGE_SIZE)
-            .skip(PAGE_SIZE * page);
+        else if (type == "FIAT") {
+            listings = await Listing.find({ 'currency': { $not: { $eq: 'UPX' } }, 'active': true })
+                .limit(PAGE_SIZE)
+                .skip(PAGE_SIZE * page);
         }
-        else
-        {
-            listings = await Listing.find({'active': true})
-            .limit(PAGE_SIZE)
-            .skip(PAGE_SIZE * page);
+        else {
+            listings = await Listing.find({ 'active': true })
+                .limit(PAGE_SIZE)
+                .skip(PAGE_SIZE * page);
         }
 
         return res.status(200).json({
-            totalPages: Math.ceil(total/ PAGE_SIZE),
+            totalPages: Math.ceil(total / PAGE_SIZE),
             listings
         });
     } catch (error) {
@@ -82,6 +79,8 @@ export const getListings = async (req,res) => {
     }
 }
 
+
+// delete this
 export const authenticateToken = (req, res, next) => {
     const token = req.headers['authorization']
     // console.log(authHeader)
@@ -97,67 +96,67 @@ export const authenticateToken = (req, res, next) => {
     })
 }
 
-export const userListing = async (req,res) => {
+export const userListing = async (req, res) => {
     const { id } = req.user
     try {
         var Objid = mongoose.Types.ObjectId(id);
-        const listings = await Listing.find({'user.id': Objid, 'active': true})
+        const listings = await Listing.find({ 'user.id': Objid, 'active': true })
         return res.status(200).json(listings);
     } catch (error) {
         console.log(error)
     }
 }
 
-export const deleteUserListing = async( req,res) => {
-    const {id} = req.user
-    const {lID} = req.body
-    try{
+export const deleteUserListing = async (req, res) => {
+    const { id } = req.user
+    const { lID } = req.body
+    try {
         const deletedListing = await Listing.findByIdAndDelete(lID)
         return res.status(200).json(deletedListing)
-    } catch(error) {
+    } catch (error) {
         console.log(error)
     }
 }
 
-const addContactHelper = (user,listingID,listingOwner,userToAddID,userToAddName) => {
+const addContactHelper = (user, listingID, listingOwner, userToAddID, userToAddName) => {
     let contact;
     const existingContact = user.contacts?.find((elem) => elem.id === userToAddID)
-        if(existingContact){
-            existingContact.listingRef = listingID;
-            existingContact.listingOwner = listingOwner;
-            contact = existingContact;
-            user.contacts = user.contacts.map((elem) => elem.id===userToAddID?existingContact:elem)
-        }
-        
-        else{
-            const newContact = {id: userToAddID, name: userToAddName, listingRef: listingID, listingOwner: listingOwner, lastMessage: "", lastMsgTime: null}
-            contact = newContact;
-            user.contacts.push(newContact)
+    if (existingContact) {
+        existingContact.listingRef = listingID;
+        existingContact.listingOwner = listingOwner;
+        contact = existingContact;
+        user.contacts = user.contacts.map((elem) => elem.id === userToAddID ? existingContact : elem)
+    }
 
-        }
+    else {
+        const newContact = { id: userToAddID, name: userToAddName, listingRef: listingID, listingOwner: listingOwner, lastMessage: "", lastMsgTime: null }
+        contact = newContact;
+        user.contacts.push(newContact)
 
-        return [user,contact];
+    }
+
+    return [user, contact];
 
 }
 
 
-export const addContact = async (req,res) => {
-    const { id,name } = req.user
+export const addContact = async (req, res) => {
+    const { id, name } = req.user
     const listing = req.body
 
     try {
 
-        if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No user with that id')
+        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No user with that id')
 
         const user = await User.findById(id)
         console.log("listing is: ", listing)
-        const [userUpdated, contact] = addContactHelper(user,listing._id,false,listing.user.id,listing.user.name)
+        const [userUpdated, contact] = addContactHelper(user, listing._id, false, listing.user.id, listing.user.name)
 
         await User.findByIdAndUpdate(id, userUpdated);
 
         const otherUser = await User.findById(listing.user.id);
 
-        const [ otherUserUpdated, otherContact ] = addContactHelper(otherUser,listing._id,true,id,name);
+        const [otherUserUpdated, otherContact] = addContactHelper(otherUser, listing._id, true, id, name);
 
         await User.findByIdAndUpdate(otherUser.id, otherUserUpdated);
 
@@ -169,14 +168,33 @@ export const addContact = async (req,res) => {
 }
 
 
-export const getCurrentListing = async (req,res) =>{
-    const {lID} = req.params
-    
+export const getCurrentListing = async (req, res) => {
+    const { lID } = req.params
+
     try {
         const data = await listingModel.findById(lID)
         return res.status(200).json(data);
-    } catch(error) {
+    } catch (error) {
         console.log(error)
     }
 
+}
+
+export const refreshListings = async (req, res) => {
+    const refresh = new Date();
+    const user = req.user;
+    const id = new mongoose.Types.ObjectId(user.id);
+    try {
+        const result = await Listing.updateMany({ "user.id": user.id }, { $set: { lastRefresh: refresh } });
+        if (result.acknowledged)
+            return res.status(200).json({ message: "Refreshed your listings!" });
+        else {
+            console.log(result);
+            throw "Something went wrong in mongoDB";
+        }
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Something went wrong, please try again" });
+    }
 }
