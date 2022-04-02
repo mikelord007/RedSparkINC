@@ -35,7 +35,7 @@ const UDchat = () => {
     const [edit, setEdit] = useState(false);
 
     const dispatch = useDispatch()
-    const ENDPOINT = `http://www.localhost:5000`;
+    const ENDPOINT = `https://www.redsparkapi.me/api`;
     socket = io(ENDPOINT);
 
     const recipient = useSelector((state) => (state?.Recipient))
