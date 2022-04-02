@@ -10,9 +10,3 @@ export const getOTP = (formData,router) => async (dispatch) => {
     }
 }
 
-// export const verifyOTP = (formData,router) => async(dispatch) => {
-//     try {
-//         const response = await api.verifyOTP(formData);
-//         console.log(data);
-//     }
-// }

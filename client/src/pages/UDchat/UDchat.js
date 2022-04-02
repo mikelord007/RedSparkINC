@@ -28,15 +28,15 @@ let socket;
 const UDchat = () => {
 
     const currentUserID = JSON.parse(localStorage.getItem('profile'))?._id;
-    const currentUserName = JSON.parse(localStorage.getItem('profile'))?.name;
+    const currentUserName = JSON.parse(localStorage.getItem('profile'))?.uplandUsername;
 
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
     const [edit, setEdit] = useState(false);
 
     const dispatch = useDispatch()
-    const ENDPOINT = `http://${process.env.REACT_APP_myMachine?process.env.REACT_APP_myMachine:'localhost'}:5000`;
-    // const ENDPOINT = `https://peaceful-waters-54837.herokuapp.com`;
+    const ENDPOINT = `https://www.redsparkapi.me`;
+    socket = io(ENDPOINT);
 
     const recipient = useSelector((state) => (state?.Recipient))
 
@@ -77,8 +77,13 @@ const UDchat = () => {
     useEffect(() => {
 
         setRoom(uid);
-        socket = io(ENDPOINT);
-        socket.emit('join', room)
+        if(room.length === 48){
+            socket.emit('join', room)
+            socket.on('message', (chatObj) => {
+                if(chatObj.from !== currentUserID)
+                dispatch(addNewMessages(chatObj))
+            })
+        }
 
         return () => {
             socket.off();
@@ -86,14 +91,10 @@ const UDchat = () => {
         // eslint-disable-next-line
     },[room,uid]);
 
-    useEffect(() => {
-        socket.on('message', (chatObj) => {
-            dispatch(addNewMessages(chatObj))
-        })
-    }, [dispatch])
 
     const sendMessage = (event) => {
         event.preventDefault();
+
 
         if (message) {
             const chatObj = { text: message, to: otherUser, toName: otherUserName, from: currentUserID, fromName: currentUserName, uid: uid }

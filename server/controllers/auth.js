@@ -9,7 +9,6 @@ export const registerUser = async (req, res) => {
 	const { name, email, uplandUsername, password, passwordConfirm } = req.body.form;
 
 	try {
-		console.log(req.body.form)
 		const q_email = email.toLowerCase();
 		const oldUser = await userModel.findOne({ email: q_email });
 		if (oldUser) return res.status(400).json({ message: "Email already in use" })
@@ -44,20 +43,14 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res,next) => {
 	const { email, password, rememberMe } = req.body;
+	console.log("received request", email, password)
 	try {
 		const q_email = email.toLowerCase();
-		console.log(req.body)
 		const user = await userModel.findOne({ email: q_email });
-		// console.log(user)
 		if (!user) return res.status(404).json({ message: "Invalid credentials" });
 
-		if(user.verified === false){
-			// console.log(user.verified)
-			// res.locals.type = "VERIFICATION_PENDING";
-			// return next();
+		if(user.verified === false){	
 			return res.status(401).json({message:"Not verified",email:email});
-			// console.log(req.path)
-			// res.redirect('../otp/get');
 		}
 		const {_id, uplandUsername, name} = user;
 		const profile = {_id:_id,uplandUsername:uplandUsername,name:name};
@@ -65,7 +58,6 @@ export const loginUser = async (req, res,next) => {
 		const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
 		if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
-		console.log('rest of login')
 		const token = jwt.sign({ email: user.email, id: user._id, name: user.name, username: user.uplandUsername }, process.env.SECRET, { expiresIn: rememberMe ? "15d" : "1h" });
 		res.status(200).json({ message:"success",result: profile, token });
 	}
@@ -77,8 +69,6 @@ export const loginUser = async (req, res,next) => {
 
 export const resetPassword = async (req, res) => {
 	const { password, passwordConfirm, email } = req.body;
-	console.log(email)
-	console.log(req.body)
 	if (password != passwordConfirm) return res.status(400).json({ message: "Passwords do not match" })
 
 	try {
@@ -88,13 +78,10 @@ export const resetPassword = async (req, res) => {
 		// TODO: add email confirmation 
 
 		const hashedPassword = await bcrypt.hash(password, 12);
-		console.log(req.body.form)
-		const user = await userModel.findOne({ email: email }); // delete this??
-		console.log(user)
+		const user = await userModel.findOne({ email: email });
 		// update user password
 		const updatedUser = await userModel.findOneAndUpdate({ email: email }, { password: hashedPassword }, { new: true });
 
-		console.log(updatedUser)
 		return res.status(200).json({message:"Password updated"});
 	}
 	catch (error) {

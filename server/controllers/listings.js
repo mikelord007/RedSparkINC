@@ -10,8 +10,7 @@ export const createListing = async (req, res) => {
     const { currency, rate, amount, burner, minP, maxP } = req.body;
     try {
         const createdDate = new Date().toString();
-        const user = req.user
-        console.log(user)
+        const user = req.user;
         const listing = new listingModel({
             currency: currency,
             rate: rate,
@@ -41,7 +40,6 @@ export const getListings = async (req, res) => {
         const PAGE_SIZE = 10;
         const page = parseInt(req.query.page || "0");
         const type = req.query.type
-        console.log(type)
         let total;
         if (type == "UPX") {
             total = await Listing.countDocuments({ 'currency': type, 'active': true })
@@ -82,11 +80,8 @@ export const getListings = async (req, res) => {
 
 // delete this
 export const authenticateToken = (req, res, next) => {
-    const token = req.headers['authorization']
-    // console.log(authHeader)
-    // const token = authHeader && authHeader.split(' ')[1]
-    // if (token == null) return res.sendStatus(401)
-    if (token == null) return console.log('user not auth');
+    const token = req.headers['authorization'];
+    if (token == null) return console.log('User not auth');
 
     jwt.verify(token, process.env.SECRET, (err, user) => {
         console.log(err)
@@ -107,6 +102,7 @@ export const userListing = async (req, res) => {
     }
 }
 
+<<<<<<< HEAD
 export const deleteUserListing = async (req, res) => {
     const { id } = req.user
     const { lID } = req.body
@@ -114,6 +110,17 @@ export const deleteUserListing = async (req, res) => {
         const deletedListing = await Listing.findByIdAndDelete(lID)
         return res.status(200).json(deletedListing)
     } catch (error) {
+=======
+export const deleteUserListing = async( req,res) => {
+    const {id} = req.user
+    const {lID} = req.body
+    try{
+        const todelete= await Listing.findById(lID)
+        todelete.active = false;
+        await Listing.findByIdAndUpdate(lID, todelete)
+        return res.status(200).json(todelete)
+    } catch(error) {
+>>>>>>> deploy
         console.log(error)
     }
 }
@@ -148,9 +155,14 @@ export const addContact = async (req, res) => {
 
         if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No user with that id')
 
+<<<<<<< HEAD
         const user = await User.findById(id)
         console.log("listing is: ", listing)
         const [userUpdated, contact] = addContactHelper(user, listing._id, false, listing.user.id, listing.user.name)
+=======
+        const user = await User.findById(id);
+        const [userUpdated, contact] = addContactHelper(user,listing._id,false,listing.user.id,listing.user.name)
+>>>>>>> deploy
 
         await User.findByIdAndUpdate(id, userUpdated);
 

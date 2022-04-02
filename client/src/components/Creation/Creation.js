@@ -41,7 +41,6 @@ const Creation = ({id, edit, buttonText, setEdit, listState, recipient}) => {
     }
     const handleChangeForDropdown = (e) => {
         setlisting({...listing,currency: e.target.value})
-        console.log(listing)
     }
 
     return(

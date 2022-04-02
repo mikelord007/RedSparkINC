@@ -6,9 +6,10 @@
 
 
 #sec1{
+    width: 0;
     margin: 0;
     height: 100%;
-    flex-basis: 50%;
+    flex: 1 1 0px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,10 +20,10 @@
     width: 19rem;
 }
 
-#sec2{
-    flex-basis: 50%;
+#sec2 {
+    width: 0;
+    flex: 1 1 0px;
     padding: 0 2.1rem;
-    /* width: 49.4%; */
     display: flex;
     text-align: center;
     flex-direction: column;

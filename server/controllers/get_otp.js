@@ -11,7 +11,7 @@ export const sendOTP = async (req, res) => {
     // add email stuff here 
     // send otp to email
     const { email } = req.body;
-    const type = req.body.type ? req.body.type : res.locals.type;
+    const type = req.body.type;
     try {
 
         const __filename = fileURLToPath(import.meta.url);
@@ -22,13 +22,11 @@ export const sendOTP = async (req, res) => {
         let heading;
 
         if (!type) {
-            const response = { "Status": "Failure", "Details": "Type not provided", "erMsg": "Something went wrong, please try again" }
-            console.log(response)
-            return res.status(400).send(response)
+            const response = { "Status": "Failure", "Details": "Type not provided", "erMsg": "Something went wrong, please try again" };
+            return res.status(400).send(response);
         }
         const emailTemplateSource = fs.readFileSync(path.join(__dirname, "../templates/index.hbs"), "utf8");
 
-        console.log(type)
         if (type) {
             if (type === 'VERIFICATION') {
                 subject = "Here's your otp";

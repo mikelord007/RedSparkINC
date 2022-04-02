@@ -6,7 +6,6 @@ const secret = "test";
 
 
 export const closeListing = async(req, res) => {
-    console.log("here: ", req.body)
     const listing = req.body.listing
     const recipient = req.body.recipient
     const {id} = req.user

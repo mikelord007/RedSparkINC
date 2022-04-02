@@ -5,10 +5,8 @@ export const authReducer = (state = { authData: null, loggedIn: false, email: ""
         case 'SIGNUP':
             return { ...state, email: action?.data.email }
         case 'AUTH':
-            console.log("here now in auth")
             localStorage.setItem('profile', JSON.stringify({ ...action?.data.result }));
             localStorage.setItem('token', action?.data.token);
-            console.log("token: ", action?.data?.token)
             return { ...state, authData: action.data, loggedIn: true };
         case 'LOGOUT':
             localStorage.clear();

@@ -19,7 +19,6 @@ const CONNECTION_URL = "mongodb+srv://root:gqLWw1AzUDMjv2RU@cluster0.kh5y6.mongo
 
 const PORT = process.env.port || 5000
 
-dotenv.config();
 
 const app = express();
 
@@ -44,9 +43,7 @@ app.use('/api/chat',authenticateToken,chatRoute)
 
 const server = http.createServer(app);
 const io = new Server(server,{cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-    credentials: true
+    origin: "*"
   }})
 
 socketHandler(io);

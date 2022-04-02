@@ -86,7 +86,7 @@ export const verifyOTP = async (req, res, next) => {
     const check_obj = obj.check
     // Check if the OTP was meant for the same email or phone number for which it is being verified 
     if (check_obj != check) {
-      console.log(check_obj)
+
       const response = { "Status": "Failure", "Details": "OTP was not sent to this particular email or phone number" + `${check_obj} == ${check}` }
       return res.status(400).send(response)
     }
@@ -112,8 +112,7 @@ export const verifyOTP = async (req, res, next) => {
             next();
           }
           else {
-            console.log(otp_code)
-            console.log(otp_instance)
+
             const response = { "Status": "Failure", "Details": "OTP NOT Matched" }
             return res.status(400).send(response)
           }

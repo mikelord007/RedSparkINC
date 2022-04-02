@@ -106,7 +106,7 @@ const UDcreatenew = () => {
             <Snackbar
                 open={open}
                 autoHideDuration={3000}
-                onClose={() => console.log("createnew")}
+                onClose={() => setOpen(false)}
                 action={action}
             >
                 <Alert sx={{
