@@ -17,7 +17,6 @@ export const contactsReducer = ( state = [], action) => {
     
     switch(action.type) {
         case 'CONTACTS':
-            console.log("contacts are updated now")
             action.data.contacts.sort(sortingFn)
             return action.data.contacts;
         default:

@@ -19,6 +19,7 @@ const ActiveList = ({setCreatePopup, setCurrentListing}) => {
                             <div className="CN-amount">{elem.rate + " " + elem.currency}</div>
                             <div className="CN-days">{elem.minP+"-"+elem.maxP}</div>
                             <div className="CN-more"><button onClick={() => {setCurrentListing(elem); setCreatePopup(true)}}><Icon icon="bx:bx-dots-horizontal-rounded" color="black" height="34" /></button></div>
+                            {/* // add green button here */}
                             </div>
                             )}
                         )

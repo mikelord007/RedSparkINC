@@ -25,7 +25,7 @@ export const signup = (formData, router) => async (dispatch) => {
 export const login = (formData, router) => async (dispatch) => {
     try {
         const response = await api.login(formData);
-        if (response.status === 200) {
+        if (response.status === 200 && response.data.message === "success") {
             dispatch({ type: 'AUTH', data: response.data });
             dispatch({type:"success",data:"Logged in"})
             router.push('/listings');

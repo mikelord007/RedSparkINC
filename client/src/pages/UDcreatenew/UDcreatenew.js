@@ -5,7 +5,7 @@ import { Icon } from '@iconify/react';
 import { Snackbar, Alert } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { getUserListings, deleteListing } from '../../actions/listing';
+import { getUserListings, deleteListing, refreshListings } from '../../actions/listing';
 import UDfoot from '../../components/UDfoot/UDfoot'
 import UDnav from '../../components/UDnav/UDnav'
 import ActiveList from './components/ActiveList'
@@ -15,6 +15,7 @@ import Popup from '../../components/Popup/Popup';
 
 import './style.css'
 import { Button } from '@material-ui/core';
+import GreenBtn from '../../components/GreenBtn/GreenBtn';
 
 
 
@@ -69,6 +70,10 @@ const UDcreatenew = () => {
         };
     }, [alerts.displayed])
 
+    const handleRefresh = async () => {
+        await dispatch(refreshListings());
+    }
+
     const handleClose = (event) => {
         dispatch({ type: "noAlert" });
         setOpen(false);
@@ -86,6 +91,9 @@ const UDcreatenew = () => {
             <UDnav username={username} name={name} />
             <div id="UDcreatenew">
                 <ActiveList setCurrentListing={setCurrentListing} setCreatePopup={setCreatePopup} />
+                <div className='refresh-btn'>
+                <GreenBtn content="Refresh" onClick={handleRefresh} />   
+                </div>
                 <div id="create-new">
                     <header><h2>CREATE NEW</h2></header>
                     <div id="creation-section">

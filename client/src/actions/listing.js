@@ -6,8 +6,7 @@ export const createListing = (formData) => async (dispatch) => {
         const { data } = await api.createListing(formData);
         dispatch({ type: 'CREATED-LISTING', data });
     } catch (error) {
-        console.log(error) // remove in production
-        dispatch({type: 'error',data:"Something went wrong"})
+        dispatch({ type: 'error', data: "Something went wrong" })
         return error;
     }
 }
@@ -18,15 +17,13 @@ export const getUserListings = (UserID) => async (dispatch) => {
         dispatch({ type: 'USER-LISTINGS', data })
     }
     catch (error) {
-        console.log(error) //remove this in prod
-        if (error?.response?.status === 403){
-            dispatch({type:'LOGOUT'});
-        } 
-        else{
-            console.log("server is down") // remove in production
-        dispatch({type: 'error',data:"Something went wrong"})
-        return error;
-        }  
+        if (error?.response?.status === 403) {
+            dispatch({ type: 'LOGOUT' });
+        }
+        else {
+            dispatch({ type: 'error', data: "Something went wrong" })
+            return error;
+        }
     }
 }
 
@@ -39,10 +36,9 @@ export const addNewContact = (listing, history) => async (dispatch) => {
 
     }
     catch (error) {
-        console.log(error) //remove this in prod
-        if (error?.response?.status === 403){
-            dispatch({type:'LOGOUT'});
-        }   
+        if (error?.response?.status === 403) {
+            dispatch({ type: 'LOGOUT' });
+        }
     }
 }
 
@@ -52,10 +48,9 @@ export const getCurrentListing = (lID) => async (dispatch) => {
         dispatch({ type: "CURRENT-LISTING", data })
     }
     catch (error) {
-        console.log(error) //remove this in prod
-        if (error?.response?.status === 403){
-            dispatch({type:'LOGOUT'});
-        }   
+        if (error?.response?.status === 403) {
+            dispatch({ type: 'LOGOUT' });
+        }
     }
 }
 
@@ -64,28 +59,45 @@ export const closeListing = (listing, history, recipient) => async (dispatch) =>
 
     try {
         //eslint-disable-next-line
-        const { data } = await api.closeListing(listing,recipient);
+        const { data } = await api.closeListing(listing, recipient);
         dispatch({ type: 'CLOSE-LISTING', data });
         history.push("/trade")
     } catch (error) {
-        console.log(error) //remove this in prod
-        if (error?.response?.status === 403){
-            dispatch({type:'LOGOUT'});
+        if (error?.response?.status === 403) {
+            dispatch({ type: 'LOGOUT' });
         }
     }
 }
 
-export const deleteListing = (lID) => async(dispatch) => {
+export const deleteListing = (lID) => async (dispatch) => {
 
     try {
-        const {data} = await api.deleteListing(lID);
-        dispatch({type: 'DELETE-LISTING', data});
-        
+        const { data } = await api.deleteListing(lID);
+        dispatch({ type: 'DELETE-LISTING', data });
+
     } catch (error) {
-        console.log(error) //remove this in prod
-        if (error?.response?.status === 403){
-            dispatch({type:'LOGOUT'});
+        if (error?.response?.status === 403) {
+            dispatch({ type: 'LOGOUT' });
         }
     }
 
+}
+
+export const refreshListings = () => async (dispatch) => {
+    console.log('here')
+    try {
+
+        const res = await api.refreshListings();
+        if (res.status === 200)
+            // console.log(res);
+            dispatch({ type: 'success', data: res.data.message });
+    }
+    catch (error) {
+        if (error?.response.status === 403) {
+            dispatch({ type: 'LOGOUT' });
+        }
+        else {
+            dispatch({ type: 'error', data: "Something went wrong" });
+        }
+    }
 }
