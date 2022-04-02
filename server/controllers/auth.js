@@ -43,6 +43,7 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res,next) => {
 	const { email, password, rememberMe } = req.body;
+	console.log("received request", email, password)
 	try {
 		const q_email = email.toLowerCase();
 		const user = await userModel.findOne({ email: q_email });

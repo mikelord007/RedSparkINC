@@ -22,6 +22,7 @@ const socketHandler = (io) => {
     
     
         socket.on('sendMessage', (chatObj, recipient, callback) => {
+            
             let confirmInContacts = false
 
             if(!confirmInContacts){
@@ -32,6 +33,7 @@ const socketHandler = (io) => {
             chatObj.msgtime = new Date()
             const newUpload = new chatModel(chatObj)
             newUpload.save();
+            
             io.to(newUpload.uid).emit('message',newUpload)
             callback(newUpload);
 

@@ -35,7 +35,7 @@ const UDchat = () => {
     const [edit, setEdit] = useState(false);
 
     const dispatch = useDispatch()
-    const ENDPOINT = `https://www.redsparkapi.me`;
+    const ENDPOINT = `http://www.localhost:5000`;
     socket = io(ENDPOINT);
 
     const recipient = useSelector((state) => (state?.Recipient))
@@ -77,21 +77,24 @@ const UDchat = () => {
     useEffect(() => {
 
         setRoom(uid);
-        socket.emit('join', room)
+        if(room.length === 48){
+            socket.emit('join', room)
+            socket.on('message', (chatObj) => {
+                if(chatObj.from !== currentUserID)
+                dispatch(addNewMessages(chatObj))
+            })
+        }
+
         return () => {
             socket.off();
         }
         // eslint-disable-next-line
     },[room,uid]);
 
-    useEffect(() => {
-        socket.on('message', (chatObj) => {
-            dispatch(addNewMessages(chatObj))
-        })
-    }, [] ) 
 
     const sendMessage = (event) => {
         event.preventDefault();
+
 
         if (message) {
             const chatObj = { text: message, to: otherUser, toName: otherUserName, from: currentUserID, fromName: currentUserName, uid: uid }

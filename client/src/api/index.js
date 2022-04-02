@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: `https://www.redsparkapi.me/api`});
+const API = axios.create({ baseURL: `http://localhost:5000/api`});
 // const API = axios.create({ baseURL: `https://peaceful-waters-54837.herokuapp.com/api`});
 
 //auth
