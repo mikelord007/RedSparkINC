@@ -102,15 +102,6 @@ export const userListing = async (req, res) => {
     }
 }
 
-<<<<<<< HEAD
-export const deleteUserListing = async (req, res) => {
-    const { id } = req.user
-    const { lID } = req.body
-    try {
-        const deletedListing = await Listing.findByIdAndDelete(lID)
-        return res.status(200).json(deletedListing)
-    } catch (error) {
-=======
 export const deleteUserListing = async( req,res) => {
     const {id} = req.user
     const {lID} = req.body
@@ -120,7 +111,6 @@ export const deleteUserListing = async( req,res) => {
         await Listing.findByIdAndUpdate(lID, todelete)
         return res.status(200).json(todelete)
     } catch(error) {
->>>>>>> deploy
         console.log(error)
     }
 }
@@ -155,14 +145,8 @@ export const addContact = async (req, res) => {
 
         if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No user with that id')
 
-<<<<<<< HEAD
-        const user = await User.findById(id)
-        console.log("listing is: ", listing)
-        const [userUpdated, contact] = addContactHelper(user, listing._id, false, listing.user.id, listing.user.name)
-=======
         const user = await User.findById(id);
         const [userUpdated, contact] = addContactHelper(user,listing._id,false,listing.user.id,listing.user.name)
->>>>>>> deploy
 
         await User.findByIdAndUpdate(id, userUpdated);
 
